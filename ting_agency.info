@@ -1,0 +1,12 @@
+name = Agency client
+description = Agencies for bibdk.
+package = Bibliotek.dk
+core = 7.x
+
+;configure link from module list
+;configure = admin/config/ting_agency
+
+files[] = tingClientAgencyBranch.php
+;scripts[] = js/ting_agency.js
+
+dependencies[] = ting_client
