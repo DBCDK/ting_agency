@@ -1,7 +1,34 @@
 <?php
-
+//require_once('TingClientAgencyBranch.php');
+module_load_include('php', 'ting_agency', 'TingClientAgencyBranch');
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/** \brief Hook into ting-client
+ * 
+ * Implements hook_ting_client_webservice (@see ting_client.module)
+ * */
+function ting_agency_ting_client_webservice() {
+  $ret = array();
+  $ret['openorder']['class'] = 'AgencyRequest';
+  $ret['openorder']['url'] = 'agency_search_url';
+  return $ret;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter (ting_client_admin_webservices_settings_alter)
+ * Creates a field for adding a URL for the Ting Agency Search webservice
+ */
+function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &$form_state, $form_id) {
+  $form['ting']['agency_search_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('OpenAgency URL'),
+    '#description' => t('URL to the Ting agency search webservice, e.g. http://openagency.addi.dk/1.6/'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('agency_search_url', ''),
+  );
+}
+
 ?>
