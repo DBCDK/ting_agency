@@ -1,6 +1,7 @@
 <?php
 
-class TingClientAgencyBranch {  
+class TingClientAgencyBranch {
+
   public $branchId;
   public $branchName;
   public $branchPhone;
@@ -14,32 +15,61 @@ class TingClientAgencyBranch {
   public $temporarilyClosed;
   public $userStatusUrl;
   public $pickupAllowed;
-  
-  public function __construct($pickupAgency){
-    
-          $this->branchId = TingClientRequest::getValue($pickupAgency->branchId);
-          $this->branchName = TingClientRequest::getValue($pickupAgency->branchName);
-          $this->branchPhone = TingClientRequest::getValue ($pickupAgency->branchPhone);
-          $this->branchEmail = TingClientRequest::getValue ($pickupAgency->branchEmail);
-          if (isset($pickupAgency->postalAddress))
-            $this->postalAddress = TingClientRequest::getValue ($pickupAgency->postalAddress);
-          if (isset($pickupAgency->postalCode))
-            $this->postalCode = TingClientRequest::getValue($pickupAgency->postalCode);
-          if (isset($pickupAgency->city))
-            $this->city = TingClientRequest::getValue($pickupAgency->city);
-          if (isset($pickupAgency->branchWebsiteUrl))
-            $this->branchWebsiteUrl = TingClientRequest::getValue($pickupAgency->branchWebsiteUrl);
-          if (isset($pickupAgency->serviceDeclarationUrl))
-            $this->serviceDeclarationUrl = TingClientRequest::getValue($pickupAgency->serviceDeclarationUrl);
-          if (isset($pickupAgency->openingHours))
-            $this->openingHours = $pickupAgency->openingHours;
-          if (isset($pickupAgency->temporarilyClosed))
-            $this->temporarilyClosed = TingClientRequest::getValue($pickupAgency->temporarilyClosed);
-          if (isset($pickupAgency->userStatusUrl))
-            $this->userStatusUrl = TingClientRequest::getValue($pickupAgency->userStatusUrl);
-          if (isset($pickupAgency->pickupAllowed))
-            $this->pickupAllowed = TingClientRequest::getValue($pickupAgency->pickupAllowed);
-    
+  private static $pickupAgency;
+
+  public function __construct($pickupAgency) {
+    $this->branchId = TingClientRequest::getValue($pickupAgency->branchId);
+    $this->branchName = TingClientRequest::getValue($pickupAgency->branchName);
+    $this->branchPhone = TingClientRequest::getValue($pickupAgency->branchPhone);
+    $this->branchEmail = TingClientRequest::getValue($pickupAgency->branchEmail);
+    if (isset($pickupAgency->postalAddress))
+      $this->postalAddress = TingClientRequest::getValue($pickupAgency->postalAddress);
+    if (isset($pickupAgency->postalCode))
+      $this->postalCode = TingClientRequest::getValue($pickupAgency->postalCode);
+    if (isset($pickupAgency->city))
+      $this->city = TingClientRequest::getValue($pickupAgency->city);
+    if (isset($pickupAgency->branchWebsiteUrl))
+      $this->branchWebsiteUrl = TingClientRequest::getValue($pickupAgency->branchWebsiteUrl);
+    if (isset($pickupAgency->serviceDeclarationUrl))
+      $this->serviceDeclarationUrl = TingClientRequest::getValue($pickupAgency->serviceDeclarationUrl);
+    if (isset($pickupAgency->openingHours))
+      $this->openingHours = $pickupAgency->openingHours;
+    if (isset($pickupAgency->temporarilyClosed))
+      $this->temporarilyClosed = TingClientRequest::getValue($pickupAgency->temporarilyClosed);
+    if (isset($pickupAgency->userStatusUrl))
+      $this->userStatusUrl = TingClientRequest::getValue($pickupAgency->userStatusUrl);
+    if (isset($pickupAgency->pickupAllowed))
+      $this->pickupAllowed = TingClientRequest::getValue($pickupAgency->pickupAllowed);
   }
-  
+
+  // @TODO move this function to ting_agency/TingClientAgencyBranch
+  public function getOpeningHours($lang) {
+    // drupal en = openformat eng
+    if ($lang == 'en') {
+      $lang = 'eng';
+    }
+    //drupal da = openformat dan
+    if ($lang == 'da') {
+      $lang = 'dan';
+    }
+
+    $hours = isset($this->openingHours) ? $this->openingHours : 'FALSE';
+    if (is_array($hours)) {
+      foreach ($hours as $open) {
+        if ($open->{'@language'}->{'$'} == $lang) {
+          $ret = $open->{'$'};
+        }
+      }
+      if( empty($ret) ) {
+        // given lanuguage was not found..simply return first in array
+        $ret = $hours[0]->{'$'};
+      }
+    }
+    else {
+      // opening hours are not set
+      $ret = t('ting_agency_no_opening_hours');
+    }
+    return $ret;      
+  }
+
 }
