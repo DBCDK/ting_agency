@@ -12,8 +12,8 @@ module_load_include('php', 'ting_agency', 'TingClientAgencyBranch');
  * */
 function ting_agency_ting_client_webservice() {
   $ret = array();
-  $ret['openorder']['class'] = 'AgencyRequest';
-  $ret['openorder']['url'] = 'agency_search_url';
+  $ret['agency']['class'] = 'AgencyRequest';
+  $ret['agency']['url'] = 'agency_search_url';
   return $ret;
 }
 
