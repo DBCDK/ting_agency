@@ -71,5 +71,47 @@ class TingClientAgencyBranch {
     }
     return $ret;      
   }
+  
+  public function getActionLinks()  { 
+    $links = array();
+    if( isset($this->serviceDeclarationUrl) ) {
+      $links['serviceDeclarationUrl'] = $this->serviceDeclarationUrl;      
+    }
+    if( isset($this->branchWebsiteUrl) ) {
+      $links['branchWebsiteUrl'] = $this->branchWebsiteUrl;
+    }
+    
+    // @TODO .. any more links ??
+    
+    return $links;
+  }
+  
+  public function getAddress() {
+    $address = '';
+    if( isset($this->postalAddress) ) {
+      $address .= $this->postalAddress.'<br/>';
+    }
+    if( isset($this->postalCode) ) {
+      $address .= $this->postalCode;
+    }
+    if( isset($this->city ) ) {
+      $address .= ' '.$this->city;      
+    }
+    $address .= '<br/>';
+    
+    return $address;
+  }
+  
+  public function getContact()   {
+    $ret = array();
+    if( isset($this->branchPhone)  )  {
+      $ret[t('branchPhone')] = $this->branchPhone;
+    }
+    if( isset($this->branchEmail) ) {
+      $ret[t('branchEmail')] = $this->branchEmail;
+    }
+    
+    return $ret;
+  }
 
 }
