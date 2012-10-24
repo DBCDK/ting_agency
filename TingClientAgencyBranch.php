@@ -15,6 +15,7 @@ class TingClientAgencyBranch {
   public $temporarilyClosed;
   public $userStatusUrl;
   public $pickupAllowed;
+  public $fields;
   private static $pickupAgency;
 
   public function __construct($pickupAgency) {
@@ -113,5 +114,24 @@ class TingClientAgencyBranch {
     
     return $ret;
   }
+  
+  /*
+   * return AgencyFields
+   */
+  public function getAgencyFields(){
+    if(!isset($this->fields)){
+      $response = $this->_execute_agency_service($this->branchId, 'userOrderParameters');
+      $this->fields = new AgencyFields($response);
+    }
+    return $this->fields;
+    
+  }
+  
+  private function _execute_agency_service($agencyId, $service) {
+    
+    $client = new ting_client_class();
+
+  return $client->do_agency_service(array('agencyId' => $agencyId, 'service' => $service));
+}
 
 }
