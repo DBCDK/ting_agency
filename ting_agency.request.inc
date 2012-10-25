@@ -139,8 +139,11 @@ class AgencyRequest extends TingClientRequest{
   }
 
   protected function getRequest(){
-    // sofar only action,agencyId,service is used
-    $params =  array('action','agencyId','service');
+    $service_url = variable_get('agency_search_url');
+    if(function_exists('ting_client_validate_xsd'))
+      $params = ting_client_validate_xsd($service_url. 'openagency.xsd', $this->getAction());
+    else
+      throw new Exception("Validation is needed for bibdk_agency");
     foreach ($params as $parameter) {
       $getter = 'get' . ucfirst($parameter);
       if ($value = $this->$getter()) {

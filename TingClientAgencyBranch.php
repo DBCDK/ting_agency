@@ -131,7 +131,18 @@ class TingClientAgencyBranch {
     
     $client = new ting_client_class();
 
-  return $client->do_agency_service(array('agencyId' => $agencyId, 'service' => $service));
+  $response = $client->do_agency(array('agencyId' => $agencyId, 'service' => $service, 'action' => 'serviceRequest'));
+    if (isset($response->serviceResponse)) {
+      $response = $response->serviceResponse;
+
+      if (isset($response->$service)) {
+        $result = $response->$service;
+      }
+      else if (isset($response->error) && $response->error) {
+        $result['error'] = $this->getValue($response->error);
+      }
+    }
+    return $result;
 }
 
 }
