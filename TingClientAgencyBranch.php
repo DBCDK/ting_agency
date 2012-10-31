@@ -15,10 +15,24 @@ class TingClientAgencyBranch {
   public $temporarilyClosed;
   public $userStatusUrl;
   public $pickupAllowed;
-  public $fields;
+  
+  
+  private static $fields;
   private static $pickupAgency;
 
-  public function __construct($pickupAgency) {
+  public function __construct($pickupAgency,$agencyId = NULL) {
+   if( isset($agencyId) ) {
+     $this->branchId = $agencyId;
+   }
+   elseif(isset($pickupAgency)){
+      $this->set_attributes($pickupAgency);
+   }
+   else{
+     // do something
+   }    
+  }
+  
+  private function set_attributes($pickupAgency){
     $this->branchId = TingClientRequest::getValue($pickupAgency->branchId);
     $this->branchName = TingClientRequest::getValue($pickupAgency->branchName);
     $this->branchPhone = TingClientRequest::getValue($pickupAgency->branchPhone);
@@ -119,11 +133,11 @@ class TingClientAgencyBranch {
    * return AgencyFields
    */
   public function getAgencyFields(){
-    if(!isset($this->fields)){
+    if(!isset(self::$fields)){
       $response = $this->_execute_agency_service($this->branchId, 'userOrderParameters');
-      $this->fields = new AgencyFields($response);
+      self::$fields = new AgencyFields($response);
     }
-    return $this->fields;
+    return self::$fields;
     
   }
   
