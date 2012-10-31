@@ -67,13 +67,7 @@ function openagency_webservice_findLibraryRequest($request) {
   $query = $request->anyField;
   $outPut = $request->outputType;
 
-  if ($query != 'als') {
-    drupal_add_http_header('Content-Type', 'application/json');
-    $resp = file_get_contents($path . '/no_agencies_found.json');
-    print $resp;
-    return;
-  }
-
+  if ($query == 'als'){
   switch ($outPut) {
     case 'json':
       drupal_add_http_header('Content-Type', 'application/json');
@@ -83,11 +77,16 @@ function openagency_webservice_findLibraryRequest($request) {
       drupal_add_http_header('Content-Type', 'text/xml; charset=utf-8');
       $resp = file_get_contents($path . '/als.xml');
       break;
-    default :
-    case 'json':
-      drupal_add_http_header('Content-Type', 'application/json');
-      $resp = file_get_contents($path . '/als.json');
-      break;
+  }
+  }else if ($query == 'odense'){
+    // Only json version
+    drupal_add_http_header('Content-Type', 'application/json');
+    $resp = file_get_contents($path . '/odense.json');
+      
+  }else {
+      // No results
+     drupal_add_http_header('Content-Type', 'application/json');
+    $resp = file_get_contents($path . '/no_agencies_found.json');
   }
 
   print $resp;
