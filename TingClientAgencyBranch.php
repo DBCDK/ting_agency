@@ -60,7 +60,7 @@ class TingClientAgencyBranch {
   // @TODO move this function to ting_agency/TingClientAgencyBranch
   public function getOpeningHours($lang) {
     // drupal en = openformat eng
-    if ($lang == 'en') {
+    if ($lang == 'en' || $lang == 'en-gb') {
       $lang = 'eng';
     }
     //drupal da = openformat dan
