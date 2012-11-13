@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * preprocess function for library template (bibdk_favourite_library.tpl.php)
+ */
+function template_preprocess_ting_agency_library(&$variables) {
+  if (isset($variables['add_classes'])) {
+    $variables['classes_array'] = array_merge($variables['classes_array'], $variables['add_classes']);
+  }
+}
 
 /** \brief Theme contact info
  *
@@ -17,12 +25,13 @@ function theme_ting_agency_contact($variables) {
   }
   return $output;
 }
- /** \brief Theme agency opening hourt
-   *
-  * @global stdObject $language
-  * @param array $variables
-  * @return string (html) 
-  */
+
+/** \brief Theme agency opening hourt
+ *
+ * @global stdObject $language
+ * @param array $variables
+ * @return string (html) 
+ */
 function theme_ting_agency_opening_hours($variables) {
   $branch = $variables['branch'];
   global $language;
@@ -51,11 +60,12 @@ function theme_ting_agency_tools($variables) {
     return theme('item_list', array('items' => $items));
   }
 }
- /** \brief Theme address for given agency
-  *
-  * @param array $variables
-  * @return string (html) 
-  */
+
+/** \brief Theme address for given agency
+ *
+ * @param array $variables
+ * @return string (html) 
+ */
 function theme_ting_agency_address($variables) {
   $branch = $variables['branch'];
   $address = $branch->getAddress();

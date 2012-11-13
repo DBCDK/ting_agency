@@ -1,7 +1,7 @@
 <?php
 //require_once('TingClientAgencyBranch.php');
 module_load_include('php', 'ting_agency', 'TingClientAgencyBranch');
-module_load_include('inc','ting_agency','ting_agency.theme');
+module_load_include('inc','ting_agency','theme/ting_agency.theme');
 module_load_include('inc','ting_agency','ting_agency.exception');
 /*
  * To change this template, choose Tools | Templates
