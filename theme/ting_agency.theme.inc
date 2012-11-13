@@ -1,7 +1,7 @@
 <?php
 
 /**
- * preprocess function for library template (bibdk_favourite_library.tpl.php)
+ * preprocess function for library template (ting_agency_library.tpl.php)
  */
 function template_preprocess_ting_agency_library(&$variables) {
   if (isset($variables['add_classes'])) {
