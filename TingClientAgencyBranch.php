@@ -15,24 +15,29 @@ class TingClientAgencyBranch {
   public $temporarilyClosed;
   public $userStatusUrl;
   public $pickupAllowed;
-
-
   private static $fields;
-  private static $pickupAgency;
 
-  public function __construct($pickupAgency,$agencyId = NULL) {
-   if( isset($agencyId) ) {
-     $this->branchId = $agencyId;
-   }
-   elseif(isset($pickupAgency)){
+  public function __construct($pickupAgency, $agencyId = NULL) {
+    if (isset($agencyId)) {
+      $this->branchId = $agencyId;
+    }
+    elseif (!empty($pickupAgency)) {
+      $this->pickupAgency = $pickupAgency;
       $this->set_attributes($pickupAgency);
-   }
-   else{
-     // do something
-   }
+    }
+    else {
+      throw new TingClientAgencyBranchException('TingClientAgencyBranch constructor needs either agencyid or findlibraryresponse (openagency.addi.dk)');
+      // do something .. throw an exception
+    }
   }
 
-  private function set_attributes($pickupAgency){
+  private function do_FindLibraryRequest() {
+    $response = $this->_execute_agency($this->branchId, 'findLibraryRequest', NULL);
+    // @TODO errorhandling
+    return $response;
+  }
+
+  private function set_attributes($pickupAgency) {
     $this->branchId = TingClientRequest::getValue($pickupAgency->branchId);
     $this->branchName = TingClientRequest::getValue($pickupAgency->branchName);
     $this->branchPhone = TingClientRequest::getValue($pickupAgency->branchPhone);
@@ -75,7 +80,7 @@ class TingClientAgencyBranch {
           $ret = $open->{'$'};
         }
       }
-      if( empty($ret) ) {
+      if (empty($ret)) {
         // given lanuguage was not found..simply return first in array
         $ret = $hours[0]->{'$'};
       }
@@ -87,12 +92,12 @@ class TingClientAgencyBranch {
     return $ret;
   }
 
-  public function getActionLinks()  {
+  public function getActionLinks() {
     $links = array();
-    if( isset($this->serviceDeclarationUrl) ) {
+    if (isset($this->serviceDeclarationUrl)) {
       $links[t('serviceDeclarationUrl')] = $this->serviceDeclarationUrl;
     }
-    if( isset($this->branchWebsiteUrl) ) {
+    if (isset($this->branchWebsiteUrl)) {
       $links[t('branchWebsiteUrl')] = $this->branchWebsiteUrl;
     }
 
@@ -103,26 +108,26 @@ class TingClientAgencyBranch {
 
   public function getAddress() {
     $address = '';
-    if( isset($this->postalAddress) ) {
-      $address .= $this->postalAddress.'<br/>';
+    if (isset($this->postalAddress)) {
+      $address .= $this->postalAddress . '<br/>';
     }
-    if( isset($this->postalCode) ) {
+    if (isset($this->postalCode)) {
       $address .= $this->postalCode;
     }
-    if( isset($this->city ) ) {
-      $address .= ' '.$this->city;
+    if (isset($this->city)) {
+      $address .= ' ' . $this->city;
     }
     $address .= '<br/>';
 
     return $address;
   }
 
-  public function getContact()   {
+  public function getContact() {
     $ret = array();
-    if( isset($this->branchPhone)  )  {
+    if (isset($this->branchPhone)) {
       $ret[t('branchPhone')] = $this->branchPhone;
     }
-    if( isset($this->branchEmail) ) {
+    if (isset($this->branchEmail)) {
       $ret[t('branchEmail')] = $this->branchEmail;
     }
 
@@ -132,31 +137,31 @@ class TingClientAgencyBranch {
   /*
    * return AgencyFields
    */
-  public function getAgencyFields(){
-    if(!isset(self::$fields)){
-      $response = $this->_execute_agency_service($this->branchId, 'userOrderParameters');
-      self::$fields = new AgencyFields($response);
+
+  public function getAgencyFields() {
+    if (!isset(self::$fields)) {
+      $response = $this->_execute_agency($this->branchId, 'serviceRequest', 'userOrderParameters');
+      $service = 'userOrderParameters';
+
+      if (isset($response->serviceResponse)) {
+        $response = $response->serviceResponse;
+        if (isset($response->$service)) {
+          $result = $response->$service;
+        }
+        else if (isset($response->error) && $response->error) {
+          $result['error'] = $this->getValue($response->error);
+          return NULL;
+        }
+      }
+      self::$fields = new AgencyFields($result);
     }
     return self::$fields;
-
   }
 
-  private function _execute_agency_service($agencyId, $service) {
-
+  private function _execute_agency($agencyId, $action, $service = NULL) {
     $client = new ting_client_class();
-
-  $response = $client->do_agency(array('agencyId' => $agencyId, 'service' => $service, 'action' => 'serviceRequest'));
-    if (isset($response->serviceResponse)) {
-      $response = $response->serviceResponse;
-
-      if (isset($response->$service)) {
-        $result = $response->$service;
-      }
-      else if (isset($response->error) && $response->error) {
-        $result['error'] = $this->getValue($response->error);
-      }
-    }
-    return $result;
-}
+    $response = $client->do_agency(array('agencyId' => $agencyId, 'action' => $action, 'service' => $service));
+    return $response;
+  }
 
 }
