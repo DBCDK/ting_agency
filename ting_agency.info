@@ -9,6 +9,8 @@ core = 7.x
 files[] = TingClientAgencyBranch.php
 files[] = AgencyFields.php
 files[] = ting_agency.request.inc
+files[] = theme/ting_agency.theme.inc
+files[] = ting_agency.exception.inc
 ;scripts[] = js/ting_agency.js
 
 dependencies[] = ting_client
