@@ -1,6 +1,8 @@
 <?php
 //require_once('TingClientAgencyBranch.php');
 module_load_include('php', 'ting_agency', 'TingClientAgencyBranch');
+module_load_include('inc','ting_agency','ting_agency.theme');
+module_load_include('inc','ting_agency','ting_agency.exception');
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -28,5 +30,34 @@ function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &
     '#description' => t('URL to the Ting agency search webservice, e.g. http://openagency.addi.dk/1.6/'),
     '#required' => TRUE,
     '#default_value' => variable_get('agency_search_url', ''),
+  );
+}
+
+/**
+ * Implements hook_theme
+ * @return type 
+ */
+function ting_agency_theme() {  
+  return array(
+    'ting_agency_library' => array(
+      'variables' => array('branchName' => NULL, 'actions' => NULL, 'moreinfo' => NULL, 'branchid' => NULL, 'add_classes'=> array()),
+      'template' => 'theme/ting_agency_library',
+    ),
+    'ting_agency_more_info' => array(
+      'variables' => array('branch' => NULL,'openingHours' => NULL ),
+      'template' => 'theme/ting_agency_more_info',
+    ),
+    'ting_agency_opening_hours' => array(
+      'variables' => array('branch' => NULL,),
+    ),
+    'ting_agency_tools' => array(
+      'variables' => array('branch' => NULL,),
+    ),
+    'ting_agency_address' => array(
+      'variables' => array('branch' => NULL,),
+    ),
+    'ting_agency_contact' => array(
+      'variables' => array('branch' => NULL,),
+    ),
   );
 }
