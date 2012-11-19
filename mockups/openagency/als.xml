@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:oa="http://oss.dbc.dk/ns/openagency">
+    <SOAP-ENV:Body>
+        <oa:findLibraryResponse>
+            <oa:pickupAgency>
+                <oa:branchId>784605</oa:branchId>
+                <oa:branchType>f</oa:branchType>
+                <oa:branchPhone>9711 4115</oa:branchPhone>
+                <oa:branchName>Als Bibliotek</oa:branchName>
+                <oa:branchEmail>branch@branchUrl.dk</oa:branchEmail>
+                <oa:branchIsAgency>0</oa:branchIsAgency>
+                <oa:postalAddress>branch address 1</oa:postalAddress>
+                <oa:postalCode>9560</oa:postalCode>
+                <oa:city>Hadsund</oa:city>
+                <oa:isil>DK-784605</oa:isil>
+                <oa:branchWebsiteUrl>http://www.branchWebsiteUrl.dk/</oa:branchWebsiteUrl>
+                <oa:serviceDeclarationUrl>http://branchWebsiteUrl.dk/serviceDeclarationUrl/</oa:serviceDeclarationUrl>
+                <oa:userStatusUrl>http://branchWebsiteUrl.dk/userStatusUrl/</oa:userStatusUrl>
+                <oa:openingHours oa:language="dan">openingHours dan</oa:openingHours>
+                <oa:openingHours oa:language="eng">openingHours eng</oa:openingHours>
+                <oa:temporarilyClosed>0</oa:temporarilyClosed>
+                <oa:pickupAllowed>1</oa:pickupAllowed>
+                <oa:ncipLookupUser>1</oa:ncipLookupUser>
+                <oa:ncipRenewOrder>1</oa:ncipRenewOrder>
+                <oa:ncipCancelOrder>1</oa:ncipCancelOrder>
+                <oa:ncipUpdateOrder>0</oa:ncipUpdateOrder>
+            </oa:pickupAgency>
+        </oa:findLibraryResponse>
+    </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>
