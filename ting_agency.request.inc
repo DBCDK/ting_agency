@@ -1,5 +1,7 @@
 <?php
-class AgencyRequest extends TingClientRequest{
+
+class AgencyRequest extends TingClientRequest {
+
   // attributes for findlibrary request 
   protected $action;
   protected $authentication;
@@ -14,18 +16,17 @@ class AgencyRequest extends TingClientRequest{
   protected $pickupAllowed;
   protected $sort;
   protected $callback;
-  protected $outputType; 
-  
+  protected $outputType;
   protected $service;
-  
+
   public function getService() {
     return $this->service;
   }
-  
+
   public function setService($value) {
     $this->service = $value;
   }
-  
+
   public function getAction() {
     return $this->action;
   }
@@ -138,10 +139,11 @@ class AgencyRequest extends TingClientRequest{
     $this->outputType = $outputType;
   }
 
-  protected function getRequest(){
+  protected function getRequest() {
     $service_url = variable_get('agency_search_url');
-    if(function_exists('ting_client_validate_xsd'))
-      $params = ting_client_validate_xsd($service_url. 'openagency.xsd', $this->getAction());
+    if (function_exists('ting_client_validate_xsd')) {
+      $params = ting_client_validate_xsd('openagency.xsd', $this->getAction());
+    }
     else
       throw new Exception("Validation is needed for bibdk_agency");
     foreach ($params as $parameter) {
@@ -152,10 +154,12 @@ class AgencyRequest extends TingClientRequest{
     }
     return $this;
   }
+
   // empty;
   public function processResponse(stdClass $result) {
     return $result;
-    
   }
+
 }
+
 ?>
