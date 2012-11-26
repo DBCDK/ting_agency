@@ -7,7 +7,7 @@
  */
 class AgencyFields {
 
-  public $userParameters, $userIdTxt, $orderParameters, $agencyParameters, $response;
+  public $userParameters, $userIdTxt, $customIdTxt, $orderParameters, $agencyParameters, $response;
 
   public function __construct($response) {
     $response = $this->_parse_agency_service_response($response);
@@ -93,7 +93,7 @@ class AgencyFields {
         $settings = array(
           'field_name' => t('CPR-number'),
           'field_type' => 'password',
-          'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
+          //'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
         );
         break;
       case 'userId':
@@ -107,34 +107,27 @@ class AgencyFields {
         $settings = array(
           'field_name' => t('Card number'),
           'field_type' => 'password',
-          'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
+          //'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
         );
         break;
       case 'customId':
         $settings = array(
           'field_name' => t('Custom ID'),
           'field_type' => 'password',
-          'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
+          'field_description' => isset($this->customIdTxt) ? implode(", ", $this->customIdTxt) : NULL,
         );
         break;
       case 'barcode':
         $settings = array(
           'field_name' => t('Barcode'),
           'field_type' => 'password',
-          'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
+          //'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
         );
         break;
       case 'pincode':
         $settings = array(
           'field_name' => t('Pincode'),
           'field_type' => 'password',
-        );
-        break;
-      case 'customId':
-        $settings = array(
-          'field_name' => t('Custom ID'),
-          'field_type' => 'password',
-          'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
         );
         break;
       case 'userDateOfBirth':
@@ -189,6 +182,11 @@ private function _parse_agency_service_response($response) {
   if (isset($response->userIdTxt)) {
     foreach ($response->userIdTxt as $txt) {
       $result['userIdTxt'][$txt->{'@language'}->{'$'}] = $txt->{'$'};
+    }
+  }
+  if (isset($response->customIdTxt)) {
+    foreach ($response->customIdTxt as $txt) {
+      $result['customIdTxt'][$txt->{'@language'}->{'$'}] = $txt->{'$'};
     }
   }
   if (isset($response->orderParameters)) {
