@@ -98,8 +98,8 @@ class AgencyFields {
         break;
       case 'userId':
         $settings = array(
-          'field_name' => t('User ID'),
-          'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
+          'field_name' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : t('User ID'),
+          //'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
         );
         break;
 
@@ -112,9 +112,9 @@ class AgencyFields {
         break;
       case 'customId':
         $settings = array(
-          'field_name' => t('Custom ID'),
+          'field_name' => isset($this->customIdTxt) ? implode(", ", $this->customIdTxt) : t('Custom ID'),
           'field_type' => 'password',
-          'field_description' => isset($this->customIdTxt) ? implode(", ", $this->customIdTxt) : NULL,
+          //'field_description' => isset($this->customIdTxt) ? implode(", ", $this->customIdTxt) : NULL,
         );
         break;
       case 'barcode':
