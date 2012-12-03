@@ -16,6 +16,9 @@ function template_preprocess_ting_agency_library(&$variables) {
  */
 function theme_ting_agency_contact($variables) {
   $branch = $variables['branch'];
+  if( empty($branch) ) {
+    return;
+  }
   $contact_array = $branch->getContact();
   $output = '';
   if (!empty($contact_array)) {
@@ -34,6 +37,9 @@ function theme_ting_agency_contact($variables) {
  */
 function theme_ting_agency_opening_hours($variables) {
   $branch = $variables['branch'];
+   if( empty($branch) ) {
+    return;
+  }
   global $language;
   $lang = $language->language;
   $render_array = array('#markup' => $branch->getOpeningHours($lang));
@@ -50,6 +56,9 @@ function theme_ting_agency_opening_hours($variables) {
  */
 function theme_ting_agency_tools($variables) {
   $branch = $variables['branch'];
+   if( empty($branch) ) {
+    return;
+  }
   $links = $branch->getActionLinks();
   $items = array();
   if (!empty($links)) {
@@ -68,8 +77,10 @@ function theme_ting_agency_tools($variables) {
  */
 function theme_ting_agency_address($variables) {
   $branch = $variables['branch'];
+   if( empty($branch) ) {
+    return;
+  }
   $address = $branch->getAddress();
   return $address;
 }
-
 ?>
