@@ -9,6 +9,7 @@ version = 7.x-0.2
 
 files[] = TingClientAgencyBranch.php
 files[] = AgencyFields.php
+files[] = TingAgency.php
 files[] = ting_agency.request.inc
 files[] = theme/ting_agency.theme.inc
 files[] = ting_agency.exception.inc
