@@ -45,7 +45,7 @@ class TingAgency {
     }
     else {
       // do something
-      self::$fields = FALSE;
+      self::$fields = NULL;
     }
     return self::$fields;
   }
