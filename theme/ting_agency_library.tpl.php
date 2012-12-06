@@ -10,7 +10,10 @@
       <?php print $actions; ?>
     </div>
     <hgroup>
-      <h3><?php print $branchName; ?></h3>
+      <h3><?php print $branchName; ?></h3> 
+      <?php if(isset($agencyName) ) :?>
+      <h4><?php print $agencyName;?></h4>
+      <?php endif;?>      
     </hgroup>
     <div class="messages_<?php print $branchid ?>"></div>
     <?php if (isset($moreinfo)) : ?>

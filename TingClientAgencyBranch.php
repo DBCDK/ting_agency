@@ -15,6 +15,7 @@ class TingClientAgencyBranch {
   public $temporarilyClosed;
   public $userStatusUrl;
   public $pickupAllowed;
+  public $agencyName;
   private static $fields;
 
   public function __construct($pickupAgency, $agencyId = NULL) {
@@ -54,6 +55,9 @@ class TingClientAgencyBranch {
       $this->userStatusUrl = TingClientRequest::getValue($pickupAgency->userStatusUrl);
     if (isset($pickupAgency->pickupAllowed))
       $this->pickupAllowed = TingClientRequest::getValue($pickupAgency->pickupAllowed);
+    if( isset($pickupAgency->agencyName) ) {
+      $this->agencyName = TingClientRequest::getValue($pickupAgency->agencyName);
+    }
   }
 
   // @TODO move this function to ting_agency/TingClientAgencyBranch
