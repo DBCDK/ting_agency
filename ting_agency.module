@@ -3,6 +3,8 @@
 module_load_include('php', 'ting_agency', 'TingClientAgencyBranch');
 module_load_include('inc','ting_agency','theme/ting_agency.theme');
 module_load_include('inc','ting_agency','ting_agency.exception');
+
+require_once('TingAgency.php');
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

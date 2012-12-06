@@ -1,7 +1,8 @@
 <?php
 
-class AgencyRequest extends TingClientRequest {
+class AgencyRequest extends TingClientRequest implements ITingClientRequestCache {
 
+  protected $cacheKey;
   // attributes for findlibrary request 
   protected $action;
   protected $authentication;
@@ -155,6 +156,39 @@ class AgencyRequest extends TingClientRequest {
     return $this;
   }
 
+  /** Implementation of ITingClientRequestCache * */
+  public function cacheKey() {
+    $params = $this->getParameters();
+    $ret = '';
+    $this->make_cache_key($params, $ret);
+    
+    return md5($ret);
+  }
+
+  private function make_cache_key($params, &$ret) {
+    foreach ($params as $key => $value) {
+      if (is_array($value)) {
+        // recursive
+        $ret.=$key;
+        $this->make_cache_key($value, $ret);
+      }
+      else {
+        $ret.=$value;
+      }
+    }
+  }
+
+  public function cacheEnable($value = NULL) {
+    $class_name = get_class($this);
+    return variable_get($class_name . TingClientRequest::cache_enable);
+  }
+
+  public function cacheTimeout($value = NULL) {
+    $class_name = get_class($this);
+    return variable_get($class_name . TingClientRequest::cache_lifetime, '1');
+  }
+
+  /** end ITingClientRequestCache * */
   // empty;
   public function processResponse(stdClass $result) {
     return $result;

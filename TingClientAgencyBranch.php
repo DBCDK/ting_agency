@@ -29,13 +29,7 @@ class TingClientAgencyBranch {
       throw new TingClientAgencyBranchException('TingClientAgencyBranch constructor needs either agencyid or findlibraryresponse (openagency.addi.dk)');
       // do something .. throw an exception
     }
-  }
-
-  private function do_FindLibraryRequest() {
-    $response = $this->_execute_agency($this->branchId, 'findLibraryRequest', NULL);
-    // @TODO errorhandling
-    return $response;
-  }
+  }  
 
   private function set_attributes($pickupAgency) {
     $this->branchId = TingClientRequest::getValue($pickupAgency->branchId);
@@ -138,7 +132,7 @@ class TingClientAgencyBranch {
    * return AgencyFields
    */
 
-  public function getAgencyFields() {
+ /* public function getAgencyFields() {
     if (!isset(self::$fields)) {
       $response = $this->_execute_agency($this->branchId, 'serviceRequest', 'userOrderParameters');
       $service = 'userOrderParameters';
@@ -149,19 +143,18 @@ class TingClientAgencyBranch {
           $result = $response->$service;
         }
         else if (isset($response->error) && $response->error) {
-          $result['error'] = $this->getValue($response->error);
+          $result['error'] = TingClientRequest::getValue($response->error);
           return NULL;
         }
       }
       self::$fields = new AgencyFields($result);
     }
     return self::$fields;
-  }
+  } */
 
   private function _execute_agency($agencyId, $action, $service = NULL) {
     $client = new ting_client_class();
     $response = $client->do_agency(array('agencyId' => $agencyId, 'action' => $action, 'service' => $service));
     return $response;
   }
-
 }
