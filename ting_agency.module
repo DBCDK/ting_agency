@@ -42,7 +42,7 @@ function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &
 function ting_agency_theme() {  
   return array(
     'ting_agency_library' => array(
-      'variables' => array('branchName' => NULL, 'actions' => NULL, 'moreinfo' => NULL, 'branchid' => NULL, 'add_classes'=> array()),
+      'variables' => array('branchName' => NULL, 'agencyName'=>NULL, 'actions' => NULL, 'moreinfo' => NULL, 'branchid' => NULL, 'add_classes'=> array()),
       'template' => 'theme/ting_agency_library',
     ),
     'ting_agency_more_info' => array(
