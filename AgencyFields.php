@@ -2,7 +2,7 @@
 
 /**
  * Handle settings for Agency specific form fields
- * 
+ *
  * This function is prepared to manifestation specific userinput
  */
 class AgencyFields {
@@ -16,8 +16,9 @@ class AgencyFields {
     }
     $this->response = $response;
 
-    foreach ($this->userParameters as $key => $element)
+    foreach ($this->userParameters as $key => $element) {
       $this->userParameters[$key] += $this->_getSettingsFromType($element['type']);
+    }
   }
 
   public function getUserParameters() {
@@ -87,7 +88,10 @@ class AgencyFields {
   }
 
   private function _getSettingsFromType($type) {
+    global $language ;
+    $lang = strtr($language->language, array('da'=>'dan','en-gb'=>'eng','en'=>'eng'));
     $settings = array();
+
     switch ($type) {
       case 'cpr':
         $settings = array(
@@ -98,7 +102,7 @@ class AgencyFields {
         break;
       case 'userId':
         $settings = array(
-          'field_name' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : t('User ID'),
+          'field_name' => isset($this->userIdTxt[$lang]) ? check_plain($this->userIdTxt[$lang]) : ( isset($this->userIdTxt) ? check_plain(implode(", ", $this->userIdTxt)) : t('User ID')),
           //'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
         );
         break;
@@ -112,7 +116,7 @@ class AgencyFields {
         break;
       case 'customId':
         $settings = array(
-          'field_name' => isset($this->customIdTxt) ? implode(", ", $this->customIdTxt) : t('Custom ID'),
+          'field_name' => isset($this->customIdTxt[$lang]) ? check_plain($this->customIdTxt[$lang]) : ( isset($this->customIdTxt) ? check_plain(implode(", ", $this->customIdTxt)) : t('Custom ID')),
           'field_type' => 'password',
           //'field_description' => isset($this->customIdTxt) ? implode(", ", $this->customIdTxt) : NULL,
         );
@@ -162,7 +166,7 @@ class AgencyFields {
 
     return $settings;
   }
-  
+
   /**
  * Parse json response from ServiceRequest
  * @param json $response
