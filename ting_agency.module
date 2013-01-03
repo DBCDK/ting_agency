@@ -63,3 +63,11 @@ function ting_agency_theme() {
     ),
   );
 }
+
+
+/**
+   * Implements hook_flush_caches
+   * */
+  function ting_agency_flush_caches() {
+    return array('cache_agency_webservice');
+  }
