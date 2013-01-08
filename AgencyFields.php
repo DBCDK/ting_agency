@@ -211,7 +211,7 @@ private function _parse_agency_service_response($response) {
       }
     }
   }
-  if (isset($response->agencyParameters)) {
+  if (isset($response->agencyParameters->borrowerCheckParameters)) {
     foreach ($response->agencyParameters->borrowerCheckParameters as $key => $borrowerCheckParamerters) {
       $result['agencyParameters']['borrowerCheckParameters'][$borrowerCheckParamerters->borrowerCheckSystem->{'$'}] = $borrowerCheckParamerters->borrowerCheck->{'$'};
     }
