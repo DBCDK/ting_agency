@@ -16,9 +16,11 @@ class AgencyFields {
     }
     $this->response = $response;
 
+    if( isset( $this->userParameters ) ) {
     foreach ($this->userParameters as $key => $element) {
       $this->userParameters[$key] += $this->_getSettingsFromType($element['type']);
     }
+  }
   }
 
   public function getUserParameters() {
