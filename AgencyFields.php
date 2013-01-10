@@ -105,6 +105,7 @@ class AgencyFields {
       case 'userId':
         $settings = array(
           'field_name' => isset($this->userIdTxt[$lang]) ? check_plain($this->userIdTxt[$lang]) : ( isset($this->userIdTxt) ? check_plain(implode(", ", $this->userIdTxt)) : t('User ID')),
+          'field_type' => 'password',
           //'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
         );
         break;
