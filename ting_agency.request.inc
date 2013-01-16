@@ -140,7 +140,7 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
     $this->outputType = $outputType;
   }
 
-  protected function getRequest() {
+  public function getRequest() {
     $service_url = variable_get('agency_search_url');
     if (function_exists('ting_client_validate_xsd')) {
       $params = ting_client_validate_xsd('openagency.xsd', $this->getAction());
@@ -156,15 +156,25 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
     return $this;
   }
 
-  /** Implementation of ITingClientRequestCache * */
+  /** Implementation of ITingClientRequestCache */
+  
+  /** \brief ITingClientRequestCache::cacheKey; get a cachekey
+   * 
+   * @return string 
+   */
   public function cacheKey() {
     $params = $this->getParameters();
     $ret = '';
     $this->make_cache_key($params, $ret);
-    
+
     return md5($ret);
   }
 
+  /** \brief make a cachekey based on request parameters
+   *
+   * @param array $params
+   * @param string $ret 
+   */
   private function make_cache_key($params, &$ret) {
     foreach ($params as $key => $value) {
       if (is_array($value)) {
@@ -178,22 +188,40 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
     }
   }
 
+  /** \brief ITingClientRequestCache::cacheEnable; Check if cache is enabled
+   *   
+   * @return value of variable (drupal_get)
+   */
   public function cacheEnable($value = NULL) {
     $class_name = get_class($this);
     return variable_get($class_name . TingClientRequest::cache_enable);
   }
 
+  /**\brief set timeout of cache
+   * 
+   * @return mixed value of variable (variable_get)  
+   */
   public function cacheTimeout($value = NULL) {
     $class_name = get_class($this);
     return variable_get($class_name . TingClientRequest::cache_lifetime, '1');
   }
 
+  /* \brief implements ITingClientRequestCache::cacheBin
+   * 
+   * @return string; name of cachebin
+   */
+  public function cacheBin() {
+    return 'cache_agency_webservice';
+  }
+
   /** end ITingClientRequestCache * */
+  
   // empty;
   public function processResponse(stdClass $result) {
     return $result;
   }
 
+  
 }
 
 ?>

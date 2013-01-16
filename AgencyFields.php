@@ -16,9 +16,11 @@ class AgencyFields {
     }
     $this->response = $response;
 
+    if( isset( $this->userParameters ) ) {
     foreach ($this->userParameters as $key => $element) {
       $this->userParameters[$key] += $this->_getSettingsFromType($element['type']);
     }
+  }
   }
 
   public function getUserParameters() {
@@ -103,6 +105,7 @@ class AgencyFields {
       case 'userId':
         $settings = array(
           'field_name' => isset($this->userIdTxt[$lang]) ? check_plain($this->userIdTxt[$lang]) : ( isset($this->userIdTxt) ? check_plain(implode(", ", $this->userIdTxt)) : t('User ID')),
+          'field_type' => 'password',
           //'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
         );
         break;
@@ -211,7 +214,7 @@ private function _parse_agency_service_response($response) {
       }
     }
   }
-  if (isset($response->agencyParameters)) {
+  if (isset($response->agencyParameters->borrowerCheckParameters)) {
     foreach ($response->agencyParameters->borrowerCheckParameters as $key => $borrowerCheckParamerters) {
       $result['agencyParameters']['borrowerCheckParameters'][$borrowerCheckParamerters->borrowerCheckSystem->{'$'}] = $borrowerCheckParamerters->borrowerCheck->{'$'};
     }
