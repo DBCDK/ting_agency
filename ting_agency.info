@@ -8,6 +8,7 @@ version = 7.x-0.6
 ;configure = admin/config/ting_agency
 
 files[] = TingClientAgencyBranch.php
+files[] = TingClientAgencyInformation.php
 files[] = AgencyFields.php
 files[] = TingAgency.php
 files[] = ting_agency.request.inc

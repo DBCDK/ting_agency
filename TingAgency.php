@@ -8,6 +8,7 @@ class TingAgency {
   private $agencyId;
   private $error;
   private $branch;
+  private $information;
   private static $fields;
 
   public function __construct($agencyId) {
@@ -35,6 +36,21 @@ class TingAgency {
       }
     }
     return $this->branch;
+  }
+
+  public function getInformation() {
+    if (empty($this->information)) {
+      $response = $this->do_serviceRequest('information');
+      if ($this->check_response($response)) {
+        if (isset($response->serviceResponse->information)) {
+          $this->information = new TingClientAgencyInformation($response->serviceResponse->information);
+        }
+      }
+      else {
+        $this->information = FALSE;
+      }
+    }
+    return $this->information;
   }
 
   public function getAgencyFields() {
