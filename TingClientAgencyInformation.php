@@ -39,7 +39,7 @@ class TingClientAgencyInformation {
   }
 
   public function getLookupUrl() {
-  return isset($this->information->lookupUrl) ? $this->information->lookupUrl->{'$'} : NULL;
+  return isset($this->information->lookupUrl->{'$'}) ? $this->information->lookupUrl->{'$'} : NULL;
   }
 
   public function getPostalAddress() {
