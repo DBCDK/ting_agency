@@ -23,6 +23,10 @@ class TingAgency {
     return $this->error;
   }
 
+  public function setBranch($branch) {
+    $this->branch = $branch;
+  }
+
   public function getBranch() {
     if (empty($this->branch)) {
       $response = $this->do_FindLibraryRequest();
