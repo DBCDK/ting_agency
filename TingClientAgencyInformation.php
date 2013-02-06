@@ -14,6 +14,10 @@ class TingClientAgencyInformation {
     }
   }
 
+  public function getAgencyId() {
+    return isset($this->information->agencyId->{'$'}) ? $this->information->agencyId->{'$'} : NULL;
+  }
+
   public function getAgencyName() {
     return isset($this->information->agencyName->{'$'}) ? $this->information->agencyName->{'$'} : NULL;
   }
