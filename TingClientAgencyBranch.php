@@ -13,6 +13,7 @@ class TingClientAgencyBranch {
   public $serviceDeclarationUrl;
   public $openingHours;
   public $temporarilyClosed;
+  public $illOrderReceiptText;
   public $userStatusUrl;
   public $pickupAllowed;
   public $agencyName;
@@ -30,31 +31,43 @@ class TingClientAgencyBranch {
       throw new TingClientAgencyBranchException('TingClientAgencyBranch constructor needs either agencyid or findlibraryresponse (openagency.addi.dk)');
       // do something .. throw an exception
     }
-  }  
+  }
 
   private function set_attributes($pickupAgency) {
     $this->branchId = TingClientRequest::getValue($pickupAgency->branchId);
     $this->branchName = TingClientRequest::getValue($pickupAgency->branchName);
     $this->branchPhone = TingClientRequest::getValue($pickupAgency->branchPhone);
     $this->branchEmail = TingClientRequest::getValue($pickupAgency->branchEmail);
-    if (isset($pickupAgency->postalAddress))
+    if (isset($pickupAgency->postalAddress)) {
       $this->postalAddress = TingClientRequest::getValue($pickupAgency->postalAddress);
-    if (isset($pickupAgency->postalCode))
+    }
+    if (isset($pickupAgency->postalCode)) {
       $this->postalCode = TingClientRequest::getValue($pickupAgency->postalCode);
-    if (isset($pickupAgency->city))
+    }
+    if (isset($pickupAgency->city)) {
       $this->city = TingClientRequest::getValue($pickupAgency->city);
-    if (isset($pickupAgency->branchWebsiteUrl))
+    }
+    if (isset($pickupAgency->branchWebsiteUrl)) {
       $this->branchWebsiteUrl = TingClientRequest::getValue($pickupAgency->branchWebsiteUrl);
-    if (isset($pickupAgency->serviceDeclarationUrl))
+    }
+    if (isset($pickupAgency->serviceDeclarationUrl)) {
       $this->serviceDeclarationUrl = TingClientRequest::getValue($pickupAgency->serviceDeclarationUrl);
-    if (isset($pickupAgency->openingHours))
+    }
+    if (isset($pickupAgency->openingHours)) {
       $this->openingHours = $pickupAgency->openingHours;
-    if (isset($pickupAgency->temporarilyClosed))
+    }
+    if (isset($pickupAgency->temporarilyClosed)) {
       $this->temporarilyClosed = TingClientRequest::getValue($pickupAgency->temporarilyClosed);
-    if (isset($pickupAgency->userStatusUrl))
+    }
+    if (isset($pickupAgency->illOrderReceiptText)) {
+      $this->illOrderReceiptText = $pickupAgency->illOrderReceiptText;
+    }
+    if (isset($pickupAgency->userStatusUrl)) {
       $this->userStatusUrl = TingClientRequest::getValue($pickupAgency->userStatusUrl);
-    if (isset($pickupAgency->pickupAllowed))
+    }
+    if (isset($pickupAgency->pickupAllowed)) {
       $this->pickupAllowed = TingClientRequest::getValue($pickupAgency->pickupAllowed);
+    }
     if( isset($pickupAgency->agencyName) ) {
       $this->agencyName = TingClientRequest::getValue($pickupAgency->agencyName);
     }
@@ -131,6 +144,37 @@ class TingClientAgencyBranch {
 
     return $ret;
   }
+
+  public function getIllOrderReceiptText($lang='da') {
+    // drupal en = openformat eng
+    if ($lang == 'en' || $lang == 'en-gb') {
+      $lang = 'eng';
+    }
+    //drupal da = openformat dan
+    if ($lang == 'da') {
+      $lang = 'dan';
+    }
+
+    $illOrderReceiptText = isset($this->illOrderReceiptText) ? $this->illOrderReceiptText : 'FALSE';
+
+    if (is_array($illOrderReceiptText)) {
+      foreach ($illOrderReceiptText as $text) {
+        if ($text->{'@language'}->{'$'} == $lang) {
+          $ret = $text->{'$'};
+        }
+      }
+      if (empty($ret)) {
+        // given lanuguage was not found..simply return first in array
+        $ret = $text->{'$'};
+      }
+    }
+    else {
+      // illOrderReceiptText are not set
+      $ret = t('ting_agency_no_order_receipt_text');
+    }
+    return $ret;
+  }
+
 
   /*
    * return AgencyFields
