@@ -11,7 +11,7 @@ require_once('TingAgency.php');
  */
 
 /** \brief Hook into ting-client
- * 
+ *
  * Implements hook_ting_client_webservice (@see ting_client.module)
  * */
 function ting_agency_ting_client_webservice() {
@@ -37,9 +37,9 @@ function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &
 
 /**
  * Implements hook_theme
- * @return type 
+ * @return type
  */
-function ting_agency_theme() {  
+function ting_agency_theme() {
   return array(
     'ting_agency_library' => array(
       'variables' => array('branchName' => NULL, 'agencyName'=>NULL, 'actions' => NULL, 'moreinfo' => NULL, 'branchid' => NULL, 'add_classes'=> array()),
@@ -71,3 +71,40 @@ function ting_agency_theme() {
   function ting_agency_flush_caches() {
     return array('cache_agency_webservice');
   }
+
+
+function ting_agency_userdata_form($form, &$form_state, $fields, $userData = null){
+  $params = isset($fields) ? $fields->getUserParameters() : null;
+  if (empty($params)) {
+    $form['wrapper']['error'] = array('#markup' => _ting_agency_error_no_agency_user_data());
+    return $form;
+  }
+
+  // checkbox to unmask password fields
+  $form['wrapper']['uncheck'] = array(
+    '#title' => t('Show_masked_input'),
+    '#type' => 'checkbox',
+    '#attributes' => array('class' => array(drupal_html_class('bibdk_unmask_password_field'))),
+  );
+
+  foreach ($fields->getUserParameters() as $userParameter) {
+    $type = $userParameter['type'];
+    $userDataElement = isset($userData[$userParameter['type']]) ? $userData[$userParameter['type']] : NULL;
+    $value = isset($form_state['values'][$type]) ? $form_state['values'][$type] :  $userDataElement;
+    $form['wrapper'][$type] = array(
+      '#attributes' => array('class' => array((isset($userParameter['field_type']) && $userParameter['field_type'] == 'password') ? drupal_html_class('bibdk_password_field') : '')),
+      '#type' => 'textfield',
+      '#title' => isset($userParameter['field_name']) ? $userParameter['field_name'] : "",
+      '#description' => isset($userParameter['field_description']) ? $userParameter['field_description'] : NULL,
+      '#required' => $userParameter['required'],
+      '#default_value' => isset($value) ? $value : "",
+    );
+  }
+
+  return $form;
+
+}
+
+function _ting_agency_error_no_agency_user_data() {
+  return t('no_agency_data_from_agency');
+}
