@@ -83,6 +83,10 @@ class TingAgency {
   }
 
   private function check_response($response) {
+    if( !$response ) {
+      return FALSE;
+    }
+    
     if (isset($response->error) && $response->error) {
       $this->error = TingClientRequest::getValue($response->error);
       return FALSE;
