@@ -3,6 +3,7 @@
 class TingClientAgencyBranch {
 
   public $branchId;
+  public $agencyId;
   public $branchName;
   public $branchPhone;
   public $branchEmail;
@@ -39,6 +40,8 @@ class TingClientAgencyBranch {
     $this->branchEmail = TingClientRequest::getValue($pickupAgency->branchEmail);
     if (isset($pickupAgency->postalAddress))
       $this->postalAddress = TingClientRequest::getValue($pickupAgency->postalAddress);
+    if (isset($pickupAgency->agencyId))
+      $this->agencyId = TingClientRequest::getValue($pickupAgency->agencyId);
     if (isset($pickupAgency->postalCode))
       $this->postalCode = TingClientRequest::getValue($pickupAgency->postalCode);
     if (isset($pickupAgency->city))
