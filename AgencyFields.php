@@ -17,10 +17,10 @@ class AgencyFields {
     $this->response = $response;
 
     if( isset( $this->userParameters ) ) {
-    foreach ($this->userParameters as $key => $element) {
-      $this->userParameters[$key] += $this->_getSettingsFromType($element['type']);
+      foreach ($this->userParameters as $key => $element) {
+        $this->userParameters[$key] += $this->_getSettingsFromType($element['type']);
+      }
     }
-  }
   }
 
   public function getUserParameters() {
@@ -50,7 +50,7 @@ class AgencyFields {
   }
 
   public function isBorrowerCheckRequired() {
-    return $this->agencyParameters['borrowerCheckParameters']['bibliotek.dk'];
+    return isset($this->agencyParameters['borrowerCheckParameters']['bibliotek.dk']) ? $this->agencyParameters['borrowerCheckParameters']['bibliotek.dk'] : FALSE;
   }
 
   public function acceptOrderFromUnknownUser() {
@@ -59,6 +59,21 @@ class AgencyFields {
 
   public function acceptOrderAgencyOffline() {
     return $this->agencyParameters['acceptOrderAgencyOffline'];
+  }
+
+  public function getAcceptOrderFromUnknownUserText() {
+    global $language ;
+    $lang = strtr($language->language, array('da'=>'dan','en-gb'=>'eng','en'=>'eng'));
+    switch ($lang) {
+      case 'eng' :
+        if ( isset($this->agencyParameters['acceptOrderFromUnknownUserText']['eng']) ) {
+          return $this->agencyParameters['acceptOrderFromUnknownUserText']['eng'];
+        }
+        break;
+      default:
+        return isset($this->agencyParameters['acceptOrderFromUnknownUserText']['dan']) ? $this->agencyParameters['acceptOrderFromUnknownUserText']['dan'] : '';
+        break;
+    }
   }
 
   public function getOrderLabelFromType($type) {
@@ -214,12 +229,25 @@ private function _parse_agency_service_response($response) {
       }
     }
   }
+  $result['agencyParameters']['borrowerCheckParameters'] = array();
   if (isset($response->agencyParameters->borrowerCheckParameters)) {
     foreach ($response->agencyParameters->borrowerCheckParameters as $key => $borrowerCheckParamerters) {
       $result['agencyParameters']['borrowerCheckParameters'][$borrowerCheckParamerters->borrowerCheckSystem->{'$'}] = $borrowerCheckParamerters->borrowerCheck->{'$'};
     }
+  }
+  if (isset($response->agencyParameters->acceptOrderFromUnknownUser)) {
     $result['agencyParameters']['acceptOrderFromUnknownUser'] = $response->agencyParameters->acceptOrderFromUnknownUser->{'$'};
+  }
+  if (isset($response->agencyParameters->acceptOrderAgencyOffline)) {
     $result['agencyParameters']['acceptOrderAgencyOffline'] = $response->agencyParameters->acceptOrderAgencyOffline->{'$'};
+  }
+  if (isset($response->agencyParameters->acceptOrderFromUnknownUserText)) {
+    foreach ($response->agencyParameters->acceptOrderFromUnknownUserText as $txt) {
+      $result['agencyParameters']['acceptOrderFromUnknownUserText'][$txt->{'@language'}->{'$'}] = $txt->{'$'};
+    }
+  }
+  if (isset($response->agencyParameters->payForPostage)) {
+    $result['agencyParameters']['payForPostage'] = $response->agencyParameters->payForPostage->{'$'};
   }
   return $result;
 }
