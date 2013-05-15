@@ -174,35 +174,4 @@ class TingClientAgencyBranch {
     }
     return $ret;
   }
-
-
-  /*
-   * return AgencyFields
-   */
-
- /* public function getAgencyFields() {
-    if (!isset(self::$fields)) {
-      $response = $this->_execute_agency($this->branchId, 'serviceRequest', 'userOrderParameters');
-      $service = 'userOrderParameters';
-
-      if (isset($response->serviceResponse)) {
-        $response = $response->serviceResponse;
-        if (isset($response->$service)) {
-          $result = $response->$service;
-        }
-        else if (isset($response->error) && $response->error) {
-          $result['error'] = TingClientRequest::getValue($response->error);
-          return NULL;
-        }
-      }
-      self::$fields = new AgencyFields($result);
-    }
-    return self::$fields;
-  } */
-
-  private function _execute_agency($agencyId, $action, $service = NULL) {
-    $client = new ting_client_class();
-    $response = $client->do_agency(array('agencyId' => $agencyId, 'action' => $action, 'service' => $service));
-    return $response;
-  }
 }
