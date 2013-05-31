@@ -29,6 +29,26 @@ function theme_ting_agency_contact($variables) {
   return $output;
 }
 
+/** \brief Theme librarydkcontact info
+ *
+ * @param array $variables
+ * @return string (html) 
+ */
+function theme_ting_agency_librarydk_contact($variables) {
+  $branch = $variables['branch'];
+  if( empty($branch) ) {
+    return;
+  }
+  $contact_array = $branch->getLibrarydkContact();
+  $output = '';
+  if (!empty($contact_array)) {
+    foreach ($contact_array as $key => $value) {
+      $output .= $key . ' : ' . $value . '<br/>';
+    }
+  }
+  return $output;
+}
+
 /** \brief Theme agency opening hourt
  *
  * @global stdObject $language

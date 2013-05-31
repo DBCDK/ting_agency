@@ -11,10 +11,15 @@
       <p class="subheader"><strong><?php print t('ting_agency_address'); ?></strong></p>
       <p><?php print $address; ?></p>
       <?php endif; ?>
+      <?php if( isset($librarydkcontact) ) : ?>
+      <p class="subheader"><strong><?php print t('ting_agency_librarydk_contact'); ?></strong></p>
+      <p><?php print $librarydkcontact; ?></p>
+      <?php endif; ?>
       <?php if( isset($contact) ) : ?>
       <p class="subheader"><strong><?php print t('ting_agency_contact'); ?></strong></p>
       <p><?php print $contact; ?></p>
       <?php endif; ?>
+
     </div> <!-- column-1 -->
 
     <div class="library-details-column-2">

@@ -3,6 +3,7 @@
 class TingClientAgencyBranch {
 
   public $branchId;
+  public $agencyId;
   public $branchName;
   public $branchPhone;
   public $branchEmail;
@@ -17,13 +18,18 @@ class TingClientAgencyBranch {
   public $userStatusUrl;
   public $pickupAllowed;
   public $agencyName;
-  private static $fields;
+  // Supportphone and email
+  public $librarydkSupportEmail;
+  public $librarydkSupportPhone;
 
-  public function __construct($pickupAgency, $agencyId = NULL) {
+  public function __construct($pickupAgency, $agencyName = NULL, $agencyId = NULL) {
     if (isset($agencyId)) {
       $this->branchId = $agencyId;
     }
     elseif (!empty($pickupAgency)) {
+      if (!isset($pickupAgency->agencyName)) {
+        $this->agencyName = $agencyName;
+      }
       $this->pickupAgency = $pickupAgency;
       $this->set_attributes($pickupAgency);
     }
@@ -40,6 +46,9 @@ class TingClientAgencyBranch {
     $this->branchEmail = TingClientRequest::getValue($pickupAgency->branchEmail);
     if (isset($pickupAgency->postalAddress)) {
       $this->postalAddress = TingClientRequest::getValue($pickupAgency->postalAddress);
+    }
+    if (isset($pickupAgency->agencyId)) {
+      $this->agencyId = TingClientRequest::getValue($pickupAgency->agencyId);
     }
     if (isset($pickupAgency->postalCode)) {
       $this->postalCode = TingClientRequest::getValue($pickupAgency->postalCode);
@@ -68,8 +77,16 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->pickupAllowed)) {
       $this->pickupAllowed = TingClientRequest::getValue($pickupAgency->pickupAllowed);
     }
-    if( isset($pickupAgency->agencyName) ) {
+    if (isset($pickupAgency->agencyName)) {
       $this->agencyName = TingClientRequest::getValue($pickupAgency->agencyName);
+    }
+    //librarydkSupportPhone
+    if (isset($pickupAgency->librarydkSupportPhone)) {
+      $this->librarydkSupportPhone = TingClientRequest::getValue($pickupAgency->librarydkSupportPhone);
+    }
+    //librarydkSupportEmail
+    if (isset($pickupAgency->librarydkSupportEmail)) {
+      $this->librarydkSupportEmail = TingClientRequest::getValue($pickupAgency->librarydkSupportEmail);
     }
   }
 
@@ -100,6 +117,7 @@ class TingClientAgencyBranch {
       // opening hours are not set
       $ret = t('ting_agency_no_opening_hours');
     }
+
     return $ret;
   }
 
@@ -111,8 +129,6 @@ class TingClientAgencyBranch {
     if (isset($this->branchWebsiteUrl)) {
       $links[t('branchWebsiteUrl')] = $this->branchWebsiteUrl;
     }
-
-    // @TODO .. any more links ??
 
     return $links;
   }
@@ -133,19 +149,33 @@ class TingClientAgencyBranch {
     return $address;
   }
 
+  public function getLibrarydkContact() {
+    $ret = array();
+
+    //Support for librarydk info:  mail and phone
+    if (isset($this->librarydkSupportPhone)) {
+      $ret[t('librarydkSupportPhone')] = $this->librarydkSupportPhone;
+    }
+    if (isset($this->librarydkSupportEmail)) {
+      $ret[t('librarydkSupportEmail')] = '<a href="mailto:' . $this->librarydkSupportEmail . '?Subject=' . t('LibrarydkSubject') . '">' . $this->librarydkSupportEmail . '</a>';
+    }
+
+    return $ret;
+  }
+
   public function getContact() {
     $ret = array();
     if (isset($this->branchPhone)) {
       $ret[t('branchPhone')] = $this->branchPhone;
     }
     if (isset($this->branchEmail)) {
-      $ret[t('branchEmail')] = $this->branchEmail;
+      $ret[t('branchEmail')] = '<a href="mailto:' . $this->branchEmail . '?Subject=' . t('LibrarySubject') . '">' . $this->branchEmail . '</a>';
     }
 
     return $ret;
   }
 
-  public function getIllOrderReceiptText($lang='da') {
+  public function getIllOrderReceiptText($lang = 'da') {
     // drupal en = openformat eng
     if ($lang == 'en' || $lang == 'en-gb') {
       $lang = 'eng';
