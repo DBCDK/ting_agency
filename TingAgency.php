@@ -72,13 +72,13 @@ class TingAgency {
 
   private function do_FindLibraryRequest() {
     $client = new ting_client_class();
-    $response = $client->do_agency(array('agencyId' => $this->agencyId, 'action' => 'findLibraryRequest'));
+    $response = $client->do_request('agency',array('agencyId' => $this->agencyId, 'action' => 'findLibraryRequest'));
     return $response;
   }
 
   private function do_serviceRequest($service) {
     $client = new ting_client_class();
-    $response = $client->do_agency(array('agencyId' => $this->agencyId, 'action' => 'serviceRequest', 'service' => $service));
+    $response = $client->do_request('agency',array('agencyId' => $this->agencyId, 'action' => 'serviceRequest', 'service' => $service));
     return $response;
   }
 

@@ -18,6 +18,7 @@ function ting_agency_ting_client_webservice() {
   $ret = array();
   $ret['agency']['class'] = 'AgencyRequest';
   $ret['agency']['url'] = 'agency_search_url';
+  $ret['agency']['xsdNamespace'] = array(0 => 'http://oss.dbc.dk/ns/openagency');
   return $ret;
 }
 
@@ -58,6 +59,9 @@ function ting_agency_theme() {
     'ting_agency_address' => array(
       'variables' => array('branch' => NULL,),
     ),
+      'ting_agency_librarydk_contact' => array(
+      'variables' => array('branch' => NULL,),
+    ),
     'ting_agency_contact' => array(
       'variables' => array('branch' => NULL,),
     ),
@@ -81,10 +85,18 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
   }
 
   // checkbox to unmask password fields
-  $form['wrapper']['uncheck'] = array(
+  $form['uncheck'] = array(
     '#title' => t('Show_masked_input'),
     '#type' => 'checkbox',
     '#attributes' => array('class' => array(drupal_html_class('bibdk_unmask_password_field'))),
+    '#weight' => -100,
+  );
+  
+  $form['wrapper'] = array(
+    '#type'=>'container',
+    '#attributes' => array(
+      'class' => array(drupal_html_class('switch_me')),
+    ),    
   );
 
   foreach ($fields->getUserParameters() as $userParameter) {
