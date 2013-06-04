@@ -4,21 +4,21 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
 
   protected $cacheKey;
   // attributes for findlibrary request 
-  protected $action;
-  protected $authentication;
-  protected $agencyId;
-  protected $agencyName;
-  protected $agencyAddress;
-  protected $postalCode;
-  protected $city;
-  protected $anyField;
-  protected $libraryType;
-  protected $libraryStatus;
-  protected $pickupAllowed;
-  protected $sort;
-  protected $callback;
-  protected $outputType;
-  protected $service;
+  public $action;
+  public $authentication;
+  public $agencyId;
+  public $agencyName;
+  public $agencyAddress;
+  public $postalCode;
+  public $city;
+  public $anyField;
+  public $libraryType;
+  public $libraryStatus;
+  public $pickupAllowed;
+  public $sort;
+  public $callback;
+  public $outputType;
+  public $service;
 
   public function getService() {
     return $this->service;
