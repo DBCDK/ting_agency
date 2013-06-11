@@ -19,6 +19,10 @@ class TingAgency {
     return $this->agencyId;
   }
 
+  public function getAgencyMainId() {
+    return $this->getBranch()->agencyId;
+  }
+
   public function getError() {
     return $this->error;
   }
@@ -86,7 +90,7 @@ class TingAgency {
     if( !$response ) {
       return FALSE;
     }
-    
+
     if (isset($response->error) && $response->error) {
       $this->error = TingClientRequest::getValue($response->error);
       return FALSE;
