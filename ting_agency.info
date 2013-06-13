@@ -14,6 +14,9 @@ files[] = TingAgency.php
 files[] = ting_agency.request.inc
 files[] = theme/ting_agency.theme.inc
 files[] = ting_agency.exception.inc
+
+files[] = test/ting_agency.unit.test
+
 ;scripts[] = js/ting_agency.js
 
 dependencies[] = ting_client

@@ -1,0 +1,48 @@
+<?php
+
+/**
+ * Class TingAgncyUnitTest
+ */
+class TingAgncyUnitTest extends DrupalUnitTestCase {
+
+  /**
+   * @var TingClientAgencyBranch
+   */
+  private $obj;
+  /**
+   * @return array
+   */
+  public static function getInfo() {
+    return array(
+      'name' => t('Ting Agency Unittest'),
+      'description' => t('Unittests for Ting Agency'),
+      'group' => t('Bibliotek.dk - TingAgency'),
+    );
+  }
+
+  public function setUp() {
+    //Note that openuserstatus_webservice_mockup should be enabled in local installation when testing locally
+    parent::setUp('ting_agency');
+
+    $pickupagency = unserialize($this->_loadFile('pickupagency_object.serialized'));
+    $this->obj = new TingClientAgencyBranch($pickupagency);
+  }
+
+  public function testParseFields(){
+    $result = $this->obj->getAgencySubdivisions();
+    $this->assertTrue(is_array($result), 'Got array in return');
+    $count = count($result);
+    $this->assertEqual($count, 15, 'Array length was ' . $count . ', expected 15');
+  }
+
+  /**
+   * Loads a file with the given filename ($filename) from
+   * biodk_openuserstatus/test/mockup and returns its content
+   *
+   * @param String $filename
+   * @return mixed
+   */
+  private function _loadFile($filename) {
+    return file_get_contents(drupal_get_path('module', 'ting_agency') . '/mockups/' . $filename);
+  }
+}
