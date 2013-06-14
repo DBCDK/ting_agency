@@ -9,6 +9,7 @@ class TingAgency {
   private $error;
   private $branch;
   private $information;
+  private $pickUpAgencies;
   private static $fields;
 
   public function __construct($agencyId) {
@@ -61,6 +62,32 @@ class TingAgency {
     return $this->information;
   }
 
+  /**
+   * @param mixed $pickUpAgencies
+   */
+  public function setPickUpAgencies($pickUpAgencies) {
+    $this->pickUpAgencies = $pickUpAgencies;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getPickUpAgencies() {
+    if (!isset($this->pickUpAgencies)) {
+      $response = $this->do_pickupAgencyListRequest();
+      $pickUpAgencies = array();
+      if ($this->check_response($response)) {
+        if (isset($response->pickupAgencyListResponse->library[0]->pickupAgency)) {
+          foreach ($response->pickupAgencyListResponse->library[0]->pickupAgency as $pickUpAgency) {
+            $pickUpAgencies[] = new TingClientAgencyBranch($pickUpAgency);
+          }
+        }
+      }
+      $this->setPickUpAgencies($pickUpAgencies);
+    }
+    return $this->pickUpAgencies;
+  }
+
   public function getAgencyFields() {
     $service = 'userOrderParameters';
     $response = $this->do_serviceRequest($service);
@@ -76,18 +103,24 @@ class TingAgency {
 
   private function do_FindLibraryRequest() {
     $client = new ting_client_class();
-    $response = $client->do_request('agency',array('agencyId' => $this->agencyId, 'action' => 'findLibraryRequest'));
+    $response = $client->do_request('agency', array('agencyId' => $this->agencyId, 'action' => 'findLibraryRequest'));
     return $response;
   }
 
   private function do_serviceRequest($service) {
     $client = new ting_client_class();
-    $response = $client->do_request('agency',array('agencyId' => $this->agencyId, 'action' => 'serviceRequest', 'service' => $service));
+    $response = $client->do_request('agency', array('agencyId' => $this->agencyId, 'action' => 'serviceRequest', 'service' => $service));
+    return $response;
+  }
+
+  private function do_pickupAgencyListRequest() {
+    $client = new ting_client_class();
+    $response = $client->do_request('agency', array('agencyId' => $this->agencyId, 'pickupAllowed' => '1', 'action' => 'pickupAgencyListRequest'));
     return $response;
   }
 
   private function check_response($response) {
-    if( !$response ) {
+    if (!$response) {
       return FALSE;
     }
 
