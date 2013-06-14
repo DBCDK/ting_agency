@@ -181,10 +181,6 @@ class TingClientAgencyBranch {
    * @return array
    */
   public function getAgencySubdivisions(){
-    dpm($this->pickupAgency);
-    $data = serialize($this->pickupAgency);
-    $path = drupal_get_path('module', 'ting_agency') . '/mockups/pickupagency_object.serialized';
-    file_unmanaged_save_data($data, $path, FILE_EXISTS_REPLACE);
     $arr = array();
     if(isset($this->pickupAgency->agencySubdivision)){
       $arr = $this->parseFields($this->pickupAgency->agencySubdivision);
