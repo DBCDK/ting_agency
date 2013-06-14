@@ -175,6 +175,19 @@ class TingClientAgencyBranch {
     return $ret;
   }
 
+  /**
+   * Returns array with agencySubdivisions if any
+   *
+   * @return array
+   */
+  public function getAgencySubdivisions(){
+    $arr = array();
+    if(isset($this->pickupAgency->agencySubdivision)){
+      $arr = $this->parseFields($this->pickupAgency->agencySubdivision);
+    }
+    return $arr;
+  }
+
   public function getIllOrderReceiptText($lang = 'da') {
     // drupal en = openformat eng
     if ($lang == 'en' || $lang == 'en-gb') {
@@ -203,5 +216,34 @@ class TingClientAgencyBranch {
       $ret = t('ting_agency_no_order_receipt_text');
     }
     return $ret;
+  }
+
+  /**
+   * Recursively parses a object into a array
+   *
+   * @param $object
+   * @return array
+   */
+  private function parseFields($object) {
+    if (is_object($object)) {
+      $object = (array)$object;
+    }
+    if (is_array($object)) {
+      $arr = array();
+      foreach ($object as $key => $val) {
+        if ($key !== '@') {
+          if ($key === '$') {
+            $arr = $this->parseFields($val);
+          }
+          else {
+            $arr[$key] = $this->parseFields($val);
+          }
+        }
+      }
+    }
+    else {
+      $arr = $object;
+    }
+    return $arr;
   }
 }
