@@ -21,6 +21,7 @@ class TingClientAgencyBranch {
   // Supportphone and email
   public $librarydkSupportEmail;
   public $librarydkSupportPhone;
+  public $paymentUrl;
 
   public function __construct($pickupAgency, $agencyName = NULL, $agencyId = NULL) {
     if (isset($agencyId)) {
@@ -88,6 +89,20 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->librarydkSupportEmail)) {
       $this->librarydkSupportEmail = TingClientRequest::getValue($pickupAgency->librarydkSupportEmail);
     }
+    if (isset($pickupAgency->paymentUrl)) {
+      $this->paymentUrl = TingClientRequest::getValue($pickupAgency->paymentUrl);
+    }
+  }
+
+  public function getPaymentUrl() {
+    if ( isset($this->paymentUrl) ) {
+      return $this->paymentUrl;
+    }
+    // workaround
+    if ( isset($this->pickupAgency->paymentUrl->{'$'}) ) { // why the ¤%#£!!!! don't $this->paymentUrl return a value?????
+      return $this->pickupAgency->paymentUrl->{'$'};
+    }
+    return NULL;
   }
 
   // @TODO move this function to ting_agency/TingClientAgencyBranch
@@ -175,6 +190,20 @@ class TingClientAgencyBranch {
     return $ret;
   }
 
+
+  /**
+   * Returns array with agencySubdivisions if any
+   *
+   * @return array
+   */
+  public function getAgencySubdivisions(){
+    $arr = array();
+    if(isset($this->pickupAgency->agencySubdivision)){
+      $arr = $this->parseFields($this->pickupAgency->agencySubdivision);
+    }
+    return $arr;
+  }
+
   public function getIllOrderReceiptText($lang = 'da') {
     // drupal en = openformat eng
     if ($lang == 'en' || $lang == 'en-gb') {
@@ -203,5 +232,34 @@ class TingClientAgencyBranch {
       $ret = t('ting_agency_no_order_receipt_text');
     }
     return $ret;
+  }
+
+  /**
+   * Recursively parses a object into a array
+   *
+   * @param $object
+   * @return array
+   */
+  private function parseFields($object) {
+    if (is_object($object)) {
+      $object = (array)$object;
+    }
+    if (is_array($object)) {
+      $arr = array();
+      foreach ($object as $key => $val) {
+        if ($key !== '@') {
+          if ($key === '$') {
+            $arr = $this->parseFields($val);
+          }
+          else {
+            $arr[$key] = $this->parseFields($val);
+          }
+        }
+      }
+    }
+    else {
+      $arr = $object;
+    }
+    return $arr;
   }
 }
