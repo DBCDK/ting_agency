@@ -21,6 +21,7 @@ class TingClientAgencyBranch {
   // Supportphone and email
   public $librarydkSupportEmail;
   public $librarydkSupportPhone;
+  public $paymentUrl;
 
   public function __construct($pickupAgency, $agencyName = NULL, $agencyId = NULL) {
     if (isset($agencyId)) {
@@ -88,6 +89,20 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->librarydkSupportEmail)) {
       $this->librarydkSupportEmail = TingClientRequest::getValue($pickupAgency->librarydkSupportEmail);
     }
+    if (isset($pickupAgency->paymentUrl)) {
+      $this->paymentUrl = TingClientRequest::getValue($pickupAgency->paymentUrl);
+    }
+  }
+
+  public function getPaymentUrl() {
+    if ( isset($this->paymentUrl) ) {
+      return $this->paymentUrl;
+    }
+    // workaround
+    if ( isset($this->pickupAgency->paymentUrl->{'$'}) ) { // why the ¤%#£!!!! don't $this->paymentUrl return a value?????
+      return $this->pickupAgency->paymentUrl->{'$'};
+    }
+    return NULL;
   }
 
   // @TODO move this function to ting_agency/TingClientAgencyBranch
@@ -174,6 +189,7 @@ class TingClientAgencyBranch {
 
     return $ret;
   }
+
 
   /**
    * Returns array with agencySubdivisions if any
