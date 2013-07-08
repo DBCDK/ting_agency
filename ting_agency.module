@@ -65,6 +65,9 @@ function ting_agency_theme() {
     'ting_agency_contact' => array(
       'variables' => array('branch' => NULL,),
     ),
+    'ting_agency_pickup_allowed' => array(
+      'variables' => array('branch' => NULL,),
+    ),
   );
 }
 

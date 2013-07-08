@@ -10,6 +10,7 @@ class TingAgency {
   private $branch;
   private $information;
   private $pickUpAgencies;
+  private $pickUpAllowed;
   private static $fields;
 
   public function __construct($agencyId) {
@@ -88,6 +89,31 @@ class TingAgency {
     return $this->pickUpAgencies;
   }
 
+   /**
+   * @param mixed Sets pickUpAllowed to TRUE or FALSE
+   */
+  public function setPickUpAllowed($pickUpAllowed) {
+    $this->$pickUpAllowed = $pickUpAllowed;
+  }
+
+  /**
+   * @return TRUE if pickupAllowed  else FALSE
+   */
+  public function getPickUpAllowed() {
+    if (empty($this->pickUpAllowed)) {
+      $response = $this->do_FindLibraryRequest();
+      if ($this->check_response($response)) {
+        if (isset($response->findLibraryResponse->pickUpAllowed[0])) {
+          $this->pickUpAllowed = new TingClientAgencyBranch($response->findLibraryResponse->pickUpAllowed[0]);
+        }
+      }
+      else {
+        $this->pickUpAllowed = FALSE;
+      }
+    }
+    return $this->pickUpAllowed;
+  }
+  
   public function getAgencyFields() {
     $service = 'userOrderParameters';
     $response = $this->do_serviceRequest($service);
