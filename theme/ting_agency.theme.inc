@@ -103,4 +103,18 @@ function theme_ting_agency_address($variables) {
   $address = $branch->getAddress();
   return $address;
 }
+
+/** \brief Theme address for given agency
+ *
+ * @param array $variables
+ * @return string (html) 
+ */
+function theme_ting_agency_pickup_allowed($variables) {
+  $branch = $variables['branch'];
+   if( empty($branch) ) {
+    return;
+  }
+  return $branch->getPicupAllowed();
+}
+
 ?>

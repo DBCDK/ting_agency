@@ -16,12 +16,12 @@ class TingClientAgencyBranch {
   public $temporarilyClosed;
   public $illOrderReceiptText;
   public $userStatusUrl;
-  public $pickupAllowed;
   public $agencyName;
   // Supportphone and email
   public $librarydkSupportEmail;
   public $librarydkSupportPhone;
   public $paymentUrl;
+  public $pickupAllowed;
 
   public function __construct($pickupAgency, $agencyName = NULL, $agencyId = NULL) {
     if (isset($agencyId)) {
@@ -75,9 +75,6 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->userStatusUrl)) {
       $this->userStatusUrl = TingClientRequest::getValue($pickupAgency->userStatusUrl);
     }
-    if (isset($pickupAgency->pickupAllowed)) {
-      $this->pickupAllowed = TingClientRequest::getValue($pickupAgency->pickupAllowed);
-    }
     if (isset($pickupAgency->agencyName)) {
       $this->agencyName = TingClientRequest::getValue($pickupAgency->agencyName);
     }
@@ -92,6 +89,10 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->paymentUrl)) {
       $this->paymentUrl = TingClientRequest::getValue($pickupAgency->paymentUrl);
     }
+    //pickupAllowed for library
+    if (isset($pickupAgency->pickupAllowed)) {
+      $this->pickupAllowed = TingClientRequest::getValue($pickupAgency->pickupAllowed);
+    }
   }
 
   public function getPaymentUrl() {
@@ -99,7 +100,7 @@ class TingClientAgencyBranch {
       return $this->paymentUrl;
     }
     // workaround
-    if ( isset($this->pickupAgency->paymentUrl->{'$'}) ) { // why the ¤%#£!!!! don't $this->paymentUrl return a value?????
+    if ( isset($this->pickupAgency->paymentUrl->{'$'}) ) { // why the ï¿½%#ï¿½!!!! don't $this->paymentUrl return a value?????
       return $this->pickupAgency->paymentUrl->{'$'};
     }
     return NULL;
@@ -163,6 +164,16 @@ class TingClientAgencyBranch {
 
     return $address;
   }
+  
+ public function getPicupAllowed() {
+   $picupallowed = '';
+   if (isset($this->pickupAllowed)) {
+      if( $this->pickupAllowed == 0  ) {
+        $picupallowed .=  t('Biblioteket modtager ikke bestillinger igennem bibliotek.dk');
+      }
+    }
+    return $picupallowed;
+ }    
 
   public function getLibrarydkContact() {
     $ret = array();
@@ -250,7 +261,7 @@ class TingClientAgencyBranch {
         if ($key !== '@') {
           if ($key === '$') {
             $arr = $this->parseFields($val);
-          }
+          } 
           else {
             $arr[$key] = $this->parseFields($val);
           }
