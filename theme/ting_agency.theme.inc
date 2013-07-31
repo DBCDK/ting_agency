@@ -104,8 +104,8 @@ function theme_ting_agency_address($variables) {
   return $address;
 }
 
-<<<<<<< HEAD
-/** \brief Theme address for given agency
+
+/** \brief Theme pickup for given agency
  *
  * @param array $variables
  * @return string (html) 
@@ -118,6 +118,4 @@ function theme_ting_agency_pickup_allowed($variables) {
   return $branch->getPicupAllowed();
 }
 
-=======
->>>>>>> feature/949_branchShortName
 ?>
