@@ -1,8 +1,9 @@
 <?php
+
 //require_once('TingClientAgencyBranch.php');
 module_load_include('php', 'ting_agency', 'TingClientAgencyBranch');
-module_load_include('inc','ting_agency','theme/ting_agency.theme');
-module_load_include('inc','ting_agency','ting_agency.exception');
+module_load_include('inc', 'ting_agency', 'theme/ting_agency.theme');
+module_load_include('inc', 'ting_agency', 'ting_agency.exception');
 
 require_once('TingAgency.php');
 /*
@@ -43,11 +44,11 @@ function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &
 function ting_agency_theme() {
   return array(
     'ting_agency_library' => array(
-      'variables' => array('branchName' => NULL, 'agencyName'=>NULL, 'actions' => NULL, 'moreinfo' => NULL, 'branchid' => NULL, 'add_classes'=> array()),
+      'variables' => array('branchName' => NULL, 'agencyName' => NULL, 'actions' => NULL, 'moreinfo' => NULL, 'branchid' => NULL, 'add_classes' => array()),
       'template' => 'theme/ting_agency_library',
     ),
     'ting_agency_more_info' => array(
-      'variables' => array('branch' => NULL,'openingHours' => NULL ),
+      'variables' => array('branch' => NULL, 'openingHours' => NULL),
       'template' => 'theme/ting_agency_more_info',
     ),
     'ting_agency_opening_hours' => array(
@@ -59,31 +60,29 @@ function ting_agency_theme() {
     'ting_agency_address' => array(
       'variables' => array('branch' => NULL,),
     ),
-      'ting_agency_librarydk_contact' => array(
+    'ting_agency_librarydk_contact' => array(
       'variables' => array('branch' => NULL,),
     ),
     'ting_agency_contact' => array(
       'variables' => array('branch' => NULL,),
     ),
-<<<<<<< HEAD
     'ting_agency_pickup_allowed' => array(
-=======
-      'ting_agency_branch_short_name' => array(
->>>>>>> feature/949_branchShortName
+      'variables' => array('branch' => NULL,),
+    ),
+    'ting_agency_branch_short_name' => array(
       'variables' => array('branch' => NULL,),
     ),
   );
 }
 
 /**
-   * Implements hook_flush_caches
-   * */
-  function ting_agency_flush_caches() {
-    return array('cache_agency_webservice');
-  }
+ * Implements hook_flush_caches
+ * */
+function ting_agency_flush_caches() {
+  return array('cache_agency_webservice');
+}
 
-
-function ting_agency_userdata_form($form, &$form_state, $fields, $userData = null){
+function ting_agency_userdata_form($form, &$form_state, $fields, $userData = null) {
   $params = isset($fields) ? $fields->getUserParameters() : null;
   if (empty($params)) {
     $form['wrapper']['error'] = array('#markup' => _ting_agency_error_no_agency_user_data());
@@ -99,7 +98,7 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
   );
 
   $form['wrapper'] = array(
-    '#type'=>'container',
+    '#type' => 'container',
     '#attributes' => array(
       'class' => array(drupal_html_class('switch_me')),
     ),
@@ -109,8 +108,8 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
     $type = $userParameter['type'];
     $title = isset($userParameter['field_name']) ? $userParameter['field_name'] : "";
     $userDataElement = isset($userData[$userParameter['type']]) ? $userData[$userParameter['type']] : NULL;
-    $value = isset($form_state['values'][$type]) ? $form_state['values'][$type] :  $userDataElement;
-    if ( $type == 'userMail' ) {
+    $value = isset($form_state['values'][$type]) ? $form_state['values'][$type] : $userDataElement;
+    if ($type == 'userMail') {
       $title .= ' ' . t('label_notice_recommended', array(), array('context' => 'ting_agency'));
     }
     $form['wrapper'][$type] = array(
@@ -124,7 +123,6 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
   }
 
   return $form;
-
 }
 
 function _ting_agency_error_no_agency_user_data() {
