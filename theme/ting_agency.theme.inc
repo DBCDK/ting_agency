@@ -57,7 +57,7 @@ function theme_ting_agency_librarydk_contact($variables) {
  */
 function theme_ting_agency_opening_hours($variables) {
   $branch = $variables['branch'];
-   if( empty($branch) ) {
+  if( empty($branch) ) {
     return;
   }
   global $language;
@@ -104,6 +104,7 @@ function theme_ting_agency_address($variables) {
   return $address;
 }
 
+<<<<<<< HEAD
 /** \brief Theme address for given agency
  *
  * @param array $variables
@@ -117,4 +118,6 @@ function theme_ting_agency_pickup_allowed($variables) {
   return $branch->getPicupAllowed();
 }
 
+=======
+>>>>>>> feature/949_branchShortName
 ?>

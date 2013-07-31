@@ -5,6 +5,7 @@ class TingClientAgencyBranch {
   public $branchId;
   public $agencyId;
   private $branchName;
+  public $branchShortName;
   public $branchPhone;
   public $branchEmail;
   public $postalAddress;
@@ -43,11 +44,33 @@ class TingClientAgencyBranch {
 
   private function set_attributes($pickupAgency) {
     $this->branchId = TingClientRequest::getValue($pickupAgency->branchId);
-    // $this->branchName = TingClientRequest::getValue($pickupAgency->branchName);
     $this->branchName = $pickupAgency->branchName;
-    // $this->getDataArray['branchName'] = $pickupAgency->branchName;
     $this->branchPhone = TingClientRequest::getValue($pickupAgency->branchPhone);
     $this->branchEmail = TingClientRequest::getValue($pickupAgency->branchEmail);
+    
+    if (isset($pickupAgency->branchName)) {
+      $this->branchName = $pickupAgency->branchName;
+      if (is_array($this->branchName)) {
+        // Openagency 2.6 is an array with languagespecific branchname
+        $this->branchName = $this->getBranchNameLanguage();
+      } else {
+        // Openagency 2.5 is a plain text with no languagespecific branchname
+        $this->branchName = TingClientRequest::getValue($pickupAgency->branchName);
+      }
+    }
+    
+    if (isset($pickupAgency->branchShortName)) {
+      // Openagency 2.6 is an array with languagespecific branchshortname
+      $this->branchShortName = $pickupAgency->branchShortName;
+      if (is_array($this->branchShortName)) {
+        $this->branchShortName = $this->getBranchShortNameLanguage();
+      }   
+    } else {
+      // branchshortname do not exists in Openagency 2.5 (implemented in Openagency 2.6)
+      // so we return branchname as shortname
+      $this->branchShortName = $this->branchName; 
+    }
+      
     if (isset($pickupAgency->postalAddress)) {
       $this->postalAddress = TingClientRequest::getValue($pickupAgency->postalAddress);
     }
@@ -124,13 +147,90 @@ class TingClientAgencyBranch {
     }
     return $ret;
   }
+ 
+  private function getBranchNameLanguage() {
+    //Decide language code
+    global $language;
+    $lang = $language->language;
+    
+    // drupal en = openformat eng
+    if ($lang == 'en' || $lang == 'en-gb') {
+      $lang = 'eng';
+    }
+    //drupal da = openformat dan
+    if ($lang == 'da') {
+      $lang = 'dan';
+    }
 
+    $names = isset($this->branchName) ? $this->branchName : 'FALSE';
+
+    if (is_array($names)) {
+      foreach ($names as $name) {
+        if ($name->{'@language'}->{'$'} == $lang) {
+          $ret = $name->{'$'};
+        }
+      }
+      if (empty($ret)) {
+        // given lanuguage was not found..simply return first in array
+        $ret = $names[0]->{'$'};
+      }
+    }
+    else {
+      // branchName not set
+      $ret = '';
+    }
+
+    return $ret;
+    
+  }
+  
+  private function getBranchShortNameLanguage() {
+    
+    //Decide language code
+    global $language;
+    $lang = $language->language;
+    
+    // drupal en = openformat eng
+    if ($lang == 'en' || $lang == 'en-gb') {
+      $lang = 'eng';
+    }
+    //drupal da = openformat dan
+    if ($lang == 'da') {
+      $lang = 'dan';
+    }
+    
+    $names = isset($this->branchShortName) ? $this->branchShortName : 'FALSE';
+    
+    if (is_array($names)) {
+      foreach ($names as $name) {
+        if ($name->{'@language'}->{'$'} == $lang) {
+          $ret = $name->{'$'};
+        }
+      }
+      if (empty($ret)) {
+        // given lanuguage was not found..simply return first in array
+        $ret = $names[0]->{'$'};
+      }
+    }
+    else {
+      // branchShortName not set
+      $ret = '';
+    }
+    
+    return $ret;
+    
+  }
+  
   public function getPaymentUrl() {
     if (isset($this->paymentUrl)) {
       return $this->paymentUrl;
     }
     // workaround
+<<<<<<< HEAD
     if (isset($this->pickupAgency->paymentUrl->{'$'})) { // why the �%#�!!!! don't $this->paymentUrl return a value?????
+=======
+    if ( isset($this->pickupAgency->paymentUrl->{'$'}) ) { // why the �%#�!!!! don't $this->paymentUrl return a value?????
+>>>>>>> feature/949_branchShortName
       return $this->pickupAgency->paymentUrl->{'$'};
     }
     return NULL;

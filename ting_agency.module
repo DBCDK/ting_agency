@@ -65,12 +65,15 @@ function ting_agency_theme() {
     'ting_agency_contact' => array(
       'variables' => array('branch' => NULL,),
     ),
+<<<<<<< HEAD
     'ting_agency_pickup_allowed' => array(
+=======
+      'ting_agency_branch_short_name' => array(
+>>>>>>> feature/949_branchShortName
       'variables' => array('branch' => NULL,),
     ),
   );
 }
-
 
 /**
    * Implements hook_flush_caches
