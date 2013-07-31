@@ -4,7 +4,7 @@ class TingClientAgencyBranch {
 
   public $branchId;
   public $agencyId;
-  public $branchName;
+  protected $branchName;
   public $branchPhone;
   public $branchEmail;
   public $postalAddress;
@@ -22,6 +22,7 @@ class TingClientAgencyBranch {
   public $librarydkSupportPhone;
   public $paymentUrl;
   public $pickupAllowed;
+  public $getDataArray;
 
   public function __construct($pickupAgency, $agencyName = NULL, $agencyId = NULL) {
     if (isset($agencyId)) {
@@ -42,7 +43,9 @@ class TingClientAgencyBranch {
 
   private function set_attributes($pickupAgency) {
     $this->branchId = TingClientRequest::getValue($pickupAgency->branchId);
-    $this->branchName = TingClientRequest::getValue($pickupAgency->branchName);
+    // $this->branchName = TingClientRequest::getValue($pickupAgency->branchName);
+    $this->branchName = $pickupAgency->branchName;
+    // $this->getDataArray['branchName'] = $pickupAgency->branchName;
     $this->branchPhone = TingClientRequest::getValue($pickupAgency->branchPhone);
     $this->branchEmail = TingClientRequest::getValue($pickupAgency->branchEmail);
     if (isset($pickupAgency->postalAddress)) {
@@ -95,19 +98,45 @@ class TingClientAgencyBranch {
     }
   }
 
+  public function getBranchName($lang = 'dan') {
+    $lang = $this->drupalLangToServiceLang($lang);
+    $branches = $this->branchName;
+    if (is_array($branches)) {
+      foreach ($branches as $branch)
+        if ($branch->{'@language'}->{'$'} == $lang) {
+          $ret = $branch->{'$'};
+        }
+      if (empty($ret)) {
+        // given lanuguage was not found..simply return first in array
+        $ret = $branch->{'$'};
+      }
+    }
+    // this is for backward compatibility with openagency versions prior to 2.6
+    elseif (is_object($branches)) {
+      $val = TingClientRequest::getValue($branches);
+      if (isset($val)) {
+        $ret = $val;
+      }
+    }
+    else {
+      // branchname is not set
+      $ret = t('ting_agency_no_branch_name');
+    }
+    return $ret;
+  }
+
   public function getPaymentUrl() {
-    if ( isset($this->paymentUrl) ) {
+    if (isset($this->paymentUrl)) {
       return $this->paymentUrl;
     }
     // workaround
-    if ( isset($this->pickupAgency->paymentUrl->{'$'}) ) { // why the �%#�!!!! don't $this->paymentUrl return a value?????
+    if (isset($this->pickupAgency->paymentUrl->{'$'})) { // why the �%#�!!!! don't $this->paymentUrl return a value?????
       return $this->pickupAgency->paymentUrl->{'$'};
     }
     return NULL;
   }
 
-  // @TODO move this function to ting_agency/TingClientAgencyBranch
-  public function getOpeningHours($lang) {
+  private function drupalLangToServiceLang($lang) {
     // drupal en = openformat eng
     if ($lang == 'en' || $lang == 'en-gb') {
       $lang = 'eng';
@@ -116,6 +145,11 @@ class TingClientAgencyBranch {
     if ($lang == 'da') {
       $lang = 'dan';
     }
+    return $lang;
+  }
+
+  public function getOpeningHours($lang) {
+    $lang = $this->drupalLangToServiceLang($lang);
 
     $hours = isset($this->openingHours) ? $this->openingHours : 'FALSE';
     if (is_array($hours)) {
@@ -164,16 +198,16 @@ class TingClientAgencyBranch {
 
     return $address;
   }
-  
- public function getPicupAllowed() {
-   $picupallowed = '';
-   if (isset($this->pickupAllowed)) {
-      if( $this->pickupAllowed == 0  ) {
-        $picupallowed .=  t('Biblioteket modtager ikke bestillinger igennem bibliotek.dk');
+
+  public function getPicupAllowed() {
+    $picupallowed = '';
+    if (isset($this->pickupAllowed)) {
+      if ($this->pickupAllowed == 0) {
+        $picupallowed .= t('Biblioteket modtager ikke bestillinger igennem bibliotek.dk');
       }
     }
     return $picupallowed;
- }    
+  }
 
   public function getLibrarydkContact() {
     $ret = array();
@@ -201,15 +235,14 @@ class TingClientAgencyBranch {
     return $ret;
   }
 
-
   /**
    * Returns array with agencySubdivisions if any
    *
    * @return array
    */
-  public function getAgencySubdivisions(){
+  public function getAgencySubdivisions() {
     $arr = array();
-    if(isset($this->pickupAgency->agencySubdivision)){
+    if (isset($this->pickupAgency->agencySubdivision)) {
       $arr = $this->parseFields($this->pickupAgency->agencySubdivision);
     }
     return $arr;
@@ -253,7 +286,7 @@ class TingClientAgencyBranch {
    */
   private function parseFields($object) {
     if (is_object($object)) {
-      $object = (array)$object;
+      $object = (array) $object;
     }
     if (is_array($object)) {
       $arr = array();
@@ -261,7 +294,7 @@ class TingClientAgencyBranch {
         if ($key !== '@') {
           if ($key === '$') {
             $arr = $this->parseFields($val);
-          } 
+          }
           else {
             $arr[$key] = $this->parseFields($val);
           }
@@ -273,4 +306,5 @@ class TingClientAgencyBranch {
     }
     return $arr;
   }
+
 }
