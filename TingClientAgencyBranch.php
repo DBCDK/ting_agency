@@ -4,7 +4,7 @@ class TingClientAgencyBranch {
 
   public $branchId;
   public $agencyId;
-  protected $branchName;
+  private $branchName;
   public $branchPhone;
   public $branchEmail;
   public $postalAddress;
@@ -137,7 +137,7 @@ class TingClientAgencyBranch {
   }
 
   private function drupalLangToServiceLang($lang) {
-    // drupal en = openformat eng
+    // drupal en an en-gb = openformat eng
     if ($lang == 'en' || $lang == 'en-gb') {
       $lang = 'eng';
     }
