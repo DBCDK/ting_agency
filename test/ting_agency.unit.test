@@ -35,7 +35,7 @@ class TingAgencyUnitTest extends DrupalUnitTestCase {
     $this->assertEqual($count, 15, 'Array length was ' . $count . ', expected 15');
   }
   
-  /** test that the correct language
+  /** test that the correct branchName is returned
    * 
    */
  public function testLanguageGetter() {
