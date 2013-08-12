@@ -8,6 +8,7 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
   protected $authentication;
   protected $agencyId;
   protected $agencyName;
+  protected $branchShortName;
   protected $agencyAddress;
   protected $postalCode;
   protected $city;
@@ -59,7 +60,7 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
   public function setAgencyName($agencyName) {
     $this->agencyName = $agencyName;
   }
-
+     
   public function getAgencyAddress() {
     return $this->agencyAddress;
   }
