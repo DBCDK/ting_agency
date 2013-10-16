@@ -89,7 +89,49 @@ class TingAgency {
     return $this->pickUpAgencies;
   }
 
-   /**
+  /** get pickupagencies in the form [branchID => branchShortName]   * 
+   *
+   * @global type $language
+   * @return array; empty if no pickupAgencies 
+   */
+  public function getPickupAgencySelectList() {
+    global $language;
+    $pickUpAgencies = $this->getPickUpAgencies();
+    $arr = array();
+    if ($pickUpAgencies) {
+      foreach ($pickUpAgencies as $branch) {
+        $name = $branch->getBranchName($language->language);
+        if ($name === 'Bogbussen') {
+          $arr += $this->getPickupAgencySubdivsionSelectElement($branch);
+        }
+        else {
+          $arr[$branch->branchId] = $branch->getBranchShortName($language->language);
+        }
+      }
+    }
+    else {
+      $arr[$branch->branchId] = $branch->getBranchShortName($language->language);
+    }
+    return $arr;
+  }
+  
+  
+  /** get pickupAgencySubdivision (bus stops)
+   *
+   * @return array ['bogbussen'][branchId => name]
+   */
+  private function getPickupAgencySubdivsionSelectElement($branch) {
+    $arr = array();
+    if (isset($branch->pickupAgency->agencySubdivision)) {
+    $subdivisions = $branch->getAgencySubdivisions();
+    foreach ($subdivisions as $key => $value) {
+      $arr['Bogbussen:'][$branch->branchId . '-' . $value] = $value;
+    }
+  }
+  return $arr;
+  }
+
+  /**
    * @param mixed Sets pickUpAllowed to TRUE or FALSE
    */
   public function setPickUpAllowed($pickUpAllowed) {
@@ -113,7 +155,7 @@ class TingAgency {
     }
     return $this->pickUpAllowed;
   }
-  
+
   public function getAgencyFields() {
     $service = 'userOrderParameters';
     $response = $this->do_serviceRequest($service);
