@@ -89,6 +89,12 @@ class TingAgency {
     return $this->pickUpAgencies;
   }
 
+  public function getUpdateOrderAllowed(){
+    $branch = $this->getBranch();
+    if (isset($branch))
+      return $branch->getNcipUpdateOrder();
+  }
+
    /**
    * @param mixed Sets pickUpAllowed to TRUE or FALSE
    */
