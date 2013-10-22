@@ -115,6 +115,20 @@ class TingAgency {
     return $arr;
   }
   
+  public function hasSubDivisions($branchId) {
+    $pickUpAgencies = $this->getPickUpAgencies();
+    if ($pickUpAgencies) {
+      foreach ($pickUpAgencies as $branch) {
+        if ($branch->branchId == $branchId) {
+          if(isset($branch->pickupAgency->agencySubdivision)) {
+            return TRUE;
+          }
+        }
+      }
+    }
+    return FALSE;
+  }
+  
   
   /** get pickupAgencySubdivision (bus stops)
    *
