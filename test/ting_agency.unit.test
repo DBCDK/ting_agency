@@ -38,6 +38,25 @@ class TingAgencyUnitTest extends DrupalUnitTestCase {
     $count = count($result);
     $this->assertEqual($count, 15, 'Array length was ' . $count . ', expected 15');
   }
+  
+  public function testgetPickupAgencySelectList() {
+    module_load_include('php', 'ting_agency', 'TingAgency');
+    $agency = new TingAgency('737606');
+    $path = drupal_get_path('module', 'ting_agency');
+    $path .= '/test/lib/pickupagencylist.json';
+    $pickupagencies = file_get_contents($path);
+    $agencies = unserialize($pickupagencies);
+    $agency->setPickUpAgencies($agencies);
+    // test getPickupAgencySelectList method
+    $list = $agency->getPickupAgencySelectList();
+    $this->assertTrue(array_key_exists('Bogbussen:', $list), 'bogbussen found in pickupagencylist');
+    // test hasSubDivisions($branchId) method
+    $result = $agency->hasSubDivisions('710100');
+    $this->assertFalse($result, 'no results found for agency with no subdivision');
+    
+    $result = $agency->hasSubDivisions('737606');
+    $this->assertTrue($result, 'subdivsion found');
+  }
 
   /** test that the correct branchName is returned
    *
