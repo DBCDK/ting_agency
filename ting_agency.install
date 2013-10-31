@@ -26,6 +26,3 @@ function ting_agency_update_7001() {
     // do nothing table probably already exists
   }
 }
-
-
-?>

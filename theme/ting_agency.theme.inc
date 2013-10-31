@@ -117,5 +117,3 @@ function theme_ting_agency_pickup_allowed($variables) {
   }
   return $branch->getPicupAllowed();
 }
-
-?>
