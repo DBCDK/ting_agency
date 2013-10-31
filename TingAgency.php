@@ -109,9 +109,7 @@ class TingAgency {
         }
       }
     }
-    else {
-      $arr[$branch->branchId] = $branch->getBranchShortName($language->language);
-    }
+
     return $arr;
   }
   
