@@ -89,6 +89,62 @@ class TingAgency {
     return $this->pickUpAgencies;
   }
 
+  /** get pickupagencies in the form [branchID => branchShortName]   * 
+   *
+   * @global type $language
+   * @return array; empty if no pickupAgencies 
+   */
+  public function getPickupAgencySelectList() {
+    global $language;
+    $pickUpAgencies = $this->getPickUpAgencies();
+    $arr = array();
+    if ($pickUpAgencies) {
+      foreach ($pickUpAgencies as $branch) {
+        $name = $branch->getBranchName($language->language);
+        if ($name === 'Bogbussen') {
+          $arr += $this->getPickupAgencySubdivsionSelectElement($branch);
+        }
+        else {
+          $arr[$branch->branchId] = $branch->getBranchShortName($language->language);
+        }
+      }
+    }
+    else {
+      $arr[$branch->branchId] = $branch->getBranchShortName($language->language);
+    }
+    return $arr;
+  }
+  
+  public function hasSubDivisions($branchId) {
+    $pickUpAgencies = $this->getPickUpAgencies();
+    if ($pickUpAgencies) {
+      foreach ($pickUpAgencies as $branch) {
+        if ($branch->branchId == $branchId) {
+          if(isset($branch->pickupAgency->agencySubdivision)) {
+            return TRUE;
+          }
+        }
+      }
+    }
+    return FALSE;
+  }
+  
+  
+  /** get pickupAgencySubdivision (bus stops)
+   *
+   * @return array ['bogbussen'][branchId => name]
+   */
+  private function getPickupAgencySubdivsionSelectElement($branch) {
+    $arr = array();
+    if (isset($branch->pickupAgency->agencySubdivision)) {
+    $subdivisions = $branch->getAgencySubdivisions();
+    foreach ($subdivisions as $key => $value) {
+      $arr['Bogbussen:'][$branch->branchId . '-' . $value] = $value;
+    }
+  }
+  return $arr;
+  }
+
   public function getUpdateOrderAllowed(){
     $branch = $this->getBranch();
     if (isset($branch))
@@ -119,7 +175,7 @@ class TingAgency {
     }
     return $this->pickUpAllowed;
   }
-  
+
   public function getAgencyFields() {
     $service = 'userOrderParameters';
     $response = $this->do_serviceRequest($service);
