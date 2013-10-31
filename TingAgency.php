@@ -101,7 +101,7 @@ class TingAgency {
     if ($pickUpAgencies) {
       foreach ($pickUpAgencies as $branch) {
         $name = $branch->getBranchName($language->language);
-        if ($name === 'Bogbussen') {
+        if ($branch->getBranchType() == 'b') {
           $arr += $this->getPickupAgencySubdivsionSelectElement($branch);
         }
         else {
