@@ -101,6 +101,11 @@ class TingClientAgencyBranch {
       $this->pickupAllowed = TingClientRequest::getValue($pickupAgency->pickupAllowed);
     }
   }
+  
+   public function getBranchType() {
+    return isset($this->pickupAgency->branchType) ?
+    $this->pickupAgency->branchType->{'$'} : NULL;
+  }
 
   public function getNcipUpdateOrder(){
     $pickupAgency = $this->pickupAgency;
