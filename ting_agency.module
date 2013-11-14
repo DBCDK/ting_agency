@@ -104,16 +104,27 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
     ),
   );
 
+  // insert a fake password field to stop browsers from autofilling the real fields
+  // with saved password
+  $form['wrapper']['fake_password'] = array(
+    '#attributes' => array('style' => array('display:none;')),
+    '#type' => 'password',
+  );
+
   foreach ($fields->getUserParameters() as $userParameter) {
     $type = $userParameter['type'];
     $title = isset($userParameter['field_name']) ? $userParameter['field_name'] : "";
     $userDataElement = isset($userData[$userParameter['type']]) ? $userData[$userParameter['type']] : NULL;
     $value = isset($form_state['values'][$type]) ? $form_state['values'][$type] : $userDataElement;
     if ($type == 'userMail') {
-      $title .= ' ' . t('label_notice_recommended', array(), array('context' => 'ting_agency'));
+      if (!$userParameter['required']) {
+        $title .= ' ' . t('label_notice_recommended', array(), array('context' => 'ting_agency'));
+      }
     }
     $form['wrapper'][$type] = array(
-      '#attributes' => array('class' => array((isset($userParameter['field_type']) && $userParameter['field_type'] == 'password') ? drupal_html_class('bibdk_password_field') : '')),
+      '#attributes' => array(
+        'class' => array((isset($userParameter['field_type']) && $userParameter['field_type'] == 'password') ? drupal_html_class('bibdk_password_field') : ''),
+      ),
       '#type' => 'textfield',
       '#title' => $title,
       '#description' => isset($userParameter['field_description']) ? $userParameter['field_description'] : NULL,
