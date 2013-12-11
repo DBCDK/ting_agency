@@ -15,7 +15,7 @@ class TingClientAgencyBranch {
   public $serviceDeclarationUrl;
   public $openingHours;
   public $temporarilyClosed;
-  public $temporarilyClosedReason;
+  private $temporarilyClosedReason;
   public $illOrderReceiptText;
   public $userStatusUrl;
   public $agencyName;
