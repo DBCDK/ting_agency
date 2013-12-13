@@ -13,6 +13,9 @@
       <h3><?php print $branchName; ?></h3> 
       <?php if(isset($agencyName) ) :?>
       <h4><?php print $agencyName;?></h4>
+      <?php if(isset($temporarilyClosedReason) ) :?>
+        <strong><br/><?php print $temporarilyClosedReason;?></strong>
+      <?php endif;?>   
       <?php endif;?>      
     </hgroup>
     <div class="messages_<?php print $branchid ?>"></div>

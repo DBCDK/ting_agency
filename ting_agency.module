@@ -82,7 +82,7 @@ function ting_agency_flush_caches() {
   return array('cache_agency_webservice');
 }
 
-function ting_agency_userdata_form($form, &$form_state, $fields, $userData = null) {
+function ting_agency_userdata_form($form, &$form_state, $fields, $userData = null, $branchid=NULL) {
   $params = isset($fields) ? $fields->getUserParameters() : null;
   if (empty($params)) {
     $form['wrapper']['error'] = array('#markup' => _ting_agency_error_no_agency_user_data());
@@ -132,8 +132,35 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
       '#default_value' => isset($value) ? $value : "",
     );
   }
+    
+  if(isset($branchid)){
+    $form['wrapper']['subdivision'] = ting_agency_get_selector_for_subagencies($branchid);
+  }
 
   return $form;
+}
+
+function ting_agency_get_selector_for_subagencies($branchId) {
+  $options = array();
+  
+  $agency = new TingAgency($branchId);
+  
+  if(!($agency->hasSubDivisions($branchId))) {
+    return;
+  }
+  
+  $options = $agency->getPickupAgencySelectList();
+  $options = $options['Bogbussen:'];
+  
+ 
+  $form_element = array();
+  $form_element = array(
+    '#title' => t('Select bus stop',array(),array('context'=>'bibdk_favourite')),
+    '#type' => 'select',
+    '#options' => $options,
+  );
+
+  return $form_element;
 }
 
 function _ting_agency_error_no_agency_user_data() {

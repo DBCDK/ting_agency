@@ -15,6 +15,7 @@ class TingClientAgencyBranch {
   public $serviceDeclarationUrl;
   public $openingHours;
   public $temporarilyClosed;
+  private $temporarilyClosedReason;
   public $illOrderReceiptText;
   public $userStatusUrl;
   public $agencyName;
@@ -51,7 +52,6 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->branchShortName) ) {
       $this->branchShortName = $pickupAgency->branchShortName;
     }
-      
     if (isset($pickupAgency->postalAddress)) {
       $this->postalAddress = TingClientRequest::getValue($pickupAgency->postalAddress);
     }
@@ -75,6 +75,9 @@ class TingClientAgencyBranch {
     }
     if (isset($pickupAgency->temporarilyClosed)) {
       $this->temporarilyClosed = TingClientRequest::getValue($pickupAgency->temporarilyClosed);
+    }
+    if (isset($pickupAgency->temporarilyClosedReason)) {
+      $this->temporarilyClosedReason = $pickupAgency->temporarilyClosedReason;
     }
     if (isset($pickupAgency->illOrderReceiptText)) {
       $this->illOrderReceiptText = $pickupAgency->illOrderReceiptText;
@@ -102,7 +105,31 @@ class TingClientAgencyBranch {
     }
   }
   
-   public function getBranchType() {
+  public function getTemporarilyClosedReason($lang = 'dan') {
+    $lang = $this->drupalLangToServiceLang($lang);
+    $ret = "";
+    if ($this->temporarilyClosed) {
+      if (isset($this->temporarilyClosedReason)) {
+        $temporarilyClosedReasons = $this->temporarilyClosedReason;
+        if (is_array($temporarilyClosedReasons)) {
+           foreach ($temporarilyClosedReasons as $ClosedReason)
+             if ($ClosedReason->{'@language'}->{'$'} == $lang) {
+                 $ret = $ClosedReason->{'$'};
+        }
+        if (empty($ret)) {
+            // given lanuguage was not found..simply return first in array
+            $ret = $ClosedReason->{'$'};
+        }
+        }
+      }
+    }
+    else {
+      $ret = t('ting_agency_no_temporarilyClosedReason', array(), array('context' => 'ting_agency'));
+    }
+    return $ret;
+  }
+    
+  public function getBranchType() {
     return isset($this->pickupAgency->branchType) ?
     $this->pickupAgency->branchType->{'$'} : NULL;
   }
