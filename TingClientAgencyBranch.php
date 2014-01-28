@@ -105,7 +105,7 @@ class TingClientAgencyBranch {
     }
   }
   
-  public function getTemporarilyClosedReason($lang = 'dan') {
+  public function getTemporarilyClosedReason($lang ) {
     $lang = $this->drupalLangToServiceLang($lang);
     $ret = "";
     if ($this->temporarilyClosed) {
