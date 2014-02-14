@@ -17,14 +17,15 @@ class TingClientAgencyBranch {
   public $temporarilyClosed;
   private $temporarilyClosedReason;
   public $illOrderReceiptText;
-  public $userStatusUrl;
+  private $userStatusUrl;
   public $agencyName;
-  // Supportphone and email
   public $librarydkSupportEmail;
   public $librarydkSupportPhone;
-  public $paymentUrl;
+  private $paymentUrl;
   public $pickupAllowed;
   public $getDataArray;
+  public $pickupAgency;
+  private $ncipLookUpUser;
 
   public function __construct($pickupAgency, $agencyName = NULL, $agencyId = NULL) {
     if (isset($agencyId)) {
@@ -39,7 +40,6 @@ class TingClientAgencyBranch {
     }
     else {
       throw new TingClientAgencyBranchException('TingClientAgencyBranch constructor needs either agencyid or findlibraryresponse (openagency.addi.dk)');
-      // do something .. throw an exception
     }
   }
 
@@ -48,7 +48,7 @@ class TingClientAgencyBranch {
     $this->branchName = $pickupAgency->branchName;
     $this->branchPhone = TingClientRequest::getValue($pickupAgency->branchPhone);
     $this->branchEmail = TingClientRequest::getValue($pickupAgency->branchEmail);
-    
+
     if (isset($pickupAgency->branchShortName) ) {
       $this->branchShortName = $pickupAgency->branchShortName;
     }
@@ -103,8 +103,11 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->pickupAllowed)) {
       $this->pickupAllowed = TingClientRequest::getValue($pickupAgency->pickupAllowed);
     }
+    if(isset($pickupAgency->ncipLookupUser)){
+      $this->ncipLookUpUser = TingClientRequest::getValue($pickupAgency->ncipLookupUser);
+    }
   }
-  
+
   public function getTemporarilyClosedReason($lang ) {
     $lang = $this->drupalLangToServiceLang($lang);
     $ret = "";
@@ -128,7 +131,7 @@ class TingClientAgencyBranch {
     }
     return $ret;
   }
-    
+
   public function getBranchType() {
     return isset($this->pickupAgency->branchType) ?
     $this->pickupAgency->branchType->{'$'} : NULL;
@@ -194,12 +197,26 @@ class TingClientAgencyBranch {
     }
     return $ret;
   }
- 
-  
+
+  /**
+   * @return string|null
+   */
   public function getPaymentUrl() {
-    if (isset($this->paymentUrl)) {
-      return $this->paymentUrl;
-    }
+    return isset($this->paymentUrl) ? $this->paymentUrl : NULL;
+  }
+
+  /**
+   * @return bool
+   */
+  public function getNcipLookUpUser() {
+    return $this->ncipLookUpUser;
+  }
+
+  /**
+   * @return string
+   */
+  public function getUserStatusUrl() {
+    return $this->userStatusUrl;
   }
 
   private function drupalLangToServiceLang($lang) {
