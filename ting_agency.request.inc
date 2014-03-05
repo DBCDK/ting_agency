@@ -3,7 +3,7 @@
 class AgencyRequest extends TingClientRequest implements ITingClientRequestCache {
 
   protected $cacheKey;
-  // attributes for findlibrary request 
+  // attributes for findlibrary request
   protected $action;
   protected $authentication;
   protected $agencyId;
@@ -60,7 +60,7 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
   public function setAgencyName($agencyName) {
     $this->agencyName = $agencyName;
   }
-     
+
   public function getAgencyAddress() {
     return $this->agencyAddress;
   }
@@ -141,27 +141,12 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
     $this->outputType = $outputType;
   }
 
-  public function getRequest() {
-    $service_url = variable_get('agency_search_url');
-    if (function_exists('ting_client_validate_xsd')) {
-      $params = ting_client_validate_xsd('openagency.xsd', $this->getAction());
-    }
-    else
-      throw new Exception("Validation is needed for bibdk_agency");
-    foreach ($params as $parameter) {
-      $getter = 'get' . ucfirst($parameter);
-      if ($value = $this->$getter()) {
-        $this->setParameter($parameter, $value);
-      }
-    }
-    return $this;
-  }
 
   /** Implementation of ITingClientRequestCache */
-  
+
   /** \brief ITingClientRequestCache::cacheKey; get a cachekey
-   * 
-   * @return string 
+   *
+   * @return string
    */
   public function cacheKey() {
     $params = $this->getParameters();
@@ -174,7 +159,7 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
   /** \brief make a cachekey based on request parameters
    *
    * @param array $params
-   * @param string $ret 
+   * @param string $ret
    */
   private function make_cache_key($params, &$ret) {
     foreach ($params as $key => $value) {
@@ -190,7 +175,7 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
   }
 
   /** \brief ITingClientRequestCache::cacheEnable; Check if cache is enabled
-   *   
+   *
    * @return value of variable (drupal_get)
    */
   public function cacheEnable($value = NULL) {
@@ -199,8 +184,8 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
   }
 
   /**\brief set timeout of cache
-   * 
-   * @return mixed value of variable (variable_get)  
+   *
+   * @return mixed value of variable (variable_get)
    */
   public function cacheTimeout($value = NULL) {
     $class_name = get_class($this);
@@ -208,7 +193,7 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
   }
 
   /* \brief implements ITingClientRequestCache::cacheBin
-   * 
+   *
    * @return string; name of cachebin
    */
   public function cacheBin() {
@@ -216,11 +201,11 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
   }
 
   /** end ITingClientRequestCache * */
-  
+
   // empty;
   public function processResponse(stdClass $result) {
     return $result;
   }
 
-  
+
 }
