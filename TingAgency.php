@@ -137,7 +137,8 @@ class TingAgency {
     if (isset($branch->pickupAgency->agencySubdivision)) {
     $subdivisions = $branch->getAgencySubdivisions();
     foreach ($subdivisions as $key => $value) {
-      $arr['Bogbussen:'][$branch->branchId . '-' . $value] = $value;
+     // $arr['Bogbussen:'][$branch->branchId . '-' . $value] = $value;
+      $arr['Bogbussen:'][$value] = $value;
     }
   }
   return $arr;

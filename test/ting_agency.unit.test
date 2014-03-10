@@ -50,6 +50,11 @@ class TingAgencyUnitTest extends DrupalUnitTestCase {
     // test getPickupAgencySelectList method
     $list = $agency->getPickupAgencySelectList();
     $this->assertTrue(array_key_exists('Bogbussen:', $list), 'bogbussen found in pickupagencylist');
+
+    //assert no agencyid in bogbus list
+    $keys = array_keys($list['Bogbussen:']);
+    $values = preg_grep('/(?<!\d)\d{8}(?!\d)/',$keys);
+    $this->assertTrue(empty($values), 'no agency id in bogbus-list');
     // test hasSubDivisions($branchId) method
     $result = $agency->hasSubDivisions('710100');
     $this->assertFalse($result, 'no results found for agency with no subdivision');
