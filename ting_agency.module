@@ -19,6 +19,7 @@ function ting_agency_ting_client_webservice() {
   $ret = array();
   $ret['agency']['class'] = 'AgencyRequest';
   $ret['agency']['url'] = 'agency_search_url';
+  $ret['agency']['xsd_url'] = 'agency_search_xsd_url';
   $ret['agency']['xsdNamespace'] = array(0 => 'http://oss.dbc.dk/ns/openagency');
   return $ret;
 }
@@ -28,12 +29,29 @@ function ting_agency_ting_client_webservice() {
  * Creates a field for adding a URL for the Ting Agency Search webservice
  */
 function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &$form_state, $form_id) {
-  $form['ting']['agency_search_url'] = array(
+
+  // don't start by defining the fieldset as an array. This way other modules can extend the fieldset.
+  $form['agency']['#type'] = 'fieldset';
+  $form['agency']['#title'] = t('OpenAgency settings');
+  $form['agency']['#description'] = t('Client for OpenAgency, a service that can be used for getting information about Danish libraries.');
+  $form['agency']['#collapsible'] = TRUE;
+  $form['agency']['#collapsed'] = FALSE;
+  $form['agency']['#tree'] = FALSE;
+
+  $form['agency']['agency_search_url'] = array(
     '#type' => 'textfield',
     '#title' => t('OpenAgency URL'),
     '#description' => t('URL to the Ting agency search webservice, e.g. http://openagency.addi.dk/1.6/'),
     '#required' => TRUE,
     '#default_value' => variable_get('agency_search_url', ''),
+  );
+
+  $form['agency']['agency_search_xsd_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('OpenAgency XSD URL'),
+    '#description' => t('URL to the Ting agency search XSD, e.g. http://openagency.addi.dk/x.x/openagency.xsd'),
+    '#required' => FALSE,
+    '#default_value' => variable_get('agency_search_xsd_url', ''),
   );
 }
 
@@ -132,7 +150,7 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
       '#default_value' => isset($value) ? $value : "",
     );
   }
-    
+
   if(isset($branchid)){
     $form['wrapper']['subdivision'] = ting_agency_get_selector_for_subagencies($branchid);
   }
@@ -142,17 +160,17 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
 
 function ting_agency_get_selector_for_subagencies($branchId) {
   $options = array();
-  
+
   $agency = new TingAgency($branchId);
-  
+
   if(!($agency->hasSubDivisions($branchId))) {
     return;
   }
-  
+
   $options = $agency->getPickupAgencySelectList();
   $options = $options['Bogbussen:'];
-  
- 
+
+
   $form_element = array();
   $form_element = array(
     '#title' => t('Select bus stop',array(),array('context'=>'bibdk_favourite')),
