@@ -20,11 +20,23 @@ function openagency_webservice_mockup_menu() {
     'access callback' => TRUE
   );
 
+  $items['openagency_webservice/xsd'] = array(
+    'page callback' => 'openagency_webservice_get_xsd',
+    'access callback' => TRUE
+  );
+
   return $items;
 }
 
 function openagency_webservice_test() {
   return '<form name="test" action="openagency_webservice" method="POST" target="_blank"><textarea name="xml"></textarea><input type="submit" name="sub" value="submit"/></form>';
+}
+
+function openagency_webservice_get_xsd(){
+  $path = drupal_get_path('module', 'openagenyc_webservice_mockup');
+  $file = file_get_contents($path.'/openagency.xsd');
+  print $file;
+  exit;
 }
 
 /**
