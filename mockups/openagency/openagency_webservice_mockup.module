@@ -10,10 +10,6 @@ function openagency_webservice_mockup_menu() {
     'page callback' => 'openagency_webservice_mockup_request',
     'access callback' => 'openagency_webservice_mockup_access',
   );
-  $items['openagency_webservice/openagency.xsd'] = array(
-    'page callback' => 'openagency_webservice_mockup_xsd',
-    'access callback' => 'openagency_webservice_mockup_access',
-  );
 
   $items['openagency_webservice/test'] = array(
     'page callback' => 'openagency_webservice_test',
@@ -33,7 +29,7 @@ function openagency_webservice_test() {
 }
 
 function openagency_webservice_get_xsd(){
-  $path = drupal_get_path('module', 'openagenyc_webservice_mockup');
+  $path = drupal_get_path('module', 'openagency_webservice_mockup');
   $file = file_get_contents($path.'/openagency.xsd');
   print $file;
   exit;
