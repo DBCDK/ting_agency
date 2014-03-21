@@ -16,7 +16,7 @@ function openagency_webservice_mockup_menu() {
     'access callback' => TRUE
   );
 
-  $items['openagency_webservice/xsd'] = array(
+  $items['openagency_webservice/openagency.xsd'] = array(
     'page callback' => 'openagency_webservice_get_xsd',
     'access callback' => TRUE
   );
