@@ -26,6 +26,10 @@ class TingClientAgencyBranch {
   public $getDataArray;
   public $pickupAgency;
   private $ncipLookUpUser;
+  
+  private $registrationFormUrl;
+  private $registrationFormUrlText;
+  
 
   public function __construct($pickupAgency, $agencyName = NULL, $agencyId = NULL) {
     if (isset($agencyId)) {
@@ -106,6 +110,16 @@ class TingClientAgencyBranch {
     if(isset($pickupAgency->ncipLookupUser)){
       $this->ncipLookUpUser = TingClientRequest::getValue($pickupAgency->ncipLookupUser);
     }
+    //registrationFormUrlText
+    if (isset($pickupAgency->registrationFormUrlText)) {
+      $this->registrationFormUrlText = TingClientRequest::getValue($pickupAgency->registrationFormUrlText);
+    }
+    //registrationFormUrl
+    if (isset($pickupAgency->registrationFormUrl)) {
+      $this->registrationFormUrl = TingClientRequest::getValue($pickupAgency->registrationFormUrl);
+    }
+    
+
   }
 
   public function getTemporarilyClosedReason($lang ) {
@@ -360,7 +374,23 @@ class TingClientAgencyBranch {
     }
     return $ret;
   }
+  
+  /**
+   * Get text for registrationUrl
+   * @return string
+  */
+  public function getRegistrationFormUrlText() {
+    return $this->registrationFormUrlText;
+  }
 
+  /**
+   * Get url used for registration
+   * @return string
+  */
+  public function getRegistrationFormUrl() {
+    return $this->registrationFormUrl;
+  }
+  
   /**
    * Recursively parses a object into a array
    *
