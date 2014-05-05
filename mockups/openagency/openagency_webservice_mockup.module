@@ -28,15 +28,16 @@ function openagency_webservice_test() {
   return '<form name="test" action="openagency_webservice" method="POST" target="_blank"><textarea name="xml"></textarea><input type="submit" name="sub" value="submit"/></form>';
 }
 
-function openagency_webservice_get_xsd(){
+function openagency_webservice_get_xsd() {
   $path = drupal_get_path('module', 'openagency_webservice_mockup');
-  $file = file_get_contents($path.'/openagency.xsd');
+  $file = file_get_contents($path . '/openagency.xsd');
   print $file;
   exit;
 }
 
 /**
  * Faking the request and returns result. If other requests are made than on city = københavn an error will be returned.
+ *
  * @return String json
  */
 function openagency_webservice_mockup_request() {
@@ -64,7 +65,8 @@ function openagency_webservice_mockup_request() {
       default:
         return SOAP_FAULT;
     }
-  } catch (Exception $e) {
+  }
+  catch (Exception $e) {
     return SOAP_FAULT;
   }
 }
@@ -74,29 +76,36 @@ function openagency_webservice_findLibraryRequest($request) {
 
   $query = $request->anyField;
   $agencyId = $request->agencyId;
-    $outPut = $request->outputType;
+  $outPut = $request->outputType;
 
-  if ($query == 'als'){
-  switch ($outPut) {
-    case 'json':
-      drupal_add_http_header('Content-Type', 'application/json');
-      $resp = file_get_contents($path . '/als.json');
-      break;
-    case 'xml':
-      drupal_add_http_header('Content-Type', 'text/xml; charset=utf-8');
-      $resp = file_get_contents($path . '/als.xml');
-      break;
+  if ($query == 'als') {
+    switch ($outPut) {
+      case 'json':
+        drupal_add_http_header('Content-Type', 'application/json');
+        $resp = file_get_contents($path . '/als.json');
+        break;
+      case 'xml':
+        drupal_add_http_header('Content-Type', 'text/xml; charset=utf-8');
+        $resp = file_get_contents($path . '/als.xml');
+        break;
+    }
   }
-  }else if ($query == 'odense'){
+  else if ($query == 'odense') {
     // Only json version
     drupal_add_http_header('Content-Type', 'application/json');
     $resp = file_get_contents($path . '/odense.json');
-  } else if (isset($agencyId)){
+  }
+  else if ($query == '?') {
+    drupal_add_http_header('Content-Type', 'application/json');
+    $resp = file_get_contents($path . '/openagency_find_all_libraries.json');
+  }
+  else if (isset($agencyId)) {
     drupal_add_http_header('Content-Type', 'application/json');
     $resp = file_get_contents($path . '/710101.json');
-  }else {
-      // No results
-     drupal_add_http_header('Content-Type', 'application/json');
+  }
+  else {
+    // No results
+    drupal_add_http_header('Content-Type', 'application/json');
     $resp = file_get_contents($path . '/no_agencies_found.json');
   }
 
@@ -160,7 +169,7 @@ function openagency_webservice_pickupAgencyListRequest($request) {
   print $resp;
 }
 
-function openagency_webservice_mockup_xsd(){
+function openagency_webservice_mockup_xsd() {
   $path = drupal_get_path('module', 'openagency_webservice_mockup');
   drupal_add_http_header('Content-Type', 'text/xml; charset=utf-8');
   echo file_get_contents($path . '/openagency.xsd');
@@ -170,6 +179,7 @@ function openagency_webservice_mockup_xsd(){
 
 /**
  * Parsing the request into a xml object
+ *
  * @param type request from ting-client
  * @return \SimpleXMLElement
  */

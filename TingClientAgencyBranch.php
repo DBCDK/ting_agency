@@ -26,10 +26,10 @@ class TingClientAgencyBranch {
   public $getDataArray;
   public $pickupAgency;
   private $ncipLookUpUser;
-  
+
   private $registrationFormUrl;
   private $registrationFormUrlText;
-  
+
 
   public function __construct($pickupAgency, $agencyName = NULL, $agencyId = NULL) {
     if (isset($agencyId)) {
@@ -118,7 +118,7 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->registrationFormUrl)) {
       $this->registrationFormUrl = TingClientRequest::getValue($pickupAgency->registrationFormUrl);
     }
-    
+
 
   }
 
@@ -346,13 +346,22 @@ class TingClientAgencyBranch {
   }
 
   public function getIllOrderReceiptText($lang = 'da') {
-    // drupal en = openformat eng
-    if ($lang == 'en' || $lang == 'en-gb') {
-      $lang = 'eng';
-    }
-    //drupal da = openformat dan
-    if ($lang == 'da') {
-      $lang = 'dan';
+
+    switch ($lang) {
+      case "en":
+      case "en-gb":
+        // drupal en = openformat eng
+        $lang = 'eng';
+        break;
+      case "da":
+        //drupal da = openformat dan
+        $lang = 'dan';
+        break;
+      default:
+        if ( !is_string($lang) ) {
+          watchdog('ting_agency', 'getIllOrderReceiptText: language is not set correctly', array(), WATCHDOG_ERROR);
+        }
+        $lang = 'dan';
     }
 
     $illOrderReceiptText = isset($this->illOrderReceiptText) ? $this->illOrderReceiptText : 'FALSE';
@@ -374,7 +383,7 @@ class TingClientAgencyBranch {
     }
     return $ret;
   }
-  
+
   /**
    * Get text for registrationUrl
    * @return string
@@ -390,7 +399,7 @@ class TingClientAgencyBranch {
   public function getRegistrationFormUrl() {
     return $this->registrationFormUrl;
   }
-  
+
   /**
    * Recursively parses a object into a array
    *
