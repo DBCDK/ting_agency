@@ -89,10 +89,10 @@ class TingAgency {
     return $this->pickUpAgencies;
   }
 
-  /** get pickupagencies in the form [branchID => branchShortName]   * 
+  /** get pickupagencies in the form [branchID => branchShortName]   *
    *
    * @global type $language
-   * @return array; empty if no pickupAgencies 
+   * @return array; empty if no pickupAgencies
    */
   public function getPickupAgencySelectList() {
     global $language;
@@ -112,7 +112,7 @@ class TingAgency {
 
     return $arr;
   }
-  
+
   public function hasSubDivisions($branchId) {
     $pickUpAgencies = $this->getPickUpAgencies();
     if ($pickUpAgencies) {
@@ -126,8 +126,8 @@ class TingAgency {
     }
     return FALSE;
   }
-  
-  
+
+
   /** get pickupAgencySubdivision (bus stops)
    *
    * @return array ['bogbussen'][branchId => name]
@@ -148,6 +148,12 @@ class TingAgency {
     $branch = $this->getBranch();
     if (isset($branch))
       return $branch->getNcipUpdateOrder();
+  }
+
+  public function getRenewOrderAllowed(){
+    $branch = $this->getBranch();
+    if (isset($branch))
+      return $branch->getNcipRenewOrder();
   }
 
    /**
