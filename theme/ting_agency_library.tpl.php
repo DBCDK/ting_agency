@@ -6,19 +6,19 @@
 ?>
 <article class="<?php print $classes ?>" >
   <div class="element-section clearfix">
-    <div class="actions">
-      <?php print $actions; ?>
-    </div>
-    <hgroup>
-      <h3><?php print $branchName; ?></h3> 
+    <div class="hgroup">
+      <h3><?php print $branchName; ?></h3>
       <?php if(isset($agencyName) ) :?>
       <h4><?php print $agencyName;?></h4>
       <?php if(isset($temporarilyClosedReason) ) :?>
         <strong><br/><?php print $temporarilyClosedReason;?></strong>
-      <?php endif;?>   
-      <?php endif;?>      
-    </hgroup>
-    <div class="messages_<?php print $branchid ?>"></div>
+      <?php endif;?>
+      <?php endif;?>
+    </div>
+    <div class="actions">
+      <?php print $actions; ?>
+    </div>
+    <div class="messages_<?php print $branchid ?> clearfix"></div>
     <?php if (isset($moreinfo)) : ?>
       <div class="toggle-next-section">
         <a href="#" class="show-more">
