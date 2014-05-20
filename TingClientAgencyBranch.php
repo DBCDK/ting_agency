@@ -158,6 +158,13 @@ class TingClientAgencyBranch {
     }
   }
 
+  public function getNcipRenewOrder(){
+    $pickupAgency = $this->pickupAgency;
+    if ( isset($pickupAgency->ncipRenewOrder) ) {
+      return TingClientRequest::getValue($pickupAgency->ncipRenewOrder);
+    }
+  }
+
   public function getBranchShortName($lang = 'dan') {
     $lang = $this->drupalLangToServiceLang($lang);
     $branches = $this->branchShortName;
