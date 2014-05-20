@@ -6,18 +6,20 @@
 ?>
 <article class="<?php print $classes ?>" >
   <div class="element-section clearfix">
-    <div class="hgroup">
+    <div class="hgroup<?php print !empty($actions) ? ' has-action' : ''; ?>">
       <h3><?php print $branchName; ?></h3>
-      <?php if(isset($agencyName) ) :?>
+      <?php if ( isset($agencyName) ) :?>
       <h4><?php print $agencyName;?></h4>
-      <?php if(isset($temporarilyClosedReason) ) :?>
+      <?php if ( isset($temporarilyClosedReason) ) :?>
         <strong><br/><?php print $temporarilyClosedReason;?></strong>
       <?php endif;?>
       <?php endif;?>
     </div>
+    <?php if ( !empty($actions) ) :?>
     <div class="actions">
       <?php print $actions; ?>
     </div>
+    <?php endif;?>
     <div class="messages_<?php print $branchid ?> clearfix"></div>
     <?php if (isset($moreinfo)) : ?>
       <div class="toggle-next-section">
