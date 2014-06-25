@@ -164,6 +164,15 @@ class TingClientAgencyBranch {
     $this->pickupAgency->lookupUrl->{'$'} : NULL;
   }
 
+  /**
+   * @return bool
+   */
+  public function getIsOclcRsLibrary() {
+    return isset($this->pickupAgency->isOclcRsLibrary) ?
+    $this->pickupAgency->isOclcRsLibrary->{'$'} : NULL;
+  }
+
+
   public function getNcipUpdateOrder(){
     $pickupAgency = $this->pickupAgency;
     if (isset($pickupAgency->ncipUpdateOrder)) {
@@ -256,6 +265,13 @@ class TingClientAgencyBranch {
   /**
    * @return string|null
    */
+  public function getBranchEmail() {
+    return isset($this->branchEmail) ? $this->branchEmail : NULL;
+  }
+
+  /**
+   * @return string|null
+   */
   public function getPaymentUrl() {
     return isset($this->paymentUrl) ? $this->paymentUrl : NULL;
   }
@@ -265,13 +281,6 @@ class TingClientAgencyBranch {
    */
   public function getNcipLookUpUser() {
     return $this->ncipLookUpUser;
-  }
-
-  /**
-   * @return bool
-   */
-  public function getIsOclcRsLibrary() {
-    return $this->pickupAgency->isOclcRsLibrary;
   }
 
   /**
