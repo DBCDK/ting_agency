@@ -48,6 +48,7 @@ class TingAgency {
     return $this->branch;
   }
 
+  /* Deprecated. Use getBranch() instead */
   public function getInformation() {
     if (empty($this->information)) {
       $response = $this->do_serviceRequest('information');

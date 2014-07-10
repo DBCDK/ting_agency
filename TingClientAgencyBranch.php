@@ -146,10 +146,32 @@ class TingClientAgencyBranch {
     return $ret;
   }
 
+  public function getBranchId() {
+    return isset($this->pickupAgency->branchId) ?
+    $this->pickupAgency->branchId->{'$'} : NULL;
+  }
+
   public function getBranchType() {
     return isset($this->pickupAgency->branchType) ?
     $this->pickupAgency->branchType->{'$'} : NULL;
   }
+
+  /**
+   * @return string
+   */
+  public function getLookupUrl() {
+    return isset($this->pickupAgency->lookupUrl) ?
+    $this->pickupAgency->lookupUrl->{'$'} : NULL;
+  }
+
+  /**
+   * @return bool
+   */
+  public function getIsOclcRsLibrary() {
+    return isset($this->pickupAgency->isOclcRsLibrary) ?
+    $this->pickupAgency->isOclcRsLibrary->{'$'} : NULL;
+  }
+
 
   public function getNcipUpdateOrder(){
     $pickupAgency = $this->pickupAgency;
@@ -217,6 +239,34 @@ class TingClientAgencyBranch {
       $ret = t('ting_agency_no_branch_name');
     }
     return $ret;
+  }
+
+  /**
+   * @return string|null
+   */
+  public function getAgencyName() {
+    return isset($this->agencyName) ? $this->agencyName : NULL;
+  }
+
+  /**
+   * @return string|null
+   */
+  public function getPostalCode() {
+    return isset($this->postalCode) ? $this->postalCode : NULL;
+  }
+
+  /**
+   * @return string|null
+   */
+  public function getCity() {
+    return isset($this->city) ? $this->city : NULL;
+  }
+
+  /**
+   * @return string|null
+   */
+  public function getBranchEmail() {
+    return isset($this->branchEmail) ? $this->branchEmail : NULL;
   }
 
   /**
