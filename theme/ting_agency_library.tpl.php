@@ -21,7 +21,7 @@
     </div>
     <?php endif;?>
     <div class="messages_<?php print $branchid ?> clearfix"></div>
-    <?php if (isset($moreinfo)) : ?>
+    <?php if (isset($moreinfo) and $toggle_enabled == true) : ?>
       <div class="toggle-next-section">
         <a href="#" class="show-more">
           <strong><?php print t('ting_agency_more_info'); ?></strong>
@@ -31,6 +31,8 @@
         </a>
       </div>
     </div>
+  <?php endif; ?>
+  <?php if (isset($moreinfo)): ?>
     <?php print $moreinfo; ?>
   <?php endif; ?>
 </article>

@@ -62,11 +62,11 @@ function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &
 function ting_agency_theme() {
   return array(
     'ting_agency_library' => array(
-      'variables' => array('branchName' => NULL, 'agencyName' => NULL, 'actions' => NULL, 'moreinfo' => NULL, 'branchid' => NULL, 'add_classes' => array()),
+      'variables' => array('branchName' => NULL, 'agencyName' => NULL, 'actions' => NULL, 'moreinfo' => NULL, 'branchid' => NULL, 'add_classes' => array(), 'toggle_enabled' => true),
       'template' => 'theme/ting_agency_library',
     ),
     'ting_agency_more_info' => array(
-      'variables' => array('branch' => NULL, 'openingHours' => NULL),
+      'variables' => array('branch' => NULL, 'openingHours' => NULL, 'toggle_enabled' => true),
       'template' => 'theme/ting_agency_more_info',
     ),
     'ting_agency_opening_hours' => array(
@@ -111,7 +111,7 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
     '#markup' => t('description_text', array(), array('context' => 'bibdk_favourite')),
     '#weight' => -101,
   );
-  
+
   // checkbox to unmask password fields
   $form['uncheck'] = array(
     '#title' => t('Show_masked_input'),
