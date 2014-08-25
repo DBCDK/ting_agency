@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 ?>
-<div class="element-section visuallyhidden">
+<div class="element-section <?php if ($toggle_enabled) print 'visuallyhidden'; ?>">
   <div class="library-details text clearfix">
     <div class="library-details-column-1">
       <?php if( isset($address) ) : ?>
