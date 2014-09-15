@@ -146,6 +146,9 @@ class TingClientAgencyBranch {
     return $ret;
   }
 
+  /** Check if branch is set as order Library
+   * @return bool
+   */
   public function isOrderLibrary() {
     return (isset($this->orderLibrary) && $this->orderLibrary == 'TRUE');
   }
