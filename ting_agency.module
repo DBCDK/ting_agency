@@ -195,26 +195,33 @@ function _ting_agency_error_no_agency_user_data() {
  * Render the view of an agency branch and wrap it in an form element
  *
  * @param TingClientAgencyBranch $branch
+ * @param Array $settings
  * @return mixed
  */
 function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $settings) {
-  $settings['#actions'] = isset($settings['#actions']) ? drupal_render($settings['#actions']) : '';
-  global $language;
-  $classes = array();
-  $classes[] = 'favourite_' . $branch->branchId;
-  $classes[] = $branch->isOrderLibrary() ? 'order-agency' : NULL;
+  // Actions can be both links and form elements, and needs to handles separately
+  $actions =  isset($settings['#actions']) ? $settings['#actions'] : '';
+  unset($settings['#actions']);
 
-  $render['library'] = $settings;
-  $render['library'] += array(
+  // Set default values
+  global $language;
+  $default = array(
     '#theme' => 'ting_agency_library',
     '#branchName' => $branch->getBranchName($language->language),
-    '#actions' => '',
-    '#add_classes' => $classes,
+    '#actions' => drupal_render($actions),
+    '#add_classes' => array(
+      'favourite_' . $branch->branchId,
+      $branch->isOrderLibrary() ? 'order-agency' : NULL,
+    ),
     '#moreinfo' => ting_agency_get_more_info($branch),
     '#branchid' => $branch->branchId,
     '#temporarilyClosedReason' => ting_agency_temporarily_closed_message($branch),
   );
-  $render['action'] = $settings['#actions'];
+
+  // create render array
+  $render['library'] = $settings;
+  $render['library'] += $default;
+  $render['action'] = $actions;
 
   // place branch on top if set as order-agency
   if ($branch->isOrderLibrary()) {
