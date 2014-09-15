@@ -20,19 +20,13 @@ function theme_ting_agency_contact($variables) {
     return;
   }
   $contact_array = $branch->getContact();
-  $output = '';
-  if (!empty($contact_array)) {
-    foreach ($contact_array as $key => $value) {
-      $output .= $key . ' : ' . $value . '<br/>';
-    }
-  }
-  return $output;
+  return ting_agency_element_create_list($contact_array);
 }
 
 /** \brief Theme librarydkcontact info
  *
  * @param array $variables
- * @return string (html) 
+ * @return string (html)
  */
 function theme_ting_agency_librarydk_contact($variables) {
   $branch = $variables['branch'];
@@ -40,20 +34,14 @@ function theme_ting_agency_librarydk_contact($variables) {
     return;
   }
   $contact_array = $branch->getLibrarydkContact();
-  $output = '';
-  if (!empty($contact_array)) {
-    foreach ($contact_array as $key => $value) {
-      $output .= $key . ' : ' . $value . '<br/>';
-    }
-  }
-  return $output;
+  return ting_agency_element_create_list($contact_array);
 }
 
 /** \brief Theme agency opening hourt
  *
  * @global stdObject $language
  * @param array $variables
- * @return string (html) 
+ * @return string (html)
  */
 function theme_ting_agency_opening_hours($variables) {
   $branch = $variables['branch'];
@@ -90,10 +78,35 @@ function theme_ting_agency_tools($variables) {
   }
 }
 
+function get_ting_agency_tools($branch) {
+  $links = $branch->getActionLinks();
+  $items = array();
+  if (!empty($links)) {
+    foreach ($links as $name => $link) {
+      $item['data'] = l($name, $link, array());
+      $items[] = $item;
+    }
+    return array(
+      '#theme' => 'item_list',
+      '#items' => $items
+    );
+  }
+}
+
+
+function ting_agency_element_create_list($list) {
+  $output = '';
+  if (!empty($list)) {
+    foreach ($list as $key => $value) {
+      $output .= $key . ' : ' . $value . '<br/>';
+    }
+  }
+  return $output;
+}
 /** \brief Theme address for given agency
  *
  * @param array $variables
- * @return string (html) 
+ * @return string (html)
  */
 function theme_ting_agency_address($variables) {
   $branch = $variables['branch'];
@@ -108,7 +121,7 @@ function theme_ting_agency_address($variables) {
 /** \brief Theme pickup for given agency
  *
  * @param array $variables
- * @return string (html) 
+ * @return string (html)
  */
 function theme_ting_agency_pickup_allowed($variables) {
   $branch = $variables['branch'];
