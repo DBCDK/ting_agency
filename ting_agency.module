@@ -189,3 +189,82 @@ function ting_agency_get_selector_for_subagencies($branchId) {
 function _ting_agency_error_no_agency_user_data() {
   return t('no_agency_data_from_agency');
 }
+
+
+/**
+ * Render the view of an agency branch and wrap it in an form element
+ *
+ * @param TingClientAgencyBranch $branch
+ * @return mixed
+ */
+function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $settings) {
+  $settings['#actions'] = isset($settings['#actions']) ? drupal_render($settings['#actions']) : '';
+  global $language;
+  $classes = array();
+  $classes[] = 'favourite_' . $branch->branchId;
+  $classes[] = $branch->isOrderLibrary() ? 'order-agency' : NULL;
+
+  $render['library'] = $settings;
+  $render['library'] += array(
+    '#theme' => 'ting_agency_library',
+    '#branchName' => $branch->getBranchName($language->language),
+    '#actions' => '',
+    '#add_classes' => $classes,
+    '#moreinfo' => ting_agency_get_more_info($branch),
+    '#branchid' => $branch->branchId,
+    '#temporarilyClosedReason' => ting_agency_temporarily_closed_message($branch),
+  );
+  $render['action'] = $settings['#actions'];
+
+  // place branch on top if set as order-agency
+  if ($branch->isOrderLibrary()) {
+    $render['#weight'] = -1;
+  }
+
+  return array(
+    '#title' => $branch->getBranchName($language->language),
+    $branch->branchId => $render,
+  );
+}
+
+/** Check if Temporarily closed message exists for branch and return message
+ * @param $branch
+ * @return string
+ */
+function ting_agency_temporarily_closed_message($branch) {
+  global $language;
+  // Handle TemporarilyClosedReason
+  $tmp_reason = $branch->getTemporarilyClosedReason($language->language);
+  if($tmp_reason != 'ting_agency_no_temporarilyClosedReason') {
+    // Hide all drupalmessages
+    $messages = drupal_get_messages();
+    // Set  message for temporarilyClosedReason
+    drupal_set_message($tmp_reason, 'warning');
+    $tmp_reason = theme('status_messages');
+    // Restore old messages
+    foreach ($messages as $key=>$message) {
+      drupal_set_message($message[0],$key);
+    }
+  }
+  else {
+    $tmp_reason = '';
+  }
+
+  return $tmp_reason;
+}
+
+/** Generate more info for branch
+ * get default moreinfo for a branch
+ */
+function ting_agency_get_more_info(TingClientAgencyBranch $branch) {
+  global $language;
+  return theme('ting_agency_more_info', array(
+    'branch' => $branch,
+    'openingHours' => $branch->getOpeningHours($language->language),
+    'tools' => get_ting_agency_tools($branch),
+    'address' => $branch->getAddress(),
+    'pickupallowed' => $branch->getPicupAllowed(),
+    'librarydkcontact' => ting_agency_element_create_list($branch->getLibrarydkContact()),
+    'contact' => ting_agency_element_create_list($branch->getContact()),
+  ));
+}
