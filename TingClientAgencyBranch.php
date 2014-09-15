@@ -146,6 +146,10 @@ class TingClientAgencyBranch {
     return $ret;
   }
 
+  public function isOrderLibrary() {
+    return (isset($this->orderLibrary) && $this->orderLibrary == 'TRUE');
+  }
+
   public function getBranchId() {
     return isset($this->pickupAgency->branchId) ?
     $this->pickupAgency->branchId->{'$'} : NULL;
