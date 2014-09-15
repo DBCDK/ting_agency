@@ -62,11 +62,12 @@ function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &
 function ting_agency_theme() {
   return array(
     'ting_agency_library' => array(
-      'variables' => array('branchName' => NULL, 'agencyName' => NULL, 'actions' => NULL, 'moreinfo' => NULL, 'branchid' => NULL, 'add_classes' => array(), 'toggle_enabled' => true),
+      'variables' => array('branchName' => NULL, 'agencyName' => NULL, 'actions' => NULL, 'moreinfo' => NULL, 'branchid' => NULL, 'add_classes' => array(), 'toggle_enabled' => true, 'temporarilyClosedReason' => NULL),
       'template' => 'theme/ting_agency_library',
     ),
+
     'ting_agency_more_info' => array(
-      'variables' => array('branch' => NULL, 'openingHours' => NULL, 'toggle_enabled' => true),
+      'variables' => array('branch' => NULL, 'openingHours' => NULL, 'toggle_enabled' => true, 'tools' => NULL, 'address' => NULL, 'pickupallowed' => NULL, 'librarydkcontact' => NULL, 'contact' => NULL),
       'template' => 'theme/ting_agency_more_info',
     ),
     'ting_agency_opening_hours' => array(
