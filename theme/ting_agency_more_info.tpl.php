@@ -31,7 +31,7 @@
       <?php } ?>
       <?php if ( isset($tools) ) : ?>
         <p class="subheader"><strong><?php print t('ting_agency_tools'); ?></strong></p>
-        <?php print $tools; ?>
+        <?php print drupal_render($tools); ?>
       <?php endif; ?>
     </div>
   </div>
