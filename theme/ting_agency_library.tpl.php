@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 ?>
-<div class="element">
-  <div class="element-wrapper">
     <article class="<?php print $classes ?>">
       <div class="element-section clearfix">
         <div class="hgroup<?php print !empty($actions) ? ' has-action' : ''; ?>">
@@ -38,7 +36,5 @@
         <?php print $moreinfo; ?>
       <?php endif; ?>
     </article>
-  </div>
-</div>
 
 
