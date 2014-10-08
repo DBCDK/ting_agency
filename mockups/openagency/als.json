@@ -1,1 +1,104 @@
-{"findLibraryResponse":{"pickupAgency":[{"branchId":{"$":"784605","@":"oa"},"branchType":{"$":"H","@":"oa"},"branchPhone":{"$":"9711 4115","@":"oa"},"branchName":{"$":"Als Bibliotek","@":"oa"},"branchEmail":{"$":"hadsundbibliotek@mariagerfjord.dk","@":"oa"},"branchIsAgency":{"$":"0","@":"oa"},"postalAddress":{"$":"ikke udfyldt","@":"oa"},"postalCode":{"$":"9560","@":"oa"},"city":{"$":"Hadsund","@":"oa"},"isil":{"$":"DK-784605","@":"oa"},"branchWebsiteUrl":{"$":"http:\/\/www.als.dk\/","@":"oa"},"serviceDeclarationUrl":{"$":"http:\/\/als.dk\/servicedeklaration\/view","@":"oa"},"userStatusUrl":{"$":"https:\/\/als.dk\/sites\/patronstatus.html","@":"oa"},"openingHours":[{"$":"openingHours dan","@language":{"$":"dan","@":"oa"},"@":"oa"},{"$":"openingHours eng","@language":{"$":"eng","@":"oa"},"@":"oa"}],"temporarilyClosed":{"$":"0","@":"oa"},"pickupAllowed":{"$":"1","@":"oa"},"ncipLookupUser":{"$":"1","@":"oa"},"ncipRenewOrder":{"$":"1","@":"oa"},"ncipCancelOrder":{"$":"1","@":"oa"},"ncipUpdateOrder":{"$":"0","@":"oa"},"@":"oa"}],"@":"oa"},"@namespaces":{"oa":"http:\/\/oss.dbc.dk\/ns\/openagency"}}
+{"findLibraryResponse": {
+  "pickupAgency": [
+    {
+      "branchId": {
+        "$": "784605",
+        "@": "oa"
+      },
+      "branchType": {
+        "$": "H",
+        "@": "oa"
+      },
+      "branchPhone": {
+        "$": "9711 4115",
+        "@": "oa"
+      },
+      "branchName": {
+        "$": "Als Bibliotek",
+        "@": "oa"
+      },
+      "branchEmail": {
+        "$": "hadsundbibliotek@mariagerfjord.dk",
+        "@": "oa"
+      },
+      "branchIsAgency": {
+        "$": "0",
+        "@": "oa"
+      },
+      "postalAddress": {
+        "$": "ikke udfyldt",
+        "@": "oa"
+      },
+      "postalCode": {
+        "$": "9560",
+        "@": "oa"
+      },
+      "city": {
+        "$": "Hadsund",
+        "@": "oa"
+      },
+      "isil": {
+        "$": "DK-784605",
+        "@": "oa"
+      },
+      "branchWebsiteUrl": {
+        "$": "http:\/\/www.als.dk\/",
+        "@": "oa"
+      },
+      "serviceDeclarationUrl": {
+        "$": "http:\/\/als.dk\/servicedeklaration\/view",
+        "@": "oa"
+      },
+      "userStatusUrl": {
+        "$": "https:\/\/als.dk\/sites\/patronstatus.html",
+        "@": "oa"
+      },
+      "openingHours": [
+        {
+          "$": "openingHours dan",
+          "@language": {
+            "$": "dan",
+            "@": "oa"
+          },
+          "@": "oa"
+        },
+        {
+          "$": "openingHours eng",
+          "@language": {
+            "$": "eng",
+            "@": "oa"
+          },
+          "@": "oa"
+        }
+      ],
+      "temporarilyClosed": {
+        "$": "0",
+        "@": "oa"
+      },
+      "pickupAllowed": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipLookupUser": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipRenewOrder": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipCancelOrder": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipUpdateOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "@": "oa"
+    }
+  ],
+  "@": "oa"
+}, "@namespaces": {
+  "oa": "http:\/\/oss.dbc.dk\/ns\/openagency"
+}}

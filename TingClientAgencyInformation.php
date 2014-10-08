@@ -21,7 +21,7 @@ class TingClientAgencyInformation {
   public function getAgencyName() {
     return isset($this->information->agencyName->{'$'}) ? $this->information->agencyName->{'$'} : NULL;
   }
-  
+
   public function getBranchEmail() {
     return isset($this->information->branchEmail->{'$'}) ? $this->information->branchEmail->{'$'} : NULL;
   }
@@ -53,7 +53,7 @@ class TingClientAgencyInformation {
   public function getPostalCode() {
     return isset($this->information->postalCode->{'$'}) ? $this->information->postalCode->{'$'} : NULL;
   }
-  
+
   public function getPickupAllowed() {
     return isset($this->information->agencyName->{'$'}) ? $this->information->pickupAllowed->{'$'} : NULL;
   }

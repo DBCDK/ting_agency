@@ -1,1 +1,772 @@
-{"findLibraryResponse":{"pickupAgency":[{"branchId":{"$":"746100","@":"oa"},"branchType":{"$":"H","@":"oa"},"branchPhone":{"$":"65 51 43 01","@":"oa"},"branchName":{"$":"Odense Centralbibliotek","@":"oa"},"branchEmail":{"$":"fjernlaan-bib@odense.dk","@":"oa"},"branchIsAgency":{"$":"0","@":"oa"},"postalAddress":{"$":"\u00d8stre Stationsvej 15","@":"oa"},"postalCode":{"$":"5000","@":"oa"},"city":{"$":"Odense C","@":"oa"},"isil":{"$":"DK-746100","@":"oa"},"branchWebsiteUrl":{"$":"http:\/\/www.odensebib.dk","@":"oa"},"userStatusUrl":{"$":"https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html","@":"oa"},"openingHours":[{"$":"Oktober - marts:\r\nman. -  tors.: 10 - 19\r\nfre.: 10 - 16\r\nl\u00f8r. - s\u00f8n.: 10 - 14\r\n\r\nApril - september:\r\nman. - tors.: 10 - 19\r\nfre.: 10 - 16\r\nl\u00f8r.: 10 - 14\r\ns\u00f8n.: lukket","@language":{"$":"dan","@":"oa"},"@":"oa"}],"temporarilyClosed":{"$":"0","@":"oa"},"pickupAllowed":{"$":"1","@":"oa"},"ncipLookupUser":{"$":"1","@":"oa"},"ncipRenewOrder":{"$":"1","@":"oa"},"ncipCancelOrder":{"$":"1","@":"oa"},"ncipUpdateOrder":{"$":"0","@":"oa"},"@":"oa"},{"branchId":{"$":"746102","@":"oa"},"branchType":{"$":"f","@":"oa"},"branchPhone":{"$":"65 51 43 04","@":"oa"},"branchName":{"$":"Bolbro Bibliotek","@":"oa"},"branchEmail":{"$":"bolbro-bib@odense.dk","@":"oa"},"branchIsAgency":{"$":"0","@":"oa"},"postalAddress":{"$":"Middelfartvej 81","@":"oa"},"postalCode":{"$":"5200","@":"oa"},"city":{"$":"Odense V.","@":"oa"},"isil":{"$":"DK-746102","@":"oa"},"branchWebsiteUrl":{"$":"http:\/\/www.odensebib.dk","@":"oa"},"userStatusUrl":{"$":"https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html","@":"oa"},"openingHours":[{"$":"man - tors: 11-15\r\nfre., l\u00f8r. og s\u00f8n.: Lukket","@language":{"$":"dan","@":"oa"},"@":"oa"}],"temporarilyClosed":{"$":"0","@":"oa"},"pickupAllowed":{"$":"1","@":"oa"},"ncipLookupUser":{"$":"0","@":"oa"},"ncipRenewOrder":{"$":"0","@":"oa"},"ncipCancelOrder":{"$":"0","@":"oa"},"ncipUpdateOrder":{"$":"0","@":"oa"},"@":"oa"},{"branchId":{"$":"746103","@":"oa"},"branchType":{"$":"f","@":"oa"},"branchPhone":{"$":"65 51 43 07","@":"oa"},"branchName":{"$":"Dalum Bibliotek","@":"oa"},"branchEmail":{"$":"dalum-bib@odense.dk","@":"oa"},"branchIsAgency":{"$":"0","@":"oa"},"postalAddress":{"$":"Dalumvej 95","@":"oa"},"postalCode":{"$":"5250","@":"oa"},"city":{"$":"Odense SV","@":"oa"},"isil":{"$":"DK-746103","@":"oa"},"branchWebsiteUrl":{"$":"http:\/\/www.odensebib.dk","@":"oa"},"userStatusUrl":{"$":"https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html","@":"oa"},"openingHours":[{"$":"man. - fre.: 12.30 -18\r\nl\u00f8r.: 10 - 14","@language":{"$":"dan","@":"oa"},"@":"oa"}],"temporarilyClosed":{"$":"0","@":"oa"},"pickupAllowed":{"$":"1","@":"oa"},"ncipLookupUser":{"$":"0","@":"oa"},"ncipRenewOrder":{"$":"0","@":"oa"},"ncipCancelOrder":{"$":"0","@":"oa"},"ncipUpdateOrder":{"$":"0","@":"oa"},"@":"oa"},{"branchId":{"$":"746104","@":"oa"},"branchType":{"$":"f","@":"oa"},"branchPhone":{"$":"65 95 90 89","@":"oa"},"branchName":{"$":"H\u00f8jby Bibliotek","@":"oa"},"branchEmail":{"$":"hojby-bib@odense.dk","@":"oa"},"branchIsAgency":{"$":"0","@":"oa"},"postalAddress":{"$":"N\u00f8rrelunden 20","@":"oa"},"postalCode":{"$":"5260","@":"oa"},"city":{"$":"Odense S","@":"oa"},"isil":{"$":"DK-746104","@":"oa"},"branchWebsiteUrl":{"$":"http:\/\/www.odensebib.dk","@":"oa"},"userStatusUrl":{"$":"https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html","@":"oa"},"openingHours":[{"$":"man og ons.: 12 - 18\r\ntirs. & tors.: 10 - 16\r\ns\u00f8n.: 13 - 16 (1.okt. - 31.marts l)\r\n(Specialtider i ferier se www.odense.bib.dk)","@language":{"$":"dan","@":"oa"},"@":"oa"}],"temporarilyClosed":{"$":"0","@":"oa"},"pickupAllowed":{"$":"1","@":"oa"},"ncipLookupUser":{"$":"0","@":"oa"},"ncipRenewOrder":{"$":"0","@":"oa"},"ncipCancelOrder":{"$":"0","@":"oa"},"ncipUpdateOrder":{"$":"0","@":"oa"},"@":"oa"},{"branchId":{"$":"746106","@":"oa"},"branchType":{"$":"f","@":"oa"},"branchPhone":{"$":"65 51 44 44","@":"oa"},"branchName":{"$":"Musikbiblioteket","@":"oa"},"branchEmail":{"$":"musik-bib@odense.dk","@":"oa"},"branchIsAgency":{"$":"0","@":"oa"},"postalAddress":{"$":"Pantheonsgade 15","@":"oa"},"postalCode":{"$":"5000","@":"oa"},"city":{"$":"Odense C.","@":"oa"},"isil":{"$":"DK-746106","@":"oa"},"branchWebsiteUrl":{"$":"http:\/\/www.odensebib.dk","@":"oa"},"userStatusUrl":{"$":"https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html","@":"oa"},"openingHours":[{"$":"man. - fre.: 10 - 18\r\nl\u00f8r.: 10 - 14\r\ns\u00f8n.: Lukket","@language":{"$":"dan","@":"oa"},"@":"oa"}],"temporarilyClosed":{"$":"0","@":"oa"},"pickupAllowed":{"$":"1","@":"oa"},"ncipLookupUser":{"$":"0","@":"oa"},"ncipRenewOrder":{"$":"0","@":"oa"},"ncipCancelOrder":{"$":"0","@":"oa"},"ncipUpdateOrder":{"$":"0","@":"oa"},"@":"oa"},{"branchId":{"$":"746107","@":"oa"},"branchType":{"$":"f","@":"oa"},"branchPhone":{"$":"65 51 43 25","@":"oa"},"branchName":{"$":"N\u00e6sby Bibliotek","@":"oa"},"branchEmail":{"$":"naesby-bib@odense.dk","@":"oa"},"branchIsAgency":{"$":"0","@":"oa"},"postalAddress":{"$":"Bogensevej 2","@":"oa"},"postalCode":{"$":"5270","@":"oa"},"city":{"$":"Odense N.","@":"oa"},"isil":{"$":"DK-746107","@":"oa"},"branchWebsiteUrl":{"$":"http:\/\/www.odensebib.dk","@":"oa"},"userStatusUrl":{"$":"https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html","@":"oa"},"openingHours":[{"$":"man. og ons: 12 - 18\r\ntors.: 10 - 16\r\nl\u00f8r.: 10 - 14\r\ntirs. og fre.: Lukket","@language":{"$":"dan","@":"oa"},"@":"oa"}],"temporarilyClosed":{"$":"0","@":"oa"},"pickupAllowed":{"$":"1","@":"oa"},"ncipLookupUser":{"$":"0","@":"oa"},"ncipRenewOrder":{"$":"0","@":"oa"},"ncipCancelOrder":{"$":"0","@":"oa"},"ncipUpdateOrder":{"$":"0","@":"oa"},"@":"oa"},{"branchId":{"$":"746110","@":"oa"},"branchType":{"$":"f","@":"oa"},"branchPhone":{"$":"65 51 43 38","@":"oa"},"branchName":{"$":"Tarup Bibliotek","@":"oa"},"branchEmail":{"$":"tarup-bib@odense.dk","@":"oa"},"branchIsAgency":{"$":"0","@":"oa"},"postalAddress":{"$":"Rugvang 40","@":"oa"},"postalCode":{"$":"5210","@":"oa"},"city":{"$":"Odense NV","@":"oa"},"isil":{"$":"DK-746110","@":"oa"},"branchWebsiteUrl":{"$":"http:\/\/www.odensebib.dk","@":"oa"},"userStatusUrl":{"$":"https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html","@":"oa"},"openingHours":[{"$":"man. ons. og tors.: 13 - 18\r\ntirs. og fre.: 10 - 16\r\nl\u00f8r.: 10 - 14","@language":{"$":"dan","@":"oa"},"@":"oa"}],"temporarilyClosed":{"$":"0","@":"oa"},"pickupAllowed":{"$":"1","@":"oa"},"ncipLookupUser":{"$":"0","@":"oa"},"ncipRenewOrder":{"$":"0","@":"oa"},"ncipCancelOrder":{"$":"0","@":"oa"},"ncipUpdateOrder":{"$":"0","@":"oa"},"@":"oa"},{"branchId":{"$":"746111","@":"oa"},"branchType":{"$":"f","@":"oa"},"branchPhone":{"$":"65 51 43 44","@":"oa"},"branchName":{"$":"Vollsmose Bibliotek","@":"oa"},"branchEmail":{"$":"vollsmose-bib@odense.dk","@":"oa"},"branchIsAgency":{"$":"0","@":"oa"},"postalAddress":{"$":"Vollsmose Alle 10","@":"oa"},"postalCode":{"$":"5240","@":"oa"},"city":{"$":"Odense N\u00d8","@":"oa"},"isil":{"$":"DK-746111","@":"oa"},"branchWebsiteUrl":{"$":"http:\/\/www.odensebib.dk","@":"oa"},"userStatusUrl":{"$":"https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html","@":"oa"},"openingHours":[{"$":"man., ons. og tors.: 13 - 18\r\ntirs. og fre.: 10 - 16\r\nl\u00f8r.: 10 - 14","@language":{"$":"dan","@":"oa"},"@":"oa"}],"temporarilyClosed":{"$":"0","@":"oa"},"pickupAllowed":{"$":"1","@":"oa"},"ncipLookupUser":{"$":"0","@":"oa"},"ncipRenewOrder":{"$":"0","@":"oa"},"ncipCancelOrder":{"$":"0","@":"oa"},"ncipUpdateOrder":{"$":"0","@":"oa"},"@":"oa"},{"branchId":{"$":"746112","@":"oa"},"branchType":{"$":"f","@":"oa"},"branchPhone":{"$":"65 51 43 51","@":"oa"},"branchName":{"$":"Holluf Pile Bibliotek","@":"oa"},"branchEmail":{"$":"holluf-pile-bib@odense.dk","@":"oa"},"branchIsAgency":{"$":"0","@":"oa"},"postalAddress":{"$":"N\u00f8glens Kvarter 10","@":"oa"},"postalCode":{"$":"5220","@":"oa"},"city":{"$":"Odense S\u00d8","@":"oa"},"isil":{"$":"DK-746112","@":"oa"},"branchWebsiteUrl":{"$":"http:\/\/www.odensebib.dk","@":"oa"},"userStatusUrl":{"$":"https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html","@":"oa"},"openingHours":[{"$":"september - april:\r\nman.: 14 - 20\r\ntirs. & tors.: 10 - 18\r\nfre.: 10 - 16\r\ns\u00f8n.: 12 - 16\r\nons. & l\u00f8r.: Lukket\r\n\r\nMaj - august:\r\nman.: 14 - 20\r\ntirs. & fre.: 10 - 16\r\ntors.: 12 - 18\r\nons., l\u00f8r., & s\u00f8n.: Lukket","@language":{"$":"dan","@":"oa"},"@":"oa"}],"temporarilyClosed":{"$":"0","@":"oa"},"pickupAllowed":{"$":"1","@":"oa"},"ncipLookupUser":{"$":"0","@":"oa"},"ncipRenewOrder":{"$":"0","@":"oa"},"ncipCancelOrder":{"$":"0","@":"oa"},"ncipUpdateOrder":{"$":"0","@":"oa"},"@":"oa"}],"@":"oa"},"@namespaces":{"oa":"http:\/\/oss.dbc.dk\/ns\/openagency"}}
+{"findLibraryResponse": {
+  "pickupAgency": [
+    {
+      "branchId": {
+        "$": "746100",
+        "@": "oa"
+      },
+      "branchType": {
+        "$": "H",
+        "@": "oa"
+      },
+      "branchPhone": {
+        "$": "65 51 43 01",
+        "@": "oa"
+      },
+      "branchName": {
+        "$": "Odense Centralbibliotek",
+        "@": "oa"
+      },
+      "branchEmail": {
+        "$": "fjernlaan-bib@odense.dk",
+        "@": "oa"
+      },
+      "branchIsAgency": {
+        "$": "0",
+        "@": "oa"
+      },
+      "postalAddress": {
+        "$": "\u00d8stre Stationsvej 15",
+        "@": "oa"
+      },
+      "postalCode": {
+        "$": "5000",
+        "@": "oa"
+      },
+      "city": {
+        "$": "Odense C",
+        "@": "oa"
+      },
+      "isil": {
+        "$": "DK-746100",
+        "@": "oa"
+      },
+      "branchWebsiteUrl": {
+        "$": "http:\/\/www.odensebib.dk",
+        "@": "oa"
+      },
+      "userStatusUrl": {
+        "$": "https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html",
+        "@": "oa"
+      },
+      "openingHours": [
+        {
+          "$": "Oktober - marts:\r\nman. -  tors.: 10 - 19\r\nfre.: 10 - 16\r\nl\u00f8r. - s\u00f8n.: 10 - 14\r\n\r\nApril - september:\r\nman. - tors.: 10 - 19\r\nfre.: 10 - 16\r\nl\u00f8r.: 10 - 14\r\ns\u00f8n.: lukket",
+          "@language": {
+            "$": "dan",
+            "@": "oa"
+          },
+          "@": "oa"
+        }
+      ],
+      "temporarilyClosed": {
+        "$": "0",
+        "@": "oa"
+      },
+      "pickupAllowed": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipLookupUser": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipRenewOrder": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipCancelOrder": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipUpdateOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "@": "oa"
+    },
+    {
+      "branchId": {
+        "$": "746102",
+        "@": "oa"
+      },
+      "branchType": {
+        "$": "f",
+        "@": "oa"
+      },
+      "branchPhone": {
+        "$": "65 51 43 04",
+        "@": "oa"
+      },
+      "branchName": {
+        "$": "Bolbro Bibliotek",
+        "@": "oa"
+      },
+      "branchEmail": {
+        "$": "bolbro-bib@odense.dk",
+        "@": "oa"
+      },
+      "branchIsAgency": {
+        "$": "0",
+        "@": "oa"
+      },
+      "postalAddress": {
+        "$": "Middelfartvej 81",
+        "@": "oa"
+      },
+      "postalCode": {
+        "$": "5200",
+        "@": "oa"
+      },
+      "city": {
+        "$": "Odense V.",
+        "@": "oa"
+      },
+      "isil": {
+        "$": "DK-746102",
+        "@": "oa"
+      },
+      "branchWebsiteUrl": {
+        "$": "http:\/\/www.odensebib.dk",
+        "@": "oa"
+      },
+      "userStatusUrl": {
+        "$": "https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html",
+        "@": "oa"
+      },
+      "openingHours": [
+        {
+          "$": "man - tors: 11-15\r\nfre., l\u00f8r. og s\u00f8n.: Lukket",
+          "@language": {
+            "$": "dan",
+            "@": "oa"
+          },
+          "@": "oa"
+        }
+      ],
+      "temporarilyClosed": {
+        "$": "0",
+        "@": "oa"
+      },
+      "pickupAllowed": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipLookupUser": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipRenewOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipCancelOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipUpdateOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "@": "oa"
+    },
+    {
+      "branchId": {
+        "$": "746103",
+        "@": "oa"
+      },
+      "branchType": {
+        "$": "f",
+        "@": "oa"
+      },
+      "branchPhone": {
+        "$": "65 51 43 07",
+        "@": "oa"
+      },
+      "branchName": {
+        "$": "Dalum Bibliotek",
+        "@": "oa"
+      },
+      "branchEmail": {
+        "$": "dalum-bib@odense.dk",
+        "@": "oa"
+      },
+      "branchIsAgency": {
+        "$": "0",
+        "@": "oa"
+      },
+      "postalAddress": {
+        "$": "Dalumvej 95",
+        "@": "oa"
+      },
+      "postalCode": {
+        "$": "5250",
+        "@": "oa"
+      },
+      "city": {
+        "$": "Odense SV",
+        "@": "oa"
+      },
+      "isil": {
+        "$": "DK-746103",
+        "@": "oa"
+      },
+      "branchWebsiteUrl": {
+        "$": "http:\/\/www.odensebib.dk",
+        "@": "oa"
+      },
+      "userStatusUrl": {
+        "$": "https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html",
+        "@": "oa"
+      },
+      "openingHours": [
+        {
+          "$": "man. - fre.: 12.30 -18\r\nl\u00f8r.: 10 - 14",
+          "@language": {
+            "$": "dan",
+            "@": "oa"
+          },
+          "@": "oa"
+        }
+      ],
+      "temporarilyClosed": {
+        "$": "0",
+        "@": "oa"
+      },
+      "pickupAllowed": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipLookupUser": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipRenewOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipCancelOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipUpdateOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "@": "oa"
+    },
+    {
+      "branchId": {
+        "$": "746104",
+        "@": "oa"
+      },
+      "branchType": {
+        "$": "f",
+        "@": "oa"
+      },
+      "branchPhone": {
+        "$": "65 95 90 89",
+        "@": "oa"
+      },
+      "branchName": {
+        "$": "H\u00f8jby Bibliotek",
+        "@": "oa"
+      },
+      "branchEmail": {
+        "$": "hojby-bib@odense.dk",
+        "@": "oa"
+      },
+      "branchIsAgency": {
+        "$": "0",
+        "@": "oa"
+      },
+      "postalAddress": {
+        "$": "N\u00f8rrelunden 20",
+        "@": "oa"
+      },
+      "postalCode": {
+        "$": "5260",
+        "@": "oa"
+      },
+      "city": {
+        "$": "Odense S",
+        "@": "oa"
+      },
+      "isil": {
+        "$": "DK-746104",
+        "@": "oa"
+      },
+      "branchWebsiteUrl": {
+        "$": "http:\/\/www.odensebib.dk",
+        "@": "oa"
+      },
+      "userStatusUrl": {
+        "$": "https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html",
+        "@": "oa"
+      },
+      "openingHours": [
+        {
+          "$": "man og ons.: 12 - 18\r\ntirs. & tors.: 10 - 16\r\ns\u00f8n.: 13 - 16 (1.okt. - 31.marts l)\r\n(Specialtider i ferier se www.odense.bib.dk)",
+          "@language": {
+            "$": "dan",
+            "@": "oa"
+          },
+          "@": "oa"
+        }
+      ],
+      "temporarilyClosed": {
+        "$": "0",
+        "@": "oa"
+      },
+      "pickupAllowed": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipLookupUser": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipRenewOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipCancelOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipUpdateOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "@": "oa"
+    },
+    {
+      "branchId": {
+        "$": "746106",
+        "@": "oa"
+      },
+      "branchType": {
+        "$": "f",
+        "@": "oa"
+      },
+      "branchPhone": {
+        "$": "65 51 44 44",
+        "@": "oa"
+      },
+      "branchName": {
+        "$": "Musikbiblioteket",
+        "@": "oa"
+      },
+      "branchEmail": {
+        "$": "musik-bib@odense.dk",
+        "@": "oa"
+      },
+      "branchIsAgency": {
+        "$": "0",
+        "@": "oa"
+      },
+      "postalAddress": {
+        "$": "Pantheonsgade 15",
+        "@": "oa"
+      },
+      "postalCode": {
+        "$": "5000",
+        "@": "oa"
+      },
+      "city": {
+        "$": "Odense C.",
+        "@": "oa"
+      },
+      "isil": {
+        "$": "DK-746106",
+        "@": "oa"
+      },
+      "branchWebsiteUrl": {
+        "$": "http:\/\/www.odensebib.dk",
+        "@": "oa"
+      },
+      "userStatusUrl": {
+        "$": "https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html",
+        "@": "oa"
+      },
+      "openingHours": [
+        {
+          "$": "man. - fre.: 10 - 18\r\nl\u00f8r.: 10 - 14\r\ns\u00f8n.: Lukket",
+          "@language": {
+            "$": "dan",
+            "@": "oa"
+          },
+          "@": "oa"
+        }
+      ],
+      "temporarilyClosed": {
+        "$": "0",
+        "@": "oa"
+      },
+      "pickupAllowed": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipLookupUser": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipRenewOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipCancelOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipUpdateOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "@": "oa"
+    },
+    {
+      "branchId": {
+        "$": "746107",
+        "@": "oa"
+      },
+      "branchType": {
+        "$": "f",
+        "@": "oa"
+      },
+      "branchPhone": {
+        "$": "65 51 43 25",
+        "@": "oa"
+      },
+      "branchName": {
+        "$": "N\u00e6sby Bibliotek",
+        "@": "oa"
+      },
+      "branchEmail": {
+        "$": "naesby-bib@odense.dk",
+        "@": "oa"
+      },
+      "branchIsAgency": {
+        "$": "0",
+        "@": "oa"
+      },
+      "postalAddress": {
+        "$": "Bogensevej 2",
+        "@": "oa"
+      },
+      "postalCode": {
+        "$": "5270",
+        "@": "oa"
+      },
+      "city": {
+        "$": "Odense N.",
+        "@": "oa"
+      },
+      "isil": {
+        "$": "DK-746107",
+        "@": "oa"
+      },
+      "branchWebsiteUrl": {
+        "$": "http:\/\/www.odensebib.dk",
+        "@": "oa"
+      },
+      "userStatusUrl": {
+        "$": "https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html",
+        "@": "oa"
+      },
+      "openingHours": [
+        {
+          "$": "man. og ons: 12 - 18\r\ntors.: 10 - 16\r\nl\u00f8r.: 10 - 14\r\ntirs. og fre.: Lukket",
+          "@language": {
+            "$": "dan",
+            "@": "oa"
+          },
+          "@": "oa"
+        }
+      ],
+      "temporarilyClosed": {
+        "$": "0",
+        "@": "oa"
+      },
+      "pickupAllowed": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipLookupUser": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipRenewOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipCancelOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipUpdateOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "@": "oa"
+    },
+    {
+      "branchId": {
+        "$": "746110",
+        "@": "oa"
+      },
+      "branchType": {
+        "$": "f",
+        "@": "oa"
+      },
+      "branchPhone": {
+        "$": "65 51 43 38",
+        "@": "oa"
+      },
+      "branchName": {
+        "$": "Tarup Bibliotek",
+        "@": "oa"
+      },
+      "branchEmail": {
+        "$": "tarup-bib@odense.dk",
+        "@": "oa"
+      },
+      "branchIsAgency": {
+        "$": "0",
+        "@": "oa"
+      },
+      "postalAddress": {
+        "$": "Rugvang 40",
+        "@": "oa"
+      },
+      "postalCode": {
+        "$": "5210",
+        "@": "oa"
+      },
+      "city": {
+        "$": "Odense NV",
+        "@": "oa"
+      },
+      "isil": {
+        "$": "DK-746110",
+        "@": "oa"
+      },
+      "branchWebsiteUrl": {
+        "$": "http:\/\/www.odensebib.dk",
+        "@": "oa"
+      },
+      "userStatusUrl": {
+        "$": "https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html",
+        "@": "oa"
+      },
+      "openingHours": [
+        {
+          "$": "man. ons. og tors.: 13 - 18\r\ntirs. og fre.: 10 - 16\r\nl\u00f8r.: 10 - 14",
+          "@language": {
+            "$": "dan",
+            "@": "oa"
+          },
+          "@": "oa"
+        }
+      ],
+      "temporarilyClosed": {
+        "$": "0",
+        "@": "oa"
+      },
+      "pickupAllowed": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipLookupUser": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipRenewOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipCancelOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipUpdateOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "@": "oa"
+    },
+    {
+      "branchId": {
+        "$": "746111",
+        "@": "oa"
+      },
+      "branchType": {
+        "$": "f",
+        "@": "oa"
+      },
+      "branchPhone": {
+        "$": "65 51 43 44",
+        "@": "oa"
+      },
+      "branchName": {
+        "$": "Vollsmose Bibliotek",
+        "@": "oa"
+      },
+      "branchEmail": {
+        "$": "vollsmose-bib@odense.dk",
+        "@": "oa"
+      },
+      "branchIsAgency": {
+        "$": "0",
+        "@": "oa"
+      },
+      "postalAddress": {
+        "$": "Vollsmose Alle 10",
+        "@": "oa"
+      },
+      "postalCode": {
+        "$": "5240",
+        "@": "oa"
+      },
+      "city": {
+        "$": "Odense N\u00d8",
+        "@": "oa"
+      },
+      "isil": {
+        "$": "DK-746111",
+        "@": "oa"
+      },
+      "branchWebsiteUrl": {
+        "$": "http:\/\/www.odensebib.dk",
+        "@": "oa"
+      },
+      "userStatusUrl": {
+        "$": "https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html",
+        "@": "oa"
+      },
+      "openingHours": [
+        {
+          "$": "man., ons. og tors.: 13 - 18\r\ntirs. og fre.: 10 - 16\r\nl\u00f8r.: 10 - 14",
+          "@language": {
+            "$": "dan",
+            "@": "oa"
+          },
+          "@": "oa"
+        }
+      ],
+      "temporarilyClosed": {
+        "$": "0",
+        "@": "oa"
+      },
+      "pickupAllowed": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipLookupUser": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipRenewOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipCancelOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipUpdateOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "@": "oa"
+    },
+    {
+      "branchId": {
+        "$": "746112",
+        "@": "oa"
+      },
+      "branchType": {
+        "$": "f",
+        "@": "oa"
+      },
+      "branchPhone": {
+        "$": "65 51 43 51",
+        "@": "oa"
+      },
+      "branchName": {
+        "$": "Holluf Pile Bibliotek",
+        "@": "oa"
+      },
+      "branchEmail": {
+        "$": "holluf-pile-bib@odense.dk",
+        "@": "oa"
+      },
+      "branchIsAgency": {
+        "$": "0",
+        "@": "oa"
+      },
+      "postalAddress": {
+        "$": "N\u00f8glens Kvarter 10",
+        "@": "oa"
+      },
+      "postalCode": {
+        "$": "5220",
+        "@": "oa"
+      },
+      "city": {
+        "$": "Odense S\u00d8",
+        "@": "oa"
+      },
+      "isil": {
+        "$": "DK-746112",
+        "@": "oa"
+      },
+      "branchWebsiteUrl": {
+        "$": "http:\/\/www.odensebib.dk",
+        "@": "oa"
+      },
+      "userStatusUrl": {
+        "$": "https:\/\/portal.fynbib.dk\/sites\/WODENSE\/pub\/patronstatus.html",
+        "@": "oa"
+      },
+      "openingHours": [
+        {
+          "$": "september - april:\r\nman.: 14 - 20\r\ntirs. & tors.: 10 - 18\r\nfre.: 10 - 16\r\ns\u00f8n.: 12 - 16\r\nons. & l\u00f8r.: Lukket\r\n\r\nMaj - august:\r\nman.: 14 - 20\r\ntirs. & fre.: 10 - 16\r\ntors.: 12 - 18\r\nons., l\u00f8r., & s\u00f8n.: Lukket",
+          "@language": {
+            "$": "dan",
+            "@": "oa"
+          },
+          "@": "oa"
+        }
+      ],
+      "temporarilyClosed": {
+        "$": "0",
+        "@": "oa"
+      },
+      "pickupAllowed": {
+        "$": "1",
+        "@": "oa"
+      },
+      "ncipLookupUser": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipRenewOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipCancelOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "ncipUpdateOrder": {
+        "$": "0",
+        "@": "oa"
+      },
+      "@": "oa"
+    }
+  ],
+  "@": "oa"
+}, "@namespaces": {
+  "oa": "http:\/\/oss.dbc.dk\/ns\/openagency"
+}}

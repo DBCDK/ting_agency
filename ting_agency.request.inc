@@ -165,11 +165,11 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
     foreach ($params as $key => $value) {
       if (is_array($value)) {
         // recursive
-        $ret.=$key;
+        $ret .= $key;
         $this->make_cache_key($value, $ret);
       }
       else {
-        $ret.=$value;
+        $ret .= $value;
       }
     }
   }
@@ -206,6 +206,5 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
   public function processResponse(stdClass $result) {
     return $result;
   }
-
 
 }

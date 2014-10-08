@@ -16,7 +16,7 @@ class AgencyFields {
     }
     $this->response = $response;
 
-    if( isset( $this->userParameters ) ) {
+    if (isset($this->userParameters)) {
       foreach ($this->userParameters as $key => $element) {
         $this->userParameters[$key] += $this->_getSettingsFromType($element['type']);
       }
@@ -32,8 +32,9 @@ class AgencyFields {
   }
 
   public function getOrderParametersForType($type, $orderType = 'ill') {
-    if (!isset($this->orderParameters))
+    if (!isset($this->orderParameters)) {
       return;
+    }
     foreach ($this->orderParameters as $orderParameter) {
       if ($orderParameter['materialType'] == $type && $orderParameter['orderType'] == $orderType) {
         return isset($orderParameter['itemParameters']) ? $orderParameter['itemParameters'] : NULL;
@@ -43,7 +44,13 @@ class AgencyFields {
 
   public function getUserIdKey() {
     foreach ($this->userParameters as $key => $element) {
-      if (in_array($element['type'], array('cpr', 'userId', 'cardno', 'customId'))) {
+      if (in_array($element['type'], array(
+        'cpr',
+        'userId',
+        'cardno',
+        'customId'
+      ))
+      ) {
         return $element['type'];
       }
     }
@@ -62,11 +69,15 @@ class AgencyFields {
   }
 
   public function getAcceptOrderFromUnknownUserText() {
-    global $language ;
-    $lang = strtr($language->language, array('da'=>'dan','en-gb'=>'eng','en'=>'eng'));
+    global $language;
+    $lang = strtr($language->language, array(
+      'da' => 'dan',
+      'en-gb' => 'eng',
+      'en' => 'eng'
+    ));
     switch ($lang) {
       case 'eng' :
-        if ( isset($this->agencyParameters['acceptOrderFromUnknownUserText']['eng']) ) {
+        if (isset($this->agencyParameters['acceptOrderFromUnknownUserText']['eng'])) {
           return $this->agencyParameters['acceptOrderFromUnknownUserText']['eng'];
         }
         break;
@@ -105,8 +116,12 @@ class AgencyFields {
   }
 
   private function _getSettingsFromType($type) {
-    global $language ;
-    $lang = strtr($language->language, array('da'=>'dan','en-gb'=>'eng','en'=>'eng'));
+    global $language;
+    $lang = strtr($language->language, array(
+      'da' => 'dan',
+      'en-gb' => 'eng',
+      'en' => 'eng'
+    ));
     $settings = array();
 
     switch ($type) {
@@ -119,7 +134,7 @@ class AgencyFields {
         break;
       case 'userId':
         $settings = array(
-          'field_name' => isset($this->userIdTxt[$lang]) ? check_plain($this->userIdTxt[$lang]) : ( isset($this->userIdTxt) ? check_plain(implode(", ", $this->userIdTxt)) : t('User ID')),
+          'field_name' => isset($this->userIdTxt[$lang]) ? check_plain($this->userIdTxt[$lang]) : (isset($this->userIdTxt) ? check_plain(implode(", ", $this->userIdTxt)) : t('User ID')),
           'field_type' => 'password',
           //'field_description' => isset($this->userIdTxt) ? implode(", ", $this->userIdTxt) : NULL,
         );
@@ -134,7 +149,7 @@ class AgencyFields {
         break;
       case 'customId':
         $settings = array(
-          'field_name' => isset($this->customIdTxt[$lang]) ? check_plain($this->customIdTxt[$lang]) : ( isset($this->customIdTxt) ? check_plain(implode(", ", $this->customIdTxt)) : t('Custom ID')),
+          'field_name' => isset($this->customIdTxt[$lang]) ? check_plain($this->customIdTxt[$lang]) : (isset($this->customIdTxt) ? check_plain(implode(", ", $this->customIdTxt)) : t('Custom ID')),
           'field_type' => 'password',
           //'field_description' => isset($this->customIdTxt) ? implode(", ", $this->customIdTxt) : NULL,
         );
@@ -186,71 +201,70 @@ class AgencyFields {
   }
 
   /**
- * Parse json response from ServiceRequest
- * @param json $response
- * @return array
- */
-private function _parse_agency_service_response($response) {
-  $result = array();
-  if (isset($response->userParameter)) {
-    foreach ($response->userParameter as $userParameter) {
+   * Parse json response from ServiceRequest
+   * @param json $response
+   * @return array
+   */
+  private function _parse_agency_service_response($response) {
+    $result = array();
+    if (isset($response->userParameter)) {
+      foreach ($response->userParameter as $userParameter) {
 
-      $result['userParameters'][] = array(
-        'type' => $userParameter->userParameterType->{'$'},
-        'required' => $userParameter->parameterRequired->{'$'},
-      );
-    }
-  }
-  if (isset($response->userIdTxt)) {
-    foreach ($response->userIdTxt as $txt) {
-      $result['userIdTxt'][$txt->{'@language'}->{'$'}] = $txt->{'$'};
-    }
-  }
-  if (isset($response->customIdTxt)) {
-    foreach ($response->customIdTxt as $txt) {
-      $result['customIdTxt'][$txt->{'@language'}->{'$'}] = $txt->{'$'};
-    }
-  }
-  if (isset($response->orderParameters)) {
-    foreach ($response->orderParameters as $key => $orderParameter) {
-      $result['orderParameters'][$key] = array(
-        'materialType' => $orderParameter->orderMaterialType->{'$'},
-        'orderType' => $orderParameter->orderType->{'$'},
-      );
-      if (isset($orderParameter->itemParameter)) {
-        $itemParameters = array();
-        foreach ($orderParameter->itemParameter as $itemParameter) {
-          $itemParameters[] = array(
-            'type' => $itemParameter->itemParameterType->{'$'},
-            'required' => $itemParameter->parameterRequired->{'$'},
-          );
-        }
-        $result['orderParameters'][$key]['itemParameters'] = $itemParameters;
+        $result['userParameters'][] = array(
+          'type' => $userParameter->userParameterType->{'$'},
+          'required' => $userParameter->parameterRequired->{'$'},
+        );
       }
     }
-  }
-  $result['agencyParameters']['borrowerCheckParameters'] = array();
-  if (isset($response->agencyParameters->borrowerCheckParameters)) {
-    foreach ($response->agencyParameters->borrowerCheckParameters as $key => $borrowerCheckParamerters) {
-      $result['agencyParameters']['borrowerCheckParameters'][$borrowerCheckParamerters->borrowerCheckSystem->{'$'}] = $borrowerCheckParamerters->borrowerCheck->{'$'};
+    if (isset($response->userIdTxt)) {
+      foreach ($response->userIdTxt as $txt) {
+        $result['userIdTxt'][$txt->{'@language'}->{'$'}] = $txt->{'$'};
+      }
     }
-  }
-  if (isset($response->agencyParameters->acceptOrderFromUnknownUser)) {
-    $result['agencyParameters']['acceptOrderFromUnknownUser'] = $response->agencyParameters->acceptOrderFromUnknownUser->{'$'};
-  }
-  if (isset($response->agencyParameters->acceptOrderAgencyOffline)) {
-    $result['agencyParameters']['acceptOrderAgencyOffline'] = $response->agencyParameters->acceptOrderAgencyOffline->{'$'};
-  }
-  if (isset($response->agencyParameters->acceptOrderFromUnknownUserText)) {
-    foreach ($response->agencyParameters->acceptOrderFromUnknownUserText as $txt) {
-      $result['agencyParameters']['acceptOrderFromUnknownUserText'][$txt->{'@language'}->{'$'}] = $txt->{'$'};
+    if (isset($response->customIdTxt)) {
+      foreach ($response->customIdTxt as $txt) {
+        $result['customIdTxt'][$txt->{'@language'}->{'$'}] = $txt->{'$'};
+      }
     }
+    if (isset($response->orderParameters)) {
+      foreach ($response->orderParameters as $key => $orderParameter) {
+        $result['orderParameters'][$key] = array(
+          'materialType' => $orderParameter->orderMaterialType->{'$'},
+          'orderType' => $orderParameter->orderType->{'$'},
+        );
+        if (isset($orderParameter->itemParameter)) {
+          $itemParameters = array();
+          foreach ($orderParameter->itemParameter as $itemParameter) {
+            $itemParameters[] = array(
+              'type' => $itemParameter->itemParameterType->{'$'},
+              'required' => $itemParameter->parameterRequired->{'$'},
+            );
+          }
+          $result['orderParameters'][$key]['itemParameters'] = $itemParameters;
+        }
+      }
+    }
+    $result['agencyParameters']['borrowerCheckParameters'] = array();
+    if (isset($response->agencyParameters->borrowerCheckParameters)) {
+      foreach ($response->agencyParameters->borrowerCheckParameters as $key => $borrowerCheckParamerters) {
+        $result['agencyParameters']['borrowerCheckParameters'][$borrowerCheckParamerters->borrowerCheckSystem->{'$'}] = $borrowerCheckParamerters->borrowerCheck->{'$'};
+      }
+    }
+    if (isset($response->agencyParameters->acceptOrderFromUnknownUser)) {
+      $result['agencyParameters']['acceptOrderFromUnknownUser'] = $response->agencyParameters->acceptOrderFromUnknownUser->{'$'};
+    }
+    if (isset($response->agencyParameters->acceptOrderAgencyOffline)) {
+      $result['agencyParameters']['acceptOrderAgencyOffline'] = $response->agencyParameters->acceptOrderAgencyOffline->{'$'};
+    }
+    if (isset($response->agencyParameters->acceptOrderFromUnknownUserText)) {
+      foreach ($response->agencyParameters->acceptOrderFromUnknownUserText as $txt) {
+        $result['agencyParameters']['acceptOrderFromUnknownUserText'][$txt->{'@language'}->{'$'}] = $txt->{'$'};
+      }
+    }
+    if (isset($response->agencyParameters->payForPostage)) {
+      $result['agencyParameters']['payForPostage'] = $response->agencyParameters->payForPostage->{'$'};
+    }
+    return $result;
   }
-  if (isset($response->agencyParameters->payForPostage)) {
-    $result['agencyParameters']['payForPostage'] = $response->agencyParameters->payForPostage->{'$'};
-  }
-  return $result;
-}
-
 
 }

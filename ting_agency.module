@@ -62,12 +62,29 @@ function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &
 function ting_agency_theme() {
   return array(
     'ting_agency_library' => array(
-      'variables' => array('branchName' => NULL, 'agencyName' => NULL, 'actions' => NULL, 'moreinfo' => NULL, 'branchid' => NULL, 'add_classes' => array(), 'toggle_enabled' => true, 'temporarilyClosedReason' => NULL),
+      'variables' => array(
+        'branchName' => NULL,
+        'agencyName' => NULL,
+        'actions' => NULL,
+        'moreinfo' => NULL,
+        'branchid' => NULL,
+        'add_classes' => array(),
+        'toggle_enabled' => true,
+        'temporarilyClosedReason' => NULL
+      ),
       'template' => 'theme/ting_agency_library',
     ),
-
     'ting_agency_more_info' => array(
-      'variables' => array('branch' => NULL, 'openingHours' => NULL, 'toggle_enabled' => true, 'tools' => NULL, 'address' => NULL, 'pickupallowed' => NULL, 'librarydkcontact' => NULL, 'contact' => NULL),
+      'variables' => array(
+        'branch' => NULL,
+        'openingHours' => NULL,
+        'toggle_enabled' => true,
+        'tools' => NULL,
+        'address' => NULL,
+        'pickupallowed' => NULL,
+        'librarydkcontact' => NULL,
+        'contact' => NULL
+      ),
       'template' => 'theme/ting_agency_more_info',
     ),
     'ting_agency_opening_hours' => array(
@@ -101,7 +118,7 @@ function ting_agency_flush_caches() {
   return array('cache_agency_webservice');
 }
 
-function ting_agency_userdata_form($form, &$form_state, $fields, $userData = null, $branchid=NULL) {
+function ting_agency_userdata_form($form, &$form_state, $fields, $userData = null, $branchid = NULL) {
   $params = isset($fields) ? $fields->getUserParameters() : null;
   if (empty($params)) {
     $form['wrapper']['error'] = array('#markup' => _ting_agency_error_no_agency_user_data());
@@ -157,7 +174,7 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
     );
   }
 
-  if(isset($branchid)){
+  if (isset($branchid)) {
     $form['wrapper']['subdivision'] = ting_agency_get_selector_for_subagencies($branchid);
   }
 
@@ -169,17 +186,16 @@ function ting_agency_get_selector_for_subagencies($branchId) {
 
   $agency = new TingAgency($branchId);
 
-  if(!($agency->hasSubDivisions($branchId))) {
+  if (!($agency->hasSubDivisions($branchId))) {
     return;
   }
 
   $options = $agency->getPickupAgencySelectList();
   $options = $options['Bogbussen:'];
 
-
   $form_element = array();
   $form_element = array(
-    '#title' => t('Select bus stop',array(),array('context'=>'bibdk_favourite')),
+    '#title' => t('Select bus stop', array(), array('context' => 'bibdk_favourite')),
     '#type' => 'select',
     '#options' => $options,
   );
@@ -191,7 +207,6 @@ function _ting_agency_error_no_agency_user_data() {
   return t('no_agency_data_from_agency');
 }
 
-
 /**
  * Render the view of an agency branch and wrap it in an form element
  *
@@ -201,7 +216,7 @@ function _ting_agency_error_no_agency_user_data() {
  */
 function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $settings) {
   // Actions can be both links and form elements, and needs to handles separately
-  $actions =  isset($settings['#actions']) ? $settings['#actions'] : '';
+  $actions = isset($settings['#actions']) ? $settings['#actions'] : '';
   unset($settings['#actions']);
 
   // Set default values
@@ -243,15 +258,15 @@ function ting_agency_temporarily_closed_message($branch) {
   global $language;
   // Handle TemporarilyClosedReason
   $tmp_reason = $branch->getTemporarilyClosedReason($language->language);
-  if($tmp_reason != 'ting_agency_no_temporarilyClosedReason') {
+  if ($tmp_reason != 'ting_agency_no_temporarilyClosedReason') {
     // Hide all drupalmessages
     $messages = drupal_get_messages();
     // Set  message for temporarilyClosedReason
     drupal_set_message($tmp_reason, 'warning');
     $tmp_reason = theme('status_messages');
     // Restore old messages
-    foreach ($messages as $key=>$message) {
-      drupal_set_message($message[0],$key);
+    foreach ($messages as $key => $message) {
+      drupal_set_message($message[0], $key);
     }
   }
   else {
