@@ -26,6 +26,8 @@ class TingClientAgencyBranch {
   public $getDataArray;
   public $pickupAgency;
   private $ncipLookUpUser;
+  public $userdata;
+  public $orderLibrary;
 
   private $registrationFormUrl;
   private $registrationFormUrlText;
