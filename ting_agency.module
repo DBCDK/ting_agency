@@ -126,7 +126,9 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
   }
 
   $form['description'] = array(
-    '#markup' => t('description_text', array(), array('context' => 'bibdk_favourite')),
+    '#theme' => 'html_tag',
+    '#tag' => 'p',
+    '#value' => t('description_text', array(), array('context' => 'bibdk_favourite')),
     '#weight' => -101,
   );
 
