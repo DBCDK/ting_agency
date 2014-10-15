@@ -44,7 +44,7 @@ class TingAgencyUnitTest extends DrupalUnitTestCase {
     module_load_include('php', 'ting_agency', 'TingAgency');
     $agency = new TingAgency('737606');
     $path = drupal_get_path('module', 'ting_agency');
-    $path .= '/test/lib/pickupagencylist.json';
+    $path .= '/test/lib/pickupagencylist.json.serialised';
     $pickupagencies = file_get_contents($path);
     $agencies = unserialize($pickupagencies);
     $agency->setPickUpAgencies($agencies);
