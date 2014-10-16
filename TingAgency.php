@@ -48,7 +48,7 @@ class TingAgency {
     return $this->branch;
   }
 
-  /* Deprecated. Use getBranch() instead */
+  /* @deprecated Use getBranch() instead */
   public function getInformation() {
     if (empty($this->information)) {
       $response = $this->do_serviceRequest('information');
@@ -119,7 +119,7 @@ class TingAgency {
     if ($pickUpAgencies) {
       foreach ($pickUpAgencies as $branch) {
         if ($branch->branchId == $branchId) {
-          if(isset($branch->pickupAgency->agencySubdivision)) {
+          if (isset($branch->pickupAgency->agencySubdivision)) {
             return TRUE;
           }
         }
@@ -128,7 +128,6 @@ class TingAgency {
     return FALSE;
   }
 
-
   /** get pickupAgencySubdivision (bus stops)
    *
    * @return array ['bogbussen'][branchId => name]
@@ -136,28 +135,30 @@ class TingAgency {
   private function getPickupAgencySubdivsionSelectElement($branch) {
     $arr = array();
     if (isset($branch->pickupAgency->agencySubdivision)) {
-    $subdivisions = $branch->getAgencySubdivisions();
-    foreach ($subdivisions as $key => $value) {
-     // $arr['Bogbussen:'][$branch->branchId . '-' . $value] = $value;
-      $arr['Bogbussen:'][$value] = $value;
+      $subdivisions = $branch->getAgencySubdivisions();
+      foreach ($subdivisions as $key => $value) {
+        // $arr['Bogbussen:'][$branch->branchId . '-' . $value] = $value;
+        $arr['Bogbussen:'][$value] = $value;
+      }
+    }
+    return $arr;
+  }
+
+  public function getUpdateOrderAllowed() {
+    $branch = $this->getBranch();
+    if (isset($branch)) {
+      return $branch->getNcipUpdateOrder();
     }
   }
-  return $arr;
-  }
 
-  public function getUpdateOrderAllowed(){
+  public function getRenewOrderAllowed() {
     $branch = $this->getBranch();
-    if (isset($branch))
-      return $branch->getNcipUpdateOrder();
-  }
-
-  public function getRenewOrderAllowed(){
-    $branch = $this->getBranch();
-    if (isset($branch))
+    if (isset($branch)) {
       return $branch->getNcipRenewOrder();
+    }
   }
 
-   /**
+  /**
    * @param mixed Sets pickUpAllowed to TRUE or FALSE
    */
   public function setPickUpAllowed($pickUpAllowed) {
@@ -197,19 +198,30 @@ class TingAgency {
 
   private function do_FindLibraryRequest() {
     $client = new ting_client_class();
-    $response = $client->do_request('agency', array('agencyId' => $this->agencyId, 'action' => 'findLibraryRequest'));
+    $response = $client->do_request('agency', array(
+      'agencyId' => $this->agencyId,
+      'action' => 'findLibraryRequest'
+    ));
     return $response;
   }
 
   private function do_serviceRequest($service) {
     $client = new ting_client_class();
-    $response = $client->do_request('agency', array('agencyId' => $this->agencyId, 'action' => 'serviceRequest', 'service' => $service));
+    $response = $client->do_request('agency', array(
+      'agencyId' => $this->agencyId,
+      'action' => 'serviceRequest',
+      'service' => $service
+    ));
     return $response;
   }
 
   private function do_pickupAgencyListRequest() {
     $client = new ting_client_class();
-    $response = $client->do_request('agency', array('agencyId' => $this->agencyId, 'pickupAllowed' => '1', 'action' => 'pickupAgencyListRequest'));
+    $response = $client->do_request('agency', array(
+      'agencyId' => $this->agencyId,
+      'pickupAllowed' => '1',
+      'action' => 'pickupAgencyListRequest'
+    ));
     return $response;
   }
 

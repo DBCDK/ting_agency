@@ -22,7 +22,8 @@ function ting_agency_update_7001() {
   $schema = drupal_get_schema_unprocessed('system', 'cache');
   try {
     db_create_table($name, $schema);
-  } catch (Exception $e) {
+  }
+  catch (Exception $e) {
     // do nothing table probably already exists
   }
 }

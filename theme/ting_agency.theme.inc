@@ -16,7 +16,7 @@ function template_preprocess_ting_agency_library(&$variables) {
  */
 function theme_ting_agency_contact($variables) {
   $branch = $variables['branch'];
-  if( empty($branch) ) {
+  if (empty($branch)) {
     return;
   }
   $contact_array = $branch->getContact();
@@ -30,7 +30,7 @@ function theme_ting_agency_contact($variables) {
  */
 function theme_ting_agency_librarydk_contact($variables) {
   $branch = $variables['branch'];
-  if( empty($branch) ) {
+  if (empty($branch)) {
     return;
   }
   $contact_array = $branch->getLibrarydkContact();
@@ -45,7 +45,7 @@ function theme_ting_agency_librarydk_contact($variables) {
  */
 function theme_ting_agency_opening_hours($variables) {
   $branch = $variables['branch'];
-  if( empty($branch) ) {
+  if (empty($branch)) {
     return;
   }
   global $language;
@@ -64,7 +64,7 @@ function theme_ting_agency_opening_hours($variables) {
  */
 function theme_ting_agency_tools($variables) {
   $branch = $variables['branch'];
-   if( empty($branch) ) {
+  if (empty($branch)) {
     return;
   }
   $links = $branch->getActionLinks();
@@ -93,7 +93,6 @@ function get_ting_agency_tools($branch) {
   }
 }
 
-
 function ting_agency_element_create_list($list) {
   $output = '';
   if (!empty($list)) {
@@ -103,6 +102,7 @@ function ting_agency_element_create_list($list) {
   }
   return $output;
 }
+
 /** \brief Theme address for given agency
  *
  * @param array $variables
@@ -110,13 +110,12 @@ function ting_agency_element_create_list($list) {
  */
 function theme_ting_agency_address($variables) {
   $branch = $variables['branch'];
-   if( empty($branch) ) {
+  if (empty($branch)) {
     return;
   }
   $address = $branch->getAddress();
   return $address;
 }
-
 
 /** \brief Theme pickup for given agency
  *
@@ -125,7 +124,7 @@ function theme_ting_agency_address($variables) {
  */
 function theme_ting_agency_pickup_allowed($variables) {
   $branch = $variables['branch'];
-   if( empty($branch) ) {
+  if (empty($branch)) {
     return;
   }
   return $branch->getPicupAllowed();

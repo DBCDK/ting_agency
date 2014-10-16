@@ -26,10 +26,11 @@ class TingClientAgencyBranch {
   public $getDataArray;
   public $pickupAgency;
   private $ncipLookUpUser;
+  public $userdata;
+  public $orderLibrary;
 
   private $registrationFormUrl;
   private $registrationFormUrlText;
-
 
   public function __construct($pickupAgency, $agencyName = NULL, $agencyId = NULL) {
     if (isset($agencyId)) {
@@ -53,7 +54,7 @@ class TingClientAgencyBranch {
     $this->branchPhone = TingClientRequest::getValue($pickupAgency->branchPhone);
     $this->branchEmail = TingClientRequest::getValue($pickupAgency->branchEmail);
 
-    if (isset($pickupAgency->branchShortName) ) {
+    if (isset($pickupAgency->branchShortName)) {
       $this->branchShortName = $pickupAgency->branchShortName;
     }
     if (isset($pickupAgency->postalAddress)) {
@@ -107,7 +108,7 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->pickupAllowed)) {
       $this->pickupAllowed = TingClientRequest::getValue($pickupAgency->pickupAllowed);
     }
-    if(isset($pickupAgency->ncipLookupUser)){
+    if (isset($pickupAgency->ncipLookupUser)) {
       $this->ncipLookUpUser = TingClientRequest::getValue($pickupAgency->ncipLookupUser);
     }
     //registrationFormUrlText
@@ -119,24 +120,24 @@ class TingClientAgencyBranch {
       $this->registrationFormUrl = TingClientRequest::getValue($pickupAgency->registrationFormUrl);
     }
 
-
   }
 
-  public function getTemporarilyClosedReason($lang ) {
+  public function getTemporarilyClosedReason($lang) {
     $lang = $this->drupalLangToServiceLang($lang);
     $ret = "";
     if ($this->temporarilyClosed) {
       if (isset($this->temporarilyClosedReason)) {
         $temporarilyClosedReasons = $this->temporarilyClosedReason;
         if (is_array($temporarilyClosedReasons)) {
-           foreach ($temporarilyClosedReasons as $ClosedReason)
-             if ($ClosedReason->{'@language'}->{'$'} == $lang) {
-                 $ret = $ClosedReason->{'$'};
-        }
-        if (empty($ret)) {
+          foreach ($temporarilyClosedReasons as $ClosedReason) {
+            if ($ClosedReason->{'@language'}->{'$'} == $lang) {
+              $ret = $ClosedReason->{'$'};
+            }
+          }
+          if (empty($ret)) {
             // given lanuguage was not found..simply return first in array
             $ret = $ClosedReason->{'$'};
-        }
+          }
         }
       }
     }
@@ -154,42 +155,37 @@ class TingClientAgencyBranch {
   }
 
   public function getBranchId() {
-    return isset($this->pickupAgency->branchId) ?
-    $this->pickupAgency->branchId->{'$'} : NULL;
+    return isset($this->pickupAgency->branchId) ? $this->pickupAgency->branchId->{'$'} : NULL;
   }
 
   public function getBranchType() {
-    return isset($this->pickupAgency->branchType) ?
-    $this->pickupAgency->branchType->{'$'} : NULL;
+    return isset($this->pickupAgency->branchType) ? $this->pickupAgency->branchType->{'$'} : NULL;
   }
 
   /**
    * @return string
    */
   public function getLookupUrl() {
-    return isset($this->pickupAgency->lookupUrl) ?
-    $this->pickupAgency->lookupUrl->{'$'} : NULL;
+    return isset($this->pickupAgency->lookupUrl) ? $this->pickupAgency->lookupUrl->{'$'} : NULL;
   }
 
   /**
    * @return bool
    */
   public function getIsOclcRsLibrary() {
-    return isset($this->pickupAgency->isOclcRsLibrary) ?
-    $this->pickupAgency->isOclcRsLibrary->{'$'} : NULL;
+    return isset($this->pickupAgency->isOclcRsLibrary) ? $this->pickupAgency->isOclcRsLibrary->{'$'} : NULL;
   }
 
-
-  public function getNcipUpdateOrder(){
+  public function getNcipUpdateOrder() {
     $pickupAgency = $this->pickupAgency;
     if (isset($pickupAgency->ncipUpdateOrder)) {
       return TingClientRequest::getValue($pickupAgency->ncipUpdateOrder);
     }
   }
 
-  public function getNcipRenewOrder(){
+  public function getNcipRenewOrder() {
     $pickupAgency = $this->pickupAgency;
-    if ( isset($pickupAgency->ncipRenewOrder) ) {
+    if (isset($pickupAgency->ncipRenewOrder)) {
       return TingClientRequest::getValue($pickupAgency->ncipRenewOrder);
     }
   }
@@ -198,10 +194,11 @@ class TingClientAgencyBranch {
     $lang = $this->drupalLangToServiceLang($lang);
     $branches = $this->branchShortName;
     if (is_array($branches)) {
-      foreach ($branches as $branch)
+      foreach ($branches as $branch) {
         if ($branch->{'@language'}->{'$'} == $lang) {
           $ret = $branch->{'$'};
         }
+      }
       if (empty($ret)) {
         // given lanuguage was not found..simply return first in array
         $ret = $branch->{'$'};
@@ -225,10 +222,11 @@ class TingClientAgencyBranch {
     $lang = $this->drupalLangToServiceLang($lang);
     $branches = $this->branchName;
     if (is_array($branches)) {
-      foreach ($branches as $branch)
+      foreach ($branches as $branch) {
         if ($branch->{'@language'}->{'$'} == $lang) {
           $ret = $branch->{'$'};
         }
+      }
       if (empty($ret)) {
         // given lanuguage was not found..simply return first in array
         $ret = $branch->{'$'};
@@ -422,7 +420,7 @@ class TingClientAgencyBranch {
         $lang = 'dan';
         break;
       default:
-        if ( !is_string($lang) ) {
+        if (!is_string($lang)) {
           watchdog('ting_agency', 'getIllOrderReceiptText: language is not set correctly', array(), WATCHDOG_ERROR);
         }
         $lang = 'dan';
@@ -451,7 +449,7 @@ class TingClientAgencyBranch {
   /**
    * Get text for registrationUrl
    * @return string
-  */
+   */
   public function getRegistrationFormUrlText() {
     return $this->registrationFormUrlText;
   }
@@ -459,7 +457,7 @@ class TingClientAgencyBranch {
   /**
    * Get url used for registration
    * @return string
-  */
+   */
   public function getRegistrationFormUrl() {
     return $this->registrationFormUrl;
   }
