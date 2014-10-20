@@ -9,6 +9,7 @@ class TingAgencyUnitTest extends DrupalUnitTestCase {
    * @var TingClientAgencyBranch
    */
   private $obj;
+
   /**
    * @return array
    */
@@ -32,18 +33,18 @@ class TingAgencyUnitTest extends DrupalUnitTestCase {
 
   }
 
-  public function testParseFields(){
+  public function testParseFields() {
     $result = $this->obj->getAgencySubdivisions();
     $this->assertTrue(is_array($result), 'Got array in return');
     $count = count($result);
     $this->assertEqual($count, 15, 'Array length was ' . $count . ', expected 15');
   }
-  
+
   public function testgetPickupAgencySelectList() {
     module_load_include('php', 'ting_agency', 'TingAgency');
     $agency = new TingAgency('737606');
     $path = drupal_get_path('module', 'ting_agency');
-    $path .= '/test/lib/pickupagencylist.json';
+    $path .= '/test/lib/pickupagencylist.json.serialised';
     $pickupagencies = file_get_contents($path);
     $agencies = unserialize($pickupagencies);
     $agency->setPickUpAgencies($agencies);
@@ -53,12 +54,12 @@ class TingAgencyUnitTest extends DrupalUnitTestCase {
 
     //assert no agencyid in bogbus list
     $keys = array_keys($list['Bogbussen:']);
-    $values = preg_grep('/(?<!\d)\d{8}(?!\d)/',$keys);
+    $values = preg_grep('/(?<!\d)\d{8}(?!\d)/', $keys);
     $this->assertTrue(empty($values), 'no agency id in bogbus-list');
     // test hasSubDivisions($branchId) method
     $result = $agency->hasSubDivisions('710100');
     $this->assertFalse($result, 'no results found for agency with no subdivision');
-    
+
     $result = $agency->hasSubDivisions('737606');
     $this->assertTrue($result, 'subdivsion found');
   }
@@ -66,19 +67,19 @@ class TingAgencyUnitTest extends DrupalUnitTestCase {
   /** test that the correct branchName is returned
    *
    */
- public function testLanguageGetter() {
+  public function testLanguageGetter() {
     $branch = new TingClientAgencyBranch($this->getTestBranch());
     $lang = 'en-gb';
     $result = $branch->getBranchName($lang);
-    $this->assertIdentical('ENGELSK', $result, $lang.' returned ' .$result);
+    $this->assertIdentical('ENGELSK', $result, $lang . ' returned ' . $result);
 
     $lang = 'en';
     $result = $branch->getBranchName($lang);
-    $this->assertIdentical('ENGELSK', $result, $lang.' returned ' .$result);
+    $this->assertIdentical('ENGELSK', $result, $lang . ' returned ' . $result);
 
     $lang = 'da';
     $result = $branch->getBranchName($lang);
-    $this->assertIdentical('DANSK', $result, $lang.' returned ' .$result);
+    $this->assertIdentical('DANSK', $result, $lang . ' returned ' . $result);
   }
 
   /** Fake a response from openagency.addi.dk/2.6
@@ -87,7 +88,7 @@ class TingAgencyUnitTest extends DrupalUnitTestCase {
    *
    * @return type
    */
-  private function getTestBranch(){
+  private function getTestBranch() {
     $ret = json_decode('{"findLibraryResponse":{"pickupAgency":[{"branchId":{"$":"790900","@":"ns1"},"branchType":{"$":"P","@":"ns1"},"branchPhone":{"$":"44867777","@":"ns1"},"branchName":[{"$":"DANSK","@language":{"$":"dan","@":"ns1"},"@":"ns1"},{"$":"ENGELSK","@language":{"$":"eng","@":"ns1"},"@":"ns1"}],"branchShortName":[{"$":"DBC Test Bibliotek - 4.2","@language":{"$":"dan","@":"ns1"},"@":"ns1"}],"branchEmail":{"$":"checkmail@dbc.dk","@":"ns1"},"branchIsAgency":{"$":"0","@":"ns1"},"postalAddress":{"$":"B. Adresse","@":"ns1"},"postalCode":{"$":"1234","@":"ns1"},"city":{"$":"Testby-test","@":"ns1"},"isil":{"$":"790900","@":"ns1"},"branchWebsiteUrl":{"$":"http:\/\/www.dbc.dk","@":"ns1"},"serviceDeclarationUrl":{"$":"http:\/\/www.danbib.dk","@":"ns1"},"registrationFormUrl":{"$":"http:\/\/www.dbc.dk\/VIP2.3","@":"ns1"},"userStatusUrl":{"$":"http:\/\/www.danbib.dk\/vip_l\u00e5nerstatus","@":"ns1"},"librarydkSupportEmail":{"$":"checkmail@dbc.dk","@":"ns1"},"librarydkSupportPhone":{"$":"44 86 78 41","@":"ns1"},"openingHours":[{"$":"VIP 4.9: \u00c5bningstider<br>\r\nmandag<br>\r\ntirsdag<br>\r\nonsdag<br>\r\ntorsdag<br>\r\nfredag<br>\r\nl\u00f8rdag","@language":{"$":"dan","@":"ns1"},"@":"ns1"},{"$":"VIP 5.9, engelsk \u00c5bningstider","@language":{"$":"eng","@":"ns1"},"@":"ns1"}],"temporarilyClosed":{"$":"0","@":"ns1"},"illOrderReceiptText":[{"$":"VIP 4.A: Kvitteringstekst for materiale, der if\u00f8lge bibliotek.dk ikke findes i biblioteket <b>Denne bliver fremover som den eneste vist i ny bib.dk <\/b>","@language":{"$":"dan","@":"ns1"},"@":"ns1"},{"$":"VIP 4A -engelsk - andre biblioteker:  engelsk Kvitteringstekst for materiale, der if\u00f8lge bibliotek.dk ikke findes i biblioteket","@language":{"$":"eng","@":"ns1"},"@":"ns1"}],"pickupAllowed":{"$":"1","@":"ns1"},"ncipLookupUser":{"$":"0","@":"ns1"},"ncipRenewOrder":{"$":"0","@":"ns1"},"ncipCancelOrder":{"$":"0","@":"ns1"},"ncipUpdateOrder":{"$":"0","@":"ns1"},"@":"ns1"}],"@":"ns1"},"@namespaces":null}');
     return $ret->findLibraryResponse->pickupAgency[0];
   }

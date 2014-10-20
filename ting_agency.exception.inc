@@ -8,7 +8,9 @@
 /**
  * Exception that is thrown from TingClientAgencyClass::__construct($pickupAgency,$branchId)
  */
-class TingClientAgencyBranchException extends Exception {}
+class TingClientAgencyBranchException extends Exception {
+
+}
 
 
 
