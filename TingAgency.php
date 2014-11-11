@@ -33,9 +33,9 @@ class TingAgency {
     $this->branch = $branch;
   }
 
-  public function getBranch() {
+  public function getBranch($include_hidden = FALSE) {
     if (empty($this->branch)) {
-      $response = $this->do_FindLibraryRequest();
+      $response = $this->do_FindLibraryRequest($include_hidden);
       if ($this->check_response($response)) {
         if (isset($response->findLibraryResponse->pickupAgency[0])) {
           $this->branch = new TingClientAgencyBranch($response->findLibraryResponse->pickupAgency[0]);
@@ -196,12 +196,17 @@ class TingAgency {
     return self::$fields;
   }
 
-  private function do_FindLibraryRequest() {
+  private function do_FindLibraryRequest($include_hidden) {
     $client = new ting_client_class();
-    $response = $client->do_request('agency', array(
+    $params = array(
       'agencyId' => $this->agencyId,
       'action' => 'findLibraryRequest'
-    ));
+    );
+    if($include_hidden){
+      $params['libraryStatus'] = 'alle';
+    }
+
+    $response = $client->do_request('agency',$params);
     return $response;
   }
 
