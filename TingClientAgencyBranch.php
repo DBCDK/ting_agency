@@ -122,6 +122,10 @@ class TingClientAgencyBranch {
 
   }
 
+  public function getStateAndUniversityLibraryCopyService() {
+    return isset($this->pickupAgency->stateAndUniversityLibraryCopyService->{'$'}) ? $this->pickupAgency->stateAndUniversityLibraryCopyService->{'$'} : 0;
+  }
+
   public function getTemporarilyClosedReason($lang) {
     $lang = $this->drupalLangToServiceLang($lang);
     $ret = "";
