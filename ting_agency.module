@@ -286,7 +286,7 @@ function ting_agency_get_more_info(TingClientAgencyBranch $branch) {
   return theme('ting_agency_more_info', array(
     'branch' => $branch,
     'openingHours' => $branch->getOpeningHours($language->language),
-    'tools' => get_ting_agency_tools($branch),
+    'tools' => drupal_render(get_ting_agency_tools($branch)),
     'address' => $branch->getAddress(),
     'pickupallowed' => $branch->getPicupAllowed(),
     'librarydkcontact' => ting_agency_element_create_list($branch->getLibrarydkContact()),
