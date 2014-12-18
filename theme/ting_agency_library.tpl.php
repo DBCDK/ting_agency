@@ -18,7 +18,7 @@
     <?php if (!empty($actions)) : ?>
       <div class="ting-agency--actions"><?php print $actions; ?></div>
     <?php endif; ?>
-    <div class="messages_<?php print $branchid ?> clearfix"></div>
+    <div class="messages-<?php print $branchid ?> clearfix"></div>
   </div>
   <?php if (!empty($moreinfo)): ?>
     <div class="element-section ting-agency--more-info">
