@@ -184,8 +184,6 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
 }
 
 function ting_agency_get_selector_for_subagencies($branchId) {
-  $options = array();
-
   $agency = new TingAgency($branchId);
 
   if (!($agency->hasSubDivisions($branchId))) {
@@ -195,7 +193,6 @@ function ting_agency_get_selector_for_subagencies($branchId) {
   $options = $agency->getPickupAgencySelectList();
   $options = $options['Bogbussen:'];
 
-  $form_element = array();
   $form_element = array(
     '#title' => t('Select bus stop', array(), array('context' => 'bibdk_favourite')),
     '#type' => 'select',
@@ -221,16 +218,18 @@ function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $setting
   $actions = isset($settings['#actions']) ? $settings['#actions'] : '';
   unset($settings['#actions']);
 
+  $classes = array('favourite-' . $branch->branchId);
+  if($branch->isOrderLibrary()){
+    $classes[] = 'order-agency';
+  }
+
   // Set default values
   global $language;
   $default = array(
     '#theme' => 'ting_agency_library',
     '#branchName' => $branch->getBranchName($language->language),
     '#actions' => drupal_render($actions),
-    '#add_classes' => array(
-      'favourite_' . $branch->branchId,
-      $branch->isOrderLibrary() ? 'order-agency' : NULL,
-    ),
+    '#add_classes' => $classes,
     '#moreinfo' => ting_agency_get_more_info($branch),
     '#branchid' => $branch->branchId,
     '#temporarilyClosedReason' => ting_agency_temporarily_closed_message($branch),
@@ -272,7 +271,7 @@ function ting_agency_temporarily_closed_message($branch) {
     }
   }
   else {
-    $tmp_reason = '';
+    $tmp_reason = NULL;
   }
 
   return $tmp_reason;
