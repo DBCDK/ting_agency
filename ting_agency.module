@@ -71,7 +71,7 @@ function ting_agency_theme() {
         'moreinfo' => NULL,
         'branchid' => NULL,
         'add_classes' => array(),
-        'toggle_enabled' => true,
+        'toggle_enabled' => TRUE,
         'temporarilyClosedReason' => NULL
       ),
       'template' => 'theme/ting_agency_library',
@@ -80,7 +80,7 @@ function ting_agency_theme() {
       'variables' => array(
         'branch' => NULL,
         'openingHours' => NULL,
-        'toggle_enabled' => true,
+        'toggle_enabled' => TRUE,
         'tools' => NULL,
         'address' => NULL,
         'pickupallowed' => NULL,
@@ -120,8 +120,8 @@ function ting_agency_flush_caches() {
   return array('cache_agency_webservice');
 }
 
-function ting_agency_userdata_form($form, &$form_state, $fields, $userData = null, $branchid = NULL) {
-  $params = isset($fields) ? $fields->getUserParameters() : null;
+function ting_agency_userdata_form($form, &$form_state, $fields, $userData = NULL, $branchid = NULL) {
+  $params = isset($fields) ? $fields->getUserParameters() : NULL;
   if (empty($params)) {
     $form['wrapper']['error'] = array('#markup' => _ting_agency_error_no_agency_user_data());
     return $form;
@@ -282,6 +282,10 @@ function ting_agency_temporarily_closed_message($branch) {
 
 /** Generate more info for branch
  * get default moreinfo for a branch
+ *
+ * @param TingClientAgencyBranch $branch
+ * @return string
+ * @throws Exception
  */
 function ting_agency_get_more_info(TingClientAgencyBranch $branch) {
   global $language;
