@@ -4,10 +4,9 @@
  * and open the template in the editor.
  */
 ?>
-<div class="element-section <?php if ($toggle_enabled) {
-  print 'visuallyhidden';
-} ?>">
+
   <div class="library-details text clearfix">
+    <!-- first column -->
     <div class="library-details-column-1">
       <?php if (isset($address)) : ?>
         <p class="subheader">
@@ -29,8 +28,9 @@
         <p class="contact"><?php print $contact; ?></p>
       <?php endif; ?>
     </div>
-    <!-- column-1 -->
+    <!-- first column -->
 
+    <!-- second column -->
     <div class="library-details-column-2">
       <?php if ($openingHours != 'ting_agency_no_opening_hours') { ?>
         <p class="subheader">
@@ -43,5 +43,6 @@
         <?php print $tools; ?>
       <?php endif; ?>
     </div>
+    <!-- second column -->
   </div>
-</div>
+
