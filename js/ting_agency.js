@@ -3,7 +3,7 @@
   function addTogglers(context) {
     $('[data-ting-agency-more-info-toggler]', context).click(function(e){
       var $target = $(e.target);
-      if(!$target.hasClass('bibdk-favourite--add-remove-library')){
+      if(!$target.hasClass('bibdk-favourite--add-remove-library') && !$target.hasClass('agencylist-link')){
         $('.ting-agency--more-info', this).toggleClass('is-toggled');
       }
     });
