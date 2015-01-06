@@ -5,6 +5,7 @@
       var $target = $(e.target);
       if(!$target.hasClass('bibdk-favourite--add-remove-library') && !$target.hasClass('agencylist-link')){
         $('.ting-agency--more-info', this).toggleClass('is-toggled');
+        $('.ting-agency--more-info-toggle-indicator', this).toggleClass('is-toggled');
       }
     });
   }

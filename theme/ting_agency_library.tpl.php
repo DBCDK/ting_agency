@@ -8,6 +8,7 @@
   <div class="element-section clearfix">
     <div class="ting-agency--header">
       <span class="ting-agency--branch-name"><?php print $branchName; ?></span>
+      <span class="ting-agency--more-info-toggle-indicator"></span>
       <?php if (!empty($agencyName)) : ?>
         <span class="ting-agency--agency-name"><?php print $agencyName; ?></span>
         <?php if (!empty($temporarilyClosedReason)) : ?>
