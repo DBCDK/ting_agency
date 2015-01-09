@@ -14,4 +14,6 @@ files[] = ting_agency.exception.inc
 
 files[] = test/ting_agency.unit.test
 
+scripts[] = js/ting_agency.js
+
 dependencies[] = ting_client

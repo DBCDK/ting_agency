@@ -25,8 +25,9 @@ function ting_agency_ting_client_webservice() {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter (ting_client_admin_webservices_settings_alter)
- * Creates a field for adding a URL for the Ting Agency Search webservice
+ * Implements hook_form_FORM_ID_alter
+ * (ting_client_admin_webservices_settings_alter) Creates a field for adding a
+ * URL for the Ting Agency Search webservice
  */
 function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &$form_state, $form_id) {
 
@@ -57,6 +58,7 @@ function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &
 
 /**
  * Implements hook_theme
+ *
  * @return type
  */
 function ting_agency_theme() {
@@ -69,7 +71,7 @@ function ting_agency_theme() {
         'moreinfo' => NULL,
         'branchid' => NULL,
         'add_classes' => array(),
-        'toggle_enabled' => true,
+        'toggle_enabled' => TRUE,
         'temporarilyClosedReason' => NULL
       ),
       'template' => 'theme/ting_agency_library',
@@ -78,7 +80,7 @@ function ting_agency_theme() {
       'variables' => array(
         'branch' => NULL,
         'openingHours' => NULL,
-        'toggle_enabled' => true,
+        'toggle_enabled' => TRUE,
         'tools' => NULL,
         'address' => NULL,
         'pickupallowed' => NULL,
@@ -118,8 +120,8 @@ function ting_agency_flush_caches() {
   return array('cache_agency_webservice');
 }
 
-function ting_agency_userdata_form($form, &$form_state, $fields, $userData = null, $branchid = NULL) {
-  $params = isset($fields) ? $fields->getUserParameters() : null;
+function ting_agency_userdata_form($form, &$form_state, $fields, $userData = NULL, $branchid = NULL) {
+  $params = isset($fields) ? $fields->getUserParameters() : NULL;
   if (empty($params)) {
     $form['wrapper']['error'] = array('#markup' => _ting_agency_error_no_agency_user_data());
     return $form;
@@ -184,8 +186,6 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = nul
 }
 
 function ting_agency_get_selector_for_subagencies($branchId) {
-  $options = array();
-
   $agency = new TingAgency($branchId);
 
   if (!($agency->hasSubDivisions($branchId))) {
@@ -195,7 +195,6 @@ function ting_agency_get_selector_for_subagencies($branchId) {
   $options = $agency->getPickupAgencySelectList();
   $options = $options['Bogbussen:'];
 
-  $form_element = array();
   $form_element = array(
     '#title' => t('Select bus stop', array(), array('context' => 'bibdk_favourite')),
     '#type' => 'select',
@@ -221,16 +220,18 @@ function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $setting
   $actions = isset($settings['#actions']) ? $settings['#actions'] : '';
   unset($settings['#actions']);
 
+  $classes = array('favourite-' . $branch->branchId);
+  if ($branch->isOrderLibrary()) {
+    $classes[] = 'order-agency';
+  }
+
   // Set default values
   global $language;
   $default = array(
     '#theme' => 'ting_agency_library',
     '#branchName' => $branch->getBranchName($language->language),
     '#actions' => drupal_render($actions),
-    '#add_classes' => array(
-      'favourite_' . $branch->branchId,
-      $branch->isOrderLibrary() ? 'order-agency' : NULL,
-    ),
+    '#add_classes' => $classes,
     '#moreinfo' => ting_agency_get_more_info($branch),
     '#branchid' => $branch->branchId,
     '#temporarilyClosedReason' => ting_agency_temporarily_closed_message($branch),
@@ -253,6 +254,7 @@ function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $setting
 }
 
 /** Check if Temporarily closed message exists for branch and return message
+ *
  * @param $branch
  * @return string
  */
@@ -272,7 +274,7 @@ function ting_agency_temporarily_closed_message($branch) {
     }
   }
   else {
-    $tmp_reason = '';
+    $tmp_reason = NULL;
   }
 
   return $tmp_reason;
@@ -280,6 +282,10 @@ function ting_agency_temporarily_closed_message($branch) {
 
 /** Generate more info for branch
  * get default moreinfo for a branch
+ *
+ * @param TingClientAgencyBranch $branch
+ * @return string
+ * @throws Exception
  */
 function ting_agency_get_more_info(TingClientAgencyBranch $branch) {
   global $language;
