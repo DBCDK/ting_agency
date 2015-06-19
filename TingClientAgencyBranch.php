@@ -286,7 +286,7 @@ class TingClientAgencyBranch {
   }
 
   /**
-   * @return string|null
+   * @return boolean
    */
   public function getBranchIsAgency() {
     return (isset($this->branchIsAgency) && $this->branchIsAgency == '1') ? TRUE : FALSE;
