@@ -11,10 +11,10 @@
       <span class="ting-agency--more-info-toggle-indicator"></span>
       <?php if (!empty($agencyName)) : ?>
         <span class="ting-agency--agency-name"><?php print $agencyName; ?></span>
-        <?php if (!empty($temporarilyClosedReason)) : ?>
-          <strong><br/><?php print $temporarilyClosedReason; ?></strong>
-        <?php endif; ?>
       <?php endif; ?>
+      <?php if (!empty($temporarilyClosedReason)) : ?>
+        <strong><br/><?php print $temporarilyClosedReason; ?></strong>
+       <?php endif; ?>
     </div>
     <?php if (!empty($actions)) : ?>
       <div class="ting-agency--actions"><?php print $actions; ?></div>
