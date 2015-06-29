@@ -8,6 +8,7 @@ class TingClientAgencyBranch {
   private $branchShortName;
   public $branchPhone;
   public $branchEmail;
+  public $branchIsAgency;
   public $postalAddress;
   public $postalCode;
   public $city;
@@ -54,6 +55,9 @@ class TingClientAgencyBranch {
     $this->branchPhone = TingClientRequest::getValue($pickupAgency->branchPhone);
     $this->branchEmail = TingClientRequest::getValue($pickupAgency->branchEmail);
 
+    if (isset($pickupAgency->branchIsAgency)) {
+      $this->branchIsAgency = TingClientRequest::getValue($pickupAgency->branchIsAgency);
+    }
     if (isset($pickupAgency->branchShortName)) {
       $this->branchShortName = $pickupAgency->branchShortName;
     }
@@ -254,6 +258,9 @@ class TingClientAgencyBranch {
    * @return string|null
    */
   public function getAgencyName() {
+    if ($this->getBranchIsAgency()) {
+      return $this->getBranchName();
+    }
     return isset($this->agencyName) ? $this->agencyName : NULL;
   }
 
@@ -276,6 +283,13 @@ class TingClientAgencyBranch {
    */
   public function getBranchEmail() {
     return isset($this->branchEmail) ? $this->branchEmail : NULL;
+  }
+
+  /**
+   * @return boolean
+   */
+  public function getBranchIsAgency() {
+    return (isset($this->branchIsAgency) && $this->branchIsAgency == '1') ? TRUE : FALSE;
   }
 
   /**

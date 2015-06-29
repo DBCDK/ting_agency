@@ -64,6 +64,22 @@ class TingAgencyUnitTest extends DrupalUnitTestCase {
     $this->assertTrue($result, 'subdivsion found');
   }
 
+
+  /** 
+   * Test that getAgencyName() return branchName if branchIsAgency id TRUE.
+   */
+  public function testBranchIsAgency() {
+    $path = drupal_get_path('module', 'ting_agency');
+    $path .= '/test/lib/au_library_katrinebjerg.serialised';
+    $agency = unserialize(file_get_contents($path));
+    $branch = new TingClientAgencyBranch($agency);
+    $branch_is_agency = $branch->getBranchIsAgency();
+    $this->assertTrue($branch_is_agency == TRUE, 'branchIsAgency id TRUE');
+    $agency_name = $branch->getAgencyName();
+    $this->assertTrue($agency_name == 'AU Library, Katrinebjerg', 'getAgencyName return branchName if branchIsAgency id TRUE');
+  }
+
+
   /** test that the correct branchName is returned
    *
    */
