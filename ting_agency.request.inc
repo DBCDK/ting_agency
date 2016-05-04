@@ -16,10 +16,29 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
   protected $libraryType;
   protected $libraryStatus;
   protected $pickupAllowed;
+  protected $geolocation;
   protected $sort;
   protected $callback;
   protected $outputType;
   protected $service;
+  protected $stilNumber;
+
+
+  public function getStilNumber() {
+    return $this->stilNumber;
+  }
+
+  public function setStilNumber($value) {
+    $this->stilNumber = $value;
+  }
+
+  public function getGeolocation() {
+    return $this->geolocation;
+  }
+
+  public function setGeolocation($value) {
+    $this->geolocation = $value;
+  }
 
   public function getService() {
     return $this->service;
