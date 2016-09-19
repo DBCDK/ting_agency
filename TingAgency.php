@@ -200,13 +200,15 @@ class TingAgency {
     $client = new ting_client_class();
     $params = array(
       'agencyId' => $this->agencyId,
-      'action' => 'findLibraryRequest'
+      'action' => 'findLibraryRequest',
+      'outputType' => 'json'
     );
     if($include_hidden){
       $params['libraryStatus'] = 'alle';
     }
 
     $response = $client->do_request('agency',$params);
+
     return $response;
   }
 
@@ -215,7 +217,8 @@ class TingAgency {
     $response = $client->do_request('agency', array(
       'agencyId' => $this->agencyId,
       'action' => 'serviceRequest',
-      'service' => $service
+      'service' => $service,
+      'outputType' => 'json'
     ));
     return $response;
   }
@@ -225,7 +228,8 @@ class TingAgency {
     $response = $client->do_request('agency', array(
       'agencyId' => $this->agencyId,
       'pickupAllowed' => '1',
-      'action' => 'pickupAgencyListRequest'
+      'action' => 'pickupAgencyListRequest',
+      'outputType' => 'json'
     ));
     return $response;
   }
