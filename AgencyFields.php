@@ -48,7 +48,8 @@ class AgencyFields {
         'cpr',
         'userId',
         'cardno',
-        'customId'
+        'customId',
+        'userDateOfBirth'
       ))
       ) {
         return $element['type'];
