@@ -303,7 +303,6 @@ function ting_agency_get_more_info(TingClientAgencyBranch $branch) {
   );
 
   $more = module_invoke_all('add_to_agencyinfo', $branch);
-  // $defaults has precedence
   if(!empty($more)){
     $defaults['#more'] = $more;
   }
