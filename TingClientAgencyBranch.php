@@ -29,6 +29,10 @@ class TingClientAgencyBranch {
   private $ncipLookUpUser;
   public $userdata;
   public $orderLibrary;
+  private $agencyCvrNumber;
+  private $agencyPNumber;
+  private $branchIllEmail;
+  private $dropOffBranch;
 
   private $registrationFormUrl;
   private $registrationFormUrlText;
@@ -123,6 +127,14 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->registrationFormUrl)) {
       $this->registrationFormUrl = TingClientRequest::getValue($pickupAgency->registrationFormUrl);
     }
+    // cvr
+    if(isset($pickupAgency->agencyCvrNumber)){
+      $this->agencyCvrNumber = TingClientRequest::getValue($pickupAgency->agencyCvrNumber);
+    }
+    // p number .. whatever that is
+    if(isset($pickupAgency->agencyPNumber)){
+      $this->agencyPNumber = TingClientRequest::getValue($pickupAgency->agencyPNumber);
+    }
 
   }
 
@@ -153,6 +165,34 @@ class TingClientAgencyBranch {
       $ret = t('ting_agency_no_temporarilyClosedReason', array(), array('context' => 'ting_agency'));
     }
     return $ret;
+  }
+
+  /**
+   * dropOffBranch
+   */
+  public function getDropOffBranch(){
+    return isset($this->pickupAgency->dropOffBranch) ? $this->pickupAgency->dropOffBranch->{'$'} : NULL;
+  }
+
+  /**
+   * CVR
+   */
+  public function getCVRNumber() {
+    return isset($this->pickupAgency->agencyCvrNumber) ? $this->pickupAgency->agencyCvrNumber->{'$'} : NULL;
+  }
+
+  /**
+   * branchIllEmail;
+   */
+  public function getBranchIllEmail(){
+    return isset($this->pickupAgency->branchIllEmail) ? $this->pickupAgency->branchIllEmail->{'$'} : NULL;
+  }
+
+  /**
+   * agencyPNumber
+   */
+  public function getPNumber() {
+    return isset($this->pickupAgency->agencyPNumber) ? $this->pickupAgency->agencyPNumber->{'$'} : NULL;
   }
 
   /** Check if branch is set as order Library
