@@ -36,7 +36,7 @@ function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &
   $form['agency']['#title'] = t('OpenAgency settings');
   $form['agency']['#description'] = t('Client for OpenAgency, a service that can be used for getting information about Danish libraries.');
   $form['agency']['#collapsible'] = TRUE;
-  $form['agency']['#collapsed'] = FALSE;
+  $form['agency']['#collapsed'] = TRUE;
   $form['agency']['#tree'] = FALSE;
 
   $form['agency']['agency_search_url'] = array(
