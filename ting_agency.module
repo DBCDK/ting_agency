@@ -216,7 +216,7 @@ function _ting_agency_error_no_agency_user_data() {
  * @param Array $settings
  * @return mixed
  */
-function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $settings) {
+function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $settings=array()) {
   // Actions can be both links and form elements, and needs to handles separately
   $actions = isset($settings['#actions']) ? $settings['#actions'] : '';
   unset($settings['#actions']);
