@@ -36,7 +36,7 @@ function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &
   $form['agency']['#title'] = t('OpenAgency settings');
   $form['agency']['#description'] = t('Client for OpenAgency, a service that can be used for getting information about Danish libraries.');
   $form['agency']['#collapsible'] = TRUE;
-  $form['agency']['#collapsed'] = FALSE;
+  $form['agency']['#collapsed'] = TRUE;
   $form['agency']['#tree'] = FALSE;
 
   $form['agency']['agency_search_url'] = array(
@@ -85,7 +85,8 @@ function ting_agency_theme() {
         'address' => NULL,
         'pickupallowed' => NULL,
         'librarydkcontact' => NULL,
-        'contact' => NULL
+        'contact' => NULL,
+        'more' => array()
       ),
       'template' => 'theme/ting_agency_more_info',
     ),
@@ -215,7 +216,7 @@ function _ting_agency_error_no_agency_user_data() {
  * @param Array $settings
  * @return mixed
  */
-function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $settings) {
+function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $settings=array()) {
   // Actions can be both links and form elements, and needs to handles separately
   $actions = isset($settings['#actions']) ? $settings['#actions'] : '';
   unset($settings['#actions']);
@@ -246,7 +247,6 @@ function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $setting
   if ($branch->isOrderLibrary()) {
     $render['#weight'] = -1;
   }
-
   return array(
     '#title' => $branch->getBranchName($language->language),
     $branch->branchId => $render,
@@ -284,19 +284,28 @@ function ting_agency_temporarily_closed_message($branch) {
  * get default moreinfo for a branch
  *
  * @param TingClientAgencyBranch $branch
- * @return string
+ * @return array
+ *   render array for drupal_render
  * @throws Exception
  */
 function ting_agency_get_more_info(TingClientAgencyBranch $branch) {
   global $language;
   $tools = get_ting_agency_tools($branch);
-  return theme('ting_agency_more_info', array(
-    'branch' => $branch,
-    'openingHours' => $branch->getOpeningHours($language->language),
-    'tools' => drupal_render($tools),
-    'address' => $branch->getAddress(),
-    'pickupallowed' => $branch->getPicupAllowed(),
-    'librarydkcontact' => ting_agency_element_create_list($branch->getLibrarydkContact()),
-    'contact' => ting_agency_element_create_list($branch->getContact()),
-  ));
+  $defaults = array(
+    '#theme' => 'ting_agency_more_info',
+    '#branch' => $branch,
+    '#openingHours' => $branch->getOpeningHours($language->language),
+    '#tools' => drupal_render($tools),
+    '#address' => $branch->getAddress(),
+    '#pickupallowed' => $branch->getPicupAllowed(),
+    '#librarydkcontact' => ting_agency_element_create_list($branch->getLibrarydkContact()),
+    '#contact' => ting_agency_element_create_list($branch->getContact()),
+  );
+
+  $more = module_invoke_all('add_to_agencyinfo', $branch);
+  if(!empty($more)){
+    $defaults['#more'] = $more;
+  }
+
+  return $defaults;
 }

@@ -79,6 +79,7 @@ function theme_ting_agency_tools($variables) {
 }
 
 function get_ting_agency_tools($branch) {
+  /** @var TingClientAgencyBranch  $branch */
   $links = $branch->getActionLinks();
   $items = array();
   if (!empty($links)) {
@@ -123,6 +124,7 @@ function theme_ting_agency_address($variables) {
  * @return string (html)
  */
 function theme_ting_agency_pickup_allowed($variables) {
+  /** @var TingClientAgencyBranch $branch */
   $branch = $variables['branch'];
   if (empty($branch)) {
     return;

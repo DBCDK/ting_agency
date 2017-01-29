@@ -23,7 +23,7 @@
   </div>
   <?php if (!empty($moreinfo)): ?>
     <div class="element-section ting-agency--more-info">
-      <?php print $moreinfo; ?>
+      <?php print drupal_render($moreinfo); ?>
     </div>
   <?php endif; ?>
 </article>
