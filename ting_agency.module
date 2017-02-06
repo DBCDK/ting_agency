@@ -295,17 +295,15 @@ function ting_agency_get_more_info(TingClientAgencyBranch $branch) {
     '#theme' => 'ting_agency_more_info',
     '#branch' => $branch,
     '#openingHours' => $branch->getOpeningHours($language->language),
-    '#tools' => drupal_render($tools),
+    '#tools' => $tools,
     '#address' => $branch->getAddress(),
     '#pickupallowed' => $branch->getPicupAllowed(),
     '#librarydkcontact' => ting_agency_element_create_list($branch->getLibrarydkContact()),
     '#contact' => ting_agency_element_create_list($branch->getContact()),
   );
 
-  $more = module_invoke_all('add_to_agencyinfo', $branch);
-  if(!empty($more)){
-    $defaults['#more'] = $more;
-  }
-
+  // @see netpunkt_agency::netpunkt_agency_ting_agency_get_more_info_alter
+  drupal_alter('ting_agency_get_more_info', $defaults, $branch);
+  
   return $defaults;
 }
