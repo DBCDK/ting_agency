@@ -12,6 +12,7 @@ class TingClientAgencyBranch {
   public $postalAddress;
   public $postalCode;
   public $city;
+  public $junction;
   public $branchWebsiteUrl;
   public $serviceDeclarationUrl;
   public $openingHours;
@@ -27,13 +28,13 @@ class TingClientAgencyBranch {
   public $getDataArray;
   public $pickupAgency;
   private $ncipLookUpUser;
+  public $dropOffBranch;
+  public $dropOffName;
   public $userdata;
   public $orderLibrary;
   private $agencyCvrNumber;
   private $agencyPNumber;
   private $branchIllEmail;
-  private $dropOffBranch;
-
   private $registrationFormUrl;
   private $registrationFormUrlText;
 
@@ -128,12 +129,21 @@ class TingClientAgencyBranch {
       $this->registrationFormUrl = TingClientRequest::getValue($pickupAgency->registrationFormUrl);
     }
     // cvr
-    if(isset($pickupAgency->agencyCvrNumber)){
+    if (isset($pickupAgency->agencyCvrNumber)) {
       $this->agencyCvrNumber = TingClientRequest::getValue($pickupAgency->agencyCvrNumber);
     }
     // p number .. whatever that is
-    if(isset($pickupAgency->agencyPNumber)){
+    if (isset($pickupAgency->agencyPNumber)) {
       $this->agencyPNumber = TingClientRequest::getValue($pickupAgency->agencyPNumber);
+    }
+    if (isset($pickupAgency->junction)) {
+      $this->junction = TingClientRequest::getValue($pickupAgency->junction);
+    }
+    if (isset($pickupAgency->dropOffBranch)) {
+      $this->dropOffBranch = TingClientRequest::getValue($pickupAgency->dropOffBranch);
+    }
+    if (isset($pickupAgency->dropOffName)) {
+      $this->dropOffName = TingClientRequest::getValue($pickupAgency->dropOffName);
     }
 
   }
@@ -170,8 +180,22 @@ class TingClientAgencyBranch {
   /**
    * dropOffBranch
    */
-  public function getDropOffBranch(){
+  public function getDropOffBranch() {
     return isset($this->pickupAgency->dropOffBranch) ? $this->pickupAgency->dropOffBranch->{'$'} : NULL;
+  }
+
+  /**
+   * dropOffName
+   */
+  public function getDropOffName() {
+    return isset($this->pickupAgency->dropOffName) ? $this->pickupAgency->dropOffName->{'$'} : NULL;
+  }
+
+  /**
+   * junction
+   */
+  public function getJunction() {
+    return isset($this->pickupAgency->junction) ? $this->pickupAgency->junction->{'$'} : NULL;
   }
 
   /**
