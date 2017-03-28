@@ -502,6 +502,12 @@ class TingClientAgencyBranch {
         '<a href="mailto:' . $this->branchEmail . '?Subject=' . t('LibrarySubject') . '">' .
         $this->branchEmail . '</a>';
     }
+    $branchIllEmail = $this->getBranchIllEmail();
+    if (!empty($branchIllEmail)) {
+      $ret[t('branchIllEmail')] =
+        '<a href="mailto:' . $branchIllEmail . '?Subject=' . t('LibrarySubject') . '">' .
+        $branchIllEmail . '</a>';
+    }
 
     return $ret;
   }
