@@ -241,7 +241,7 @@ class TingClientAgencyBranch {
    * Agency EAN Number
    * @return string
    */
-  public function getEANNumber() {
+  public function getAgencyEANNumber() {
     return $this->agencyEanNumber;
   }
 
