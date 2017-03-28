@@ -32,12 +32,15 @@ class TingClientAgencyBranch {
   public $dropOffName;
   public $userdata;
   public $orderLibrary;
+  private $agencyEanNumber;
   private $agencyCvrNumber;
   private $agencyPNumber;
+  private $branchPNumber;
   private $branchIllEmail;
   private $registrationFormUrl;
   private $registrationFormUrlText;
   private $headOfBranchName;
+  private $headOfInstitutionName;
 
   public function __construct($pickupAgency, $agencyName = NULL, $agencyId = NULL) {
     if (isset($agencyId)) {
@@ -137,6 +140,10 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->agencyPNumber)) {
       $this->agencyPNumber = TingClientRequest::getValue($pickupAgency->agencyPNumber);
     }
+    // EAN Number. Used for e invoice.
+    if (isset($pickupAgency->agencyEanNumber)) {
+      $this->agencyEanNumber = TingClientRequest::getValue($pickupAgency->agencyEanNumber);
+    }
     if (isset($pickupAgency->junction)) {
       $this->junction = TingClientRequest::getValue($pickupAgency->junction);
     }
@@ -148,6 +155,12 @@ class TingClientAgencyBranch {
     }
     if (isset($pickupAgency->headOfBranchName)) {
       $this->headOfBranchName = TingClientRequest::getValue($pickupAgency->headOfBranchName);
+    }
+    if (isset($pickupAgency->headOfInstitutionName)) {
+      $this->headOfInstitutionName = TingClientRequest::getValue($pickupAgency->headOfInstitutionName);
+    }
+    if (isset($pickupAgency->branchPNumber)) {
+      $this->branchPNumber = TingClientRequest::getValue($pickupAgency->branchPNumber);
     }
 
   }
@@ -222,6 +235,14 @@ class TingClientAgencyBranch {
    */
   public function getPNumber() {
     return isset($this->pickupAgency->agencyPNumber) ? $this->pickupAgency->agencyPNumber->{'$'} : NULL;
+  }
+
+  /**
+   * Agency EAN Number
+   * @return string
+   */
+  public function getEANNumber() {
+    return $this->agencyEanNumber;
   }
 
   /** Check if branch is set as order Library
@@ -563,6 +584,18 @@ class TingClientAgencyBranch {
    */
   public function getHeadOfBranchName() {
     return $this->headOfBranchName;
+  }
+
+  public function getHeadOfInstitutionName() {
+    return $this->headOfInstitutionName;
+  }
+
+  /**
+   * Get the branch P number.
+   * @return mixed
+   */
+  public function getBranchPNumber() {
+    return $this->branchPNumber;
   }
 
   /**
