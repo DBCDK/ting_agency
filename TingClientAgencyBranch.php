@@ -32,11 +32,15 @@ class TingClientAgencyBranch {
   public $dropOffName;
   public $userdata;
   public $orderLibrary;
+  private $agencyEanNumber;
   private $agencyCvrNumber;
   private $agencyPNumber;
+  private $branchPNumber;
   private $branchIllEmail;
   private $registrationFormUrl;
   private $registrationFormUrlText;
+  private $headOfBranchName;
+  private $headOfInstitutionName;
 
   public function __construct($pickupAgency, $agencyName = NULL, $agencyId = NULL) {
     if (isset($agencyId)) {
@@ -128,13 +132,17 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->registrationFormUrl)) {
       $this->registrationFormUrl = TingClientRequest::getValue($pickupAgency->registrationFormUrl);
     }
-    // cvr
+    // cvr company main location.
     if (isset($pickupAgency->agencyCvrNumber)) {
       $this->agencyCvrNumber = TingClientRequest::getValue($pickupAgency->agencyCvrNumber);
     }
-    // p number .. whatever that is
+    // p number - sub company location
     if (isset($pickupAgency->agencyPNumber)) {
       $this->agencyPNumber = TingClientRequest::getValue($pickupAgency->agencyPNumber);
+    }
+    // EAN Number. Used for e invoice.
+    if (isset($pickupAgency->agencyEanNumber)) {
+      $this->agencyEanNumber = TingClientRequest::getValue($pickupAgency->agencyEanNumber);
     }
     if (isset($pickupAgency->junction)) {
       $this->junction = TingClientRequest::getValue($pickupAgency->junction);
@@ -145,11 +153,21 @@ class TingClientAgencyBranch {
     if (isset($pickupAgency->dropOffName)) {
       $this->dropOffName = TingClientRequest::getValue($pickupAgency->dropOffName);
     }
+    if (isset($pickupAgency->headOfBranchName)) {
+      $this->headOfBranchName = TingClientRequest::getValue($pickupAgency->headOfBranchName);
+    }
+    if (isset($pickupAgency->headOfInstitutionName)) {
+      $this->headOfInstitutionName = TingClientRequest::getValue($pickupAgency->headOfInstitutionName);
+    }
+    if (isset($pickupAgency->branchPNumber)) {
+      $this->branchPNumber = TingClientRequest::getValue($pickupAgency->branchPNumber);
+    }
 
   }
 
   public function getStateAndUniversityLibraryCopyService() {
-    return isset($this->pickupAgency->stateAndUniversityLibraryCopyService->{'$'}) ? $this->pickupAgency->stateAndUniversityLibraryCopyService->{'$'} : 0;
+    return isset($this->pickupAgency->stateAndUniversityLibraryCopyService->{'$'}) ?
+      $this->pickupAgency->stateAndUniversityLibraryCopyService->{'$'} : 0;
   }
 
   public function getTemporarilyClosedReason($lang) {
@@ -217,6 +235,14 @@ class TingClientAgencyBranch {
    */
   public function getPNumber() {
     return isset($this->pickupAgency->agencyPNumber) ? $this->pickupAgency->agencyPNumber->{'$'} : NULL;
+  }
+
+  /**
+   * Agency EAN Number
+   * @return string
+   */
+  public function getAgencyEANNumber() {
+    return $this->agencyEanNumber;
   }
 
   /** Check if branch is set as order Library
@@ -458,7 +484,9 @@ class TingClientAgencyBranch {
       $ret[t('librarydkSupportPhone')] = $this->librarydkSupportPhone;
     }
     if (isset($this->librarydkSupportEmail)) {
-      $ret[t('librarydkSupportEmail')] = '<a href="mailto:' . $this->librarydkSupportEmail . '?Subject=' . t('LibrarydkSubject') . '">' . $this->librarydkSupportEmail . '</a>';
+      $ret[t('librarydkSupportEmail')] =
+        '<a href="mailto:' . $this->librarydkSupportEmail . '?Subject=' . t('LibrarydkSubject') . '">' .
+        $this->librarydkSupportEmail . '</a>';
     }
 
     return $ret;
@@ -470,7 +498,15 @@ class TingClientAgencyBranch {
       $ret[t('branchPhone')] = $this->branchPhone;
     }
     if (isset($this->branchEmail)) {
-      $ret[t('branchEmail')] = '<a href="mailto:' . $this->branchEmail . '?Subject=' . t('LibrarySubject') . '">' . $this->branchEmail . '</a>';
+      $ret[t('branchEmail')] =
+        '<a href="mailto:' . $this->branchEmail . '?Subject=' . t('LibrarySubject') . '">' .
+        $this->branchEmail . '</a>';
+    }
+    $branchIllEmail = $this->getBranchIllEmail();
+    if (!empty($branchIllEmail)) {
+      $ret[t('branchIllEmail')] =
+        '<a href="mailto:' . $branchIllEmail . '?Subject=' . t('LibrarySubject') . '">' .
+        $branchIllEmail . '</a>';
     }
 
     return $ret;
@@ -503,7 +539,11 @@ class TingClientAgencyBranch {
         break;
       default:
         if (!is_string($lang)) {
-          watchdog('ting_agency', 'getIllOrderReceiptText: language is not set correctly', array(), WATCHDOG_ERROR);
+          watchdog(
+            'ting_agency',
+            'getIllOrderReceiptText: language is not set correctly',
+            array(),
+            WATCHDOG_ERROR);
         }
         $lang = 'dan';
     }
@@ -542,6 +582,26 @@ class TingClientAgencyBranch {
    */
   public function getRegistrationFormUrl() {
     return $this->registrationFormUrl;
+  }
+
+  /**
+   * Get the name of the branch head.
+   * @return string
+   */
+  public function getHeadOfBranchName() {
+    return $this->headOfBranchName;
+  }
+
+  public function getHeadOfInstitutionName() {
+    return $this->headOfInstitutionName;
+  }
+
+  /**
+   * Get the branch P number.
+   * @return mixed
+   */
+  public function getBranchPNumber() {
+    return $this->branchPNumber;
   }
 
   /**
