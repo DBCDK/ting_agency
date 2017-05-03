@@ -188,7 +188,7 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = NUL
   }
 
   if (isset($branchid)) {
-    $form['wrapper']['subdivision'] = ting_agency_get_selector_for_subagencies($branchid);
+    $form['wrapper']['subdivision'] = ting_agency_get_selector_for_subagencies($branchid, $userData);
   }
 
   return $form;
@@ -198,7 +198,7 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = NUL
  * @param $branchId
  * @return array|void
  */
-function ting_agency_get_selector_for_subagencies($branchId) {
+function ting_agency_get_selector_for_subagencies($branchId, $userData) {
   $agency = new TingAgency($branchId);
 
   if (!($agency->hasSubDivisions($branchId))) {
@@ -207,11 +207,19 @@ function ting_agency_get_selector_for_subagencies($branchId) {
 
   $options = $agency->getPickupAgencySelectList();
   $options = $options['Bogbussen:'];
+  $value = isset($userData['subdivision']) ? $userData['subdivision'] : NULL;
+
+  foreach ($options as $key => $option) {
+    if (!isset($value)) { $value = $option;}
+    $option_list[$key] = $option;
+  }
+  $option_list[$value] = $value;
 
   $form_element = array(
     '#title' => t('Select bus stop', array(), array('context' => 'bibdk_favourite')),
     '#type' => 'select',
-    '#options' => $options,
+    '#options' => $option_list,
+    '#default_value' => $value,
   );
 
   return $form_element;
