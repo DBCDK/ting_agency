@@ -59,7 +59,7 @@ function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &
 /**
  * Implements hook_theme
  *
- * @return type
+ * @return array
  */
 function ting_agency_theme() {
   return array(
@@ -116,11 +116,19 @@ function ting_agency_theme() {
 
 /**
  * Implements hook_flush_caches
- * */
+ */
 function ting_agency_flush_caches() {
   return array('cache_agency_webservice');
 }
 
+/**
+ * @param $form
+ * @param $form_state
+ * @param $fields
+ * @param null $userData
+ * @param null $branchid
+ * @return mixed
+ */
 function ting_agency_userdata_form($form, &$form_state, $fields, $userData = NULL, $branchid = NULL) {
   $params = isset($fields) ? $fields->getUserParameters() : NULL;
   if (empty($params)) {
@@ -180,13 +188,17 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = NUL
   }
 
   if (isset($branchid)) {
-    $form['wrapper']['subdivision'] = ting_agency_get_selector_for_subagencies($branchid);
+    $form['wrapper']['subdivision'] = ting_agency_get_selector_for_subagencies($branchid, $userData);
   }
 
   return $form;
 }
 
-function ting_agency_get_selector_for_subagencies($branchId) {
+/**
+ * @param $branchId
+ * @return array|void
+ */
+function ting_agency_get_selector_for_subagencies($branchId, $userData) {
   $agency = new TingAgency($branchId);
 
   if (!($agency->hasSubDivisions($branchId))) {
@@ -195,16 +207,27 @@ function ting_agency_get_selector_for_subagencies($branchId) {
 
   $options = $agency->getPickupAgencySelectList();
   $options = $options['Bogbussen:'];
+  $value = isset($userData['subdivision']) ? $userData['subdivision'] : NULL;
+
+  foreach ($options as $key => $option) {
+    if (!isset($value)) { $value = $option;}
+    $option_list[$key] = $option;
+  }
+  $option_list[$value] = $value;
 
   $form_element = array(
     '#title' => t('Select bus stop', array(), array('context' => 'bibdk_favourite')),
     '#type' => 'select',
-    '#options' => $options,
+    '#options' => $option_list,
+    '#default_value' => $value,
   );
 
   return $form_element;
 }
 
+/**
+ * @return null|string
+ */
 function _ting_agency_error_no_agency_user_data() {
   return t('no_agency_data_from_agency');
 }
@@ -213,7 +236,7 @@ function _ting_agency_error_no_agency_user_data() {
  * Render the view of an agency branch and wrap it in an form element
  *
  * @param TingClientAgencyBranch $branch
- * @param Array $settings
+ * @param array $settings
  * @return mixed
  */
 function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $settings=array()) {
@@ -253,7 +276,8 @@ function ting_agency_view_agency_branch(TingClientAgencyBranch $branch, $setting
   );
 }
 
-/** Check if Temporarily closed message exists for branch and return message
+/**
+ * Check if Temporarily closed message exists for branch and return message
  *
  * @param $branch
  * @return string
@@ -280,12 +304,13 @@ function ting_agency_temporarily_closed_message($branch) {
   return $tmp_reason;
 }
 
-/** Generate more info for branch
+/**
+ * Generate more info for branch
  * get default moreinfo for a branch
  *
  * @param TingClientAgencyBranch $branch
  * @return array
- *   render array for drupal_render
+ * render array for drupal_render
  * @throws Exception
  */
 function ting_agency_get_more_info(TingClientAgencyBranch $branch) {

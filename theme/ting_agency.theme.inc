@@ -9,7 +9,8 @@ function template_preprocess_ting_agency_library(&$variables) {
   }
 }
 
-/** \brief Theme contact info
+/**
+ * \brief Theme contact info
  *
  * @param array $variables
  * @return string (html)
@@ -23,7 +24,8 @@ function theme_ting_agency_contact($variables) {
   return ting_agency_element_create_list($contact_array);
 }
 
-/** \brief Theme librarydkcontact info
+/**
+ * \brief Theme librarydkcontact info
  *
  * @param array $variables
  * @return string (html)
@@ -37,7 +39,8 @@ function theme_ting_agency_librarydk_contact($variables) {
   return ting_agency_element_create_list($contact_array);
 }
 
-/** \brief Theme agency opening hourt
+/**
+ * \brief Theme agency opening hourt
  *
  * @global stdObject $language
  * @param array $variables
@@ -57,7 +60,8 @@ function theme_ting_agency_opening_hours($variables) {
   return drupal_render($render_array);
 }
 
-/** \brief Theme links given from agency
+/**
+ * \brief Theme links given from agency
  *
  * @param array $variables
  * @return string (html unordered list)
@@ -78,6 +82,10 @@ function theme_ting_agency_tools($variables) {
   }
 }
 
+/**
+ * @param $branch
+ * @return array
+ */
 function get_ting_agency_tools($branch) {
   /** @var TingClientAgencyBranch  $branch */
   $links = $branch->getActionLinks();
@@ -94,6 +102,10 @@ function get_ting_agency_tools($branch) {
   }
 }
 
+/**
+ * @param $list
+ * @return string
+ */
 function ting_agency_element_create_list($list) {
   $output = '';
   if (!empty($list)) {
@@ -104,7 +116,8 @@ function ting_agency_element_create_list($list) {
   return $output;
 }
 
-/** \brief Theme address for given agency
+/**
+ * \brief Theme address for given agency
  *
  * @param array $variables
  * @return string (html)
@@ -118,7 +131,8 @@ function theme_ting_agency_address($variables) {
   return $address;
 }
 
-/** \brief Theme pickup for given agency
+/**
+ * \brief Theme pickup for given agency
  *
  * @param array $variables
  * @return string (html)
