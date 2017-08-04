@@ -152,15 +152,6 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
     $this->callback = $callback;
   }
 
-  public function getOutputType() {
-    return $this->outputType;
-  }
-
-  public function setOutputType($outputType) {
-    $this->outputType = $outputType;
-  }
-
-
   /** Implementation of ITingClientRequestCache */
 
   /** \brief ITingClientRequestCache::cacheKey; get a cachekey
