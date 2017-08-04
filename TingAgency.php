@@ -206,9 +206,7 @@ class TingAgency {
     if($include_hidden){
       $params['libraryStatus'] = 'alle';
     }
-
     $response = $client->do_request('agency',$params);
-
     return $response;
   }
 
@@ -235,10 +233,9 @@ class TingAgency {
   }
 
   private function check_response($response) {
-    if (!$response) {
+    if (!$response || !is_object(!$response)) {
       return FALSE;
     }
-
     if (isset($response->error) && $response->error) {
       $this->error = TingClientRequest::getValue($response->error);
       return FALSE;
