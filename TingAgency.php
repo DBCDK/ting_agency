@@ -233,7 +233,7 @@ class TingAgency {
   }
 
   private function check_response($response) {
-    if (!$response || !is_object(!$response)) {
+    if (!$response || !is_object($response)) {
       return FALSE;
     }
     if (isset($response->error) && $response->error) {
