@@ -22,7 +22,11 @@ class TingAgency {
   }
 
   public function getAgencyMainId() {
-    return $this->getBranch()->agencyId;
+    $branch = $this->getBranch();
+    if(!empty($branch)){
+      return $this->getBranch()->agencyId;
+    }
+    return $this->getAgencyId();
   }
 
   public function getError() {
