@@ -160,7 +160,6 @@ class AgencyRequest extends TingClientRequest implements ITingClientRequestCache
     $this->outputType = $outputType;
   }
 
-
   /** Implementation of ITingClientRequestCache */
 
   /** \brief ITingClientRequestCache::cacheKey; get a cachekey
