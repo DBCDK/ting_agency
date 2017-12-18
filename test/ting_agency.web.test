@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class TingAgncyUnitTest
+ * Class TingAgncyWebTest
  */
-class TingAgencyUnitTest extends DrupalUnitTestCase {
+class TingAgencyWebTest extends DrupalWebTestCase {
 
   /**
    * @var TingClientAgencyBranch
@@ -15,8 +15,8 @@ class TingAgencyUnitTest extends DrupalUnitTestCase {
    */
   public static function getInfo() {
     return array(
-      'name' => t('Ting Agency Unittest'),
-      'description' => t('Unittests for Ting Agency'),
+      'name' => t('Ting Agency Webest'),
+      'description' => t('Webtests for Ting Agency'),
       'group' => t('Bibliotek.dk - TingAgency'),
     );
   }
@@ -65,7 +65,7 @@ class TingAgencyUnitTest extends DrupalUnitTestCase {
   }
 
 
-  /** 
+  /**
    * Test that getAgencyName() return branchName if branchIsAgency id TRUE.
    */
   public function testBranchIsAgency() {
