@@ -14,6 +14,9 @@ class TingAgency {
   private static $fields;
 
   public function __construct($agencyId) {
+    if (!class_exists('TingClient') && module_exists('libraries')) {
+      libraries_load('TingClient');
+    }
     $this->agencyId = $agencyId;
   }
 
