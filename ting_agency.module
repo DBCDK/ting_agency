@@ -17,10 +17,10 @@ require_once('TingAgency.php');
  * */
 function ting_agency_ting_client_webservice() {
   $ret = array();
-  $ret['agency']['class'] = 'AgencyRequest';
-  $ret['agency']['url'] = 'agency_search_url';
-  $ret['agency']['xsd_url'] = 'agency_search_xsd_url';
-  $ret['agency']['xsdNamespace'] = array(0 => 'http://oss.dbc.dk/ns/openagency');
+  $ret['AgencyRequest']['class'] = 'AgencyRequest';
+  $ret['AgencyRequest']['url'] = 'AgencyRequest_url';
+  $ret['AgencyRequest']['xsd_url'] = 'AgencyRequest_xsd_url';
+  $ret['AgencyRequest']['xsdNamespace'] = array(0 => 'http://oss.dbc.dk/ns/openagency');
   return $ret;
 }
 
@@ -32,27 +32,27 @@ function ting_agency_ting_client_webservice() {
 function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &$form_state, $form_id) {
 
   // don't start by defining the fieldset as an array. This way other modules can extend the fieldset.
-  $form['agency']['#type'] = 'fieldset';
-  $form['agency']['#title'] = t('OpenAgency settings');
-  $form['agency']['#description'] = t('Client for OpenAgency, a service that can be used for getting information about Danish libraries.');
-  $form['agency']['#collapsible'] = TRUE;
-  $form['agency']['#collapsed'] = TRUE;
-  $form['agency']['#tree'] = FALSE;
+  $form['AgencyRequest']['#type'] = 'fieldset';
+  $form['AgencyRequest']['#title'] = t('OpenAgency settings');
+  $form['AgencyRequest']['#description'] = t('Client for OpenAgency, a service that can be used for getting information about Danish libraries.');
+  $form['AgencyRequest']['#collapsible'] = TRUE;
+  $form['AgencyRequest']['#collapsed'] = TRUE;
+  $form['AgencyRequest']['#tree'] = FALSE;
 
-  $form['agency']['agency_search_url'] = array(
+  $form['AgencyRequest']['AgencyRequest_url'] = array(
     '#type' => 'textfield',
     '#title' => t('OpenAgency URL'),
     '#description' => t('URL to the Ting agency search webservice, e.g. http://openagency.addi.dk/1.6/'),
     '#required' => TRUE,
-    '#default_value' => variable_get('agency_search_url', ''),
+    '#default_value' => variable_get('AgencyRequest_url', ''),
   );
 
-  $form['agency']['agency_search_xsd_url'] = array(
+  $form['AgencyRequest']['AgencyRequest_xsd_url'] = array(
     '#type' => 'textfield',
     '#title' => t('OpenAgency XSD URL'),
     '#description' => t('URL to the Ting agency search XSD, e.g. http://openagency.addi.dk/x.x/openagency.xsd'),
     '#required' => FALSE,
-    '#default_value' => variable_get('agency_search_xsd_url', ''),
+    '#default_value' => variable_get('AgencyRequest_xsd_url', ''),
   );
 }
 
