@@ -14,9 +14,6 @@ class TingAgency {
   private static $fields;
 
   public function __construct($agencyId) {
-    if (!class_exists('TingClient') && module_exists('libraries')) {
-      libraries_load('TingClient');
-    }
     $this->agencyId = $agencyId;
   }
 
@@ -213,13 +210,13 @@ class TingAgency {
     if($include_hidden){
       $params['libraryStatus'] = 'alle';
     }
-    $response = $client->do_request('agency',$params);
+    $response = $client->do_request('AgencyRequest',$params);
     return $response;
   }
 
   private function do_serviceRequest($service) {
     $client = new ting_client_class();
-    $response = $client->do_request('agency', array(
+    $response = $client->do_request('AgencyRequest', array(
       'agencyId' => $this->agencyId,
       'action' => 'serviceRequest',
       'service' => $service,
@@ -230,7 +227,7 @@ class TingAgency {
 
   private function do_pickupAgencyListRequest() {
     $client = new ting_client_class();
-    $response = $client->do_request('agency', array(
+    $response = $client->do_request('AgencyRequest', array(
       'agencyId' => $this->agencyId,
       'pickupAllowed' => '1',
       'action' => 'pickupAgencyListRequest',
