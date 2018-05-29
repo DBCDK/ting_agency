@@ -50,8 +50,7 @@ class AgencyFields {
         'cardno',
         'customId',
         'userDateOfBirth'
-      ))
-      ) {
+      )) && $element['required'] === "1") {
         return $element['type'];
       }
     }
