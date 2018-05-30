@@ -190,14 +190,9 @@ class TingAgency {
   public function getAgencyFields() {
     $service = 'userOrderParameters';
     $response = $this->do_serviceRequest($service);
-    if ($this->check_response($response)) {
-      self::$fields = new AgencyFields($response->serviceResponse->$service);
-    }
-    else {
-      // do something
-      self::$fields = NULL;
-    }
-    return self::$fields;
+    return self::$fields = ($this->check_response($response)) ?
+      new AgencyFields($response->serviceResponse->$service) :
+      NULL;
   }
 
   private function do_FindLibraryRequest($include_hidden) {
