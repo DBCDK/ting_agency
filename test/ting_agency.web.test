@@ -17,7 +17,7 @@ class TingAgencyWebTest extends DrupalWebTestCase {
     return array(
       'name' => t('Ting Agency Webest'),
       'description' => t('Webtests for Ting Agency'),
-      'group' => t('Bibliotek.dk - TingAgency'),
+      'group' => t('Netpunkt / Bibliotek.dk'),
     );
   }
 
