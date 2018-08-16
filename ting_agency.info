@@ -2,7 +2,7 @@ name = Agency client
 description = Agencies for bibdk.
 package = Bibliotek.dk
 core = 7.x
-version = 7.x-1.3
+version = 7.x-1.4
 
 files[] = TingClientAgencyBranch.php
 files[] = TingClientAgencyInformation.php
