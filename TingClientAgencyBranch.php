@@ -165,6 +165,14 @@ class TingClientAgencyBranch {
 
   }
 
+  /**
+   * Does branch want a shippingnote?.
+   * @return int
+   */
+  public function getNationalDeliveryService(){
+    return isset($this->pickupAgency->nationalDeliveryService) ? $this->pickupAgency->nationalDeliveryService->{'$'} : 0;
+  }
+
   public function getStateAndUniversityLibraryCopyService() {
     return isset($this->pickupAgency->stateAndUniversityLibraryCopyService->{'$'}) ?
       $this->pickupAgency->stateAndUniversityLibraryCopyService->{'$'} : 0;
