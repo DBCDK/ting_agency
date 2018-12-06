@@ -78,9 +78,9 @@ class TingAgency {
   /**
    * @return mixed
    */
-  public function getPickUpAgencies() {
+  public function getPickUpAgencies($include_hidden = FALSE) {
     if (!isset($this->pickUpAgencies)) {
-      $response = $this->do_pickupAgencyListRequest();
+      $response = $this->do_pickupAgencyListRequest($include_hidden);
       $pickUpAgencies = array();
       if ($this->check_response($response)) {
         if (isset($response->pickupAgencyListResponse->library[0]->pickupAgency)) {
@@ -99,9 +99,9 @@ class TingAgency {
    * @global type $language
    * @return array; empty if no pickupAgencies
    */
-  public function getPickupAgencySelectList() {
+  public function getPickupAgencySelectList($include_hidden = FALSE) {
     global $language;
-    $pickUpAgencies = $this->getPickUpAgencies();
+    $pickUpAgencies = $this->getPickUpAgencies($include_hidden);
     $arr = array();
     if ($pickUpAgencies) {
       foreach ($pickUpAgencies as $branch) {
@@ -118,8 +118,8 @@ class TingAgency {
     return $arr;
   }
 
-  public function hasSubDivisions($branchId) {
-    $pickUpAgencies = $this->getPickUpAgencies();
+  public function hasSubDivisions($branchId, $include_hidden = FALSE) {
+    $pickUpAgencies = $this->getPickUpAgencies($include_hidden);
     if ($pickUpAgencies) {
       foreach ($pickUpAgencies as $branch) {
         if ($branch->branchId == $branchId) {
