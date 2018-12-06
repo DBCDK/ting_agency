@@ -980,6 +980,7 @@
     <xs:simpleType name="libraryStatusType">
         <xs:restriction base="xs:string">
             <xs:enumeration value="alle"/>
+            <xs:enumeration value="aktive"/>
             <xs:enumeration value="usynlig"/>
             <xs:enumeration value="slettet"/>
         </xs:restriction>

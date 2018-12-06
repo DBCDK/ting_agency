@@ -195,15 +195,15 @@ class TingAgency {
       NULL;
   }
 
-  private function do_FindLibraryRequest($include_hidden) {
+  private function do_FindLibraryRequest($include_hidden = FALSE) {
     $client = new ting_client_class();
     $params = array(
       'agencyId' => $this->agencyId,
       'action' => 'findLibraryRequest',
       'outputType' => 'json'
     );
-    if($include_hidden){
-      $params['libraryStatus'] = 'alle';
+    if ($include_hidden) {
+      $params['libraryStatus'] = 'aktive';
     }
     $response = $client->do_request('AgencyRequest',$params);
     return $response;
@@ -220,14 +220,18 @@ class TingAgency {
     return $response;
   }
 
-  private function do_pickupAgencyListRequest() {
+  private function do_pickupAgencyListRequest($include_hidden = FALSE) {
     $client = new ting_client_class();
-    $response = $client->do_request('AgencyRequest', array(
+    $params = array(
       'agencyId' => $this->agencyId,
       'pickupAllowed' => '1',
       'action' => 'pickupAgencyListRequest',
       'outputType' => 'json'
-    ));
+    );
+    if ($include_hidden) {
+      $params['libraryStatus'] = 'aktive';
+    }
+    $response = $client->do_request('AgencyRequest',$params);
     return $response;
   }
 
