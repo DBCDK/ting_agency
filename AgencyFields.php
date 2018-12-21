@@ -48,6 +48,7 @@ class AgencyFields {
         'cpr',
         'userId',
         'cardno',
+        'barcode',
         'customId',
         'userDateOfBirth')) && $element['required'] === "1") {
         return $element['type'];
