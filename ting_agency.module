@@ -20,6 +20,7 @@ function ting_agency_ting_client_webservice() {
   $ret['AgencyRequest']['class'] = 'AgencyRequest';
   $ret['AgencyRequest']['url'] = 'AgencyRequest_url';
   $ret['AgencyRequest']['xsd_url'] = 'AgencyRequest_xsd_url';
+  $ret['AgencyRequest']['library_status'] = 'AgencyRequest_library_status';
   $ret['AgencyRequest']['xsdNamespace'] = array(0 => 'http://oss.dbc.dk/ns/openagency');
   return $ret;
 }
@@ -53,6 +54,23 @@ function ting_agency_form_ting_client_admin_webservices_settings_alter(&$form, &
     '#description' => t('URL to the Ting agency search XSD, e.g. http://openagency.addi.dk/x.x/openagency.xsd'),
     '#required' => FALSE,
     '#default_value' => variable_get('AgencyRequest_xsd_url', ''),
+  );
+
+  $form['AgencyRequest']['AgencyRequest_library_status'] = array(
+    '#type' => 'select',
+    '#options' => array(
+      '' => t('Empty, used for bibliotek.dk', array(), array('context' => 'ting_agency')),
+      'alle' => t('All libraries no matter status', array(), array('context' => 'ting_agency')),
+      'usynlig' => t('Invisible libraries', array(), array('context' => 'ting_agency')),
+      'slettet' => t('Deleted libraries', array(), array('context' => 'ting_agency')),
+      'aktive' => t('All active libraries, used for netpunkt.dk', array(), array('context' => 'ting_agency')),
+    ),
+    '#default_value' => variable_get('AgencyRequest_library_status', ''),
+    '#description' => t(
+      'Library status - this is for the vejviser search form',
+      array(),
+      array('context' => 'ting_agency')
+    ),
   );
 }
 
@@ -205,7 +223,9 @@ function ting_agency_get_selector_for_subagencies($branchId, $userData) {
     return;
   }
 
-  $options = $agency->getPickupAgencySelectList();
+  $library_status = variable_get('AgencyRequest_library_status', '');
+
+  $options = $agency->getPickupAgencySelectList($library_status);
   $options = $options['Bogbussen:'];
   $value = isset($userData['subdivision']) ? $userData['subdivision'] : NULL;
 
@@ -329,6 +349,6 @@ function ting_agency_get_more_info(TingClientAgencyBranch $branch) {
 
   // @see netpunkt_agency::netpunkt_agency_ting_agency_get_more_info_alter
   drupal_alter('ting_agency_get_more_info', $defaults, $branch);
-  
+
   return $defaults;
 }
