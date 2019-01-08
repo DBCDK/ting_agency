@@ -220,7 +220,7 @@ class TingAgency {
    */
   public function getPickUpAllowed() {
     if (empty($this->pickUpAllowed)) {
-      $response = $this->do_FindLibraryRequest('');
+      $response = $this->do_FindLibraryRequest();
       if ($this->check_response($response)) {
         if (isset($response->findLibraryResponse->pickUpAllowed[0])) {
           $this->pickUpAllowed = new TingClientAgencyBranch($response->findLibraryResponse->pickUpAllowed[0]);
@@ -251,7 +251,7 @@ class TingAgency {
    * @return mixed
    * @throws \TingClientException
    */
-  private function do_FindLibraryRequest($include_hidden) {
+  private function do_FindLibraryRequest($include_hidden = TRUE) {
     $client = new ting_client_class();
     $params = array(
       'agencyId' => $this->agencyId,
