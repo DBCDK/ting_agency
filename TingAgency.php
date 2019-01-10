@@ -21,6 +21,11 @@ class TingAgency {
     return $this->agencyId;
   }
 
+  /**
+   * @return mixed
+   * @throws \TingClientAgencyBranchException
+   * @throws \TingClientException
+   */
   public function getAgencyMainId() {
     $branch = $this->getBranch();
     if(!empty($branch)){
@@ -37,6 +42,13 @@ class TingAgency {
     $this->branch = $branch;
   }
 
+  /**
+   * @param bool $include_hidden
+   *
+   * @return bool|\TingClientAgencyBranch
+   * @throws \TingClientAgencyBranchException
+   * @throws \TingClientException
+   */
   public function getBranch($include_hidden = FALSE) {
     if (empty($this->branch)) {
       $response = $this->do_FindLibraryRequest($include_hidden);
@@ -52,7 +64,12 @@ class TingAgency {
     return $this->branch;
   }
 
-  /* @deprecated Use getBranch() instead */
+  /**
+   * @deprecated Use getBranch() instead
+   * @return bool|\TingClientAgencyInformation
+   * @throws \TingClientAgencyBranchException
+   * @throws \TingClientException
+   */
   public function getInformation() {
     if (empty($this->information)) {
       $response = $this->do_serviceRequest('information');
@@ -76,11 +93,15 @@ class TingAgency {
   }
 
   /**
+   * @param string $library_status
+   *
    * @return mixed
+   * @throws \TingClientAgencyBranchException
+   * @throws \TingClientException
    */
-  public function getPickUpAgencies() {
+  public function getPickUpAgencies($library_status = '') {
     if (!isset($this->pickUpAgencies)) {
-      $response = $this->do_pickupAgencyListRequest();
+      $response = $this->do_pickupAgencyListRequest($library_status);
       $pickUpAgencies = array();
       if ($this->check_response($response)) {
         if (isset($response->pickupAgencyListResponse->library[0]->pickupAgency)) {
@@ -94,16 +115,19 @@ class TingAgency {
     return $this->pickUpAgencies;
   }
 
-  /** get pickupagencies in the form [branchID => branchShortName]   *
+  /**
+   * @param string $library_status
    *
-   * @global type $language
-   * @return array; empty if no pickupAgencies
+   * @return array
+   * @throws \TingClientAgencyBranchException
+   * @throws \TingClientException
    */
-  public function getPickupAgencySelectList() {
+  public function getPickupAgencySelectList($library_status = '') {
     global $language;
-    $pickUpAgencies = $this->getPickUpAgencies();
+    $pickUpAgencies = $this->getPickUpAgencies($library_status);
     $arr = array();
     if ($pickUpAgencies) {
+      /** @var \TingClientAgencyBranch $branch */
       foreach ($pickUpAgencies as $branch) {
         $name = $branch->getBranchName($language->language);
         if ($branch->getBranchType() == 'b') {
@@ -118,6 +142,13 @@ class TingAgency {
     return $arr;
   }
 
+  /**
+   * @param $branchId
+   *
+   * @return bool
+   * @throws \TingClientAgencyBranchException
+   * @throws \TingClientException
+   */
   public function hasSubDivisions($branchId) {
     $pickUpAgencies = $this->getPickUpAgencies();
     if ($pickUpAgencies) {
@@ -132,7 +163,10 @@ class TingAgency {
     return FALSE;
   }
 
-  /** get pickupAgencySubdivision (bus stops)
+  /**
+   * Get pickupAgencySubdivision (bus stops)
+   *
+   * @param TingClientAgencyBranch $branch
    *
    * @return array ['bogbussen'][branchId => name]
    */
@@ -148,6 +182,11 @@ class TingAgency {
     return $arr;
   }
 
+  /**
+   * @return null|string
+   * @throws \TingClientAgencyBranchException
+   * @throws \TingClientException
+   */
   public function getUpdateOrderAllowed() {
     $branch = $this->getBranch();
     if (isset($branch)) {
@@ -155,6 +194,11 @@ class TingAgency {
     }
   }
 
+  /**
+   * @return null|string
+   * @throws \TingClientAgencyBranchException
+   * @throws \TingClientException
+   */
   public function getRenewOrderAllowed() {
     $branch = $this->getBranch();
     if (isset($branch)) {
@@ -170,7 +214,9 @@ class TingAgency {
   }
 
   /**
-   * @return TRUE if pickupAllowed  else FALSE
+   * @return bool|\TingClientAgencyBranch
+   * @throws \TingClientAgencyBranchException
+   * @throws \TingClientException
    */
   public function getPickUpAllowed() {
     if (empty($this->pickUpAllowed)) {
@@ -187,6 +233,10 @@ class TingAgency {
     return $this->pickUpAllowed;
   }
 
+  /**
+   * @return \AgencyFields|null
+   * @throws \TingClientException
+   */
   public function getAgencyFields() {
     $service = 'userOrderParameters';
     $response = $this->do_serviceRequest($service);
@@ -195,42 +245,66 @@ class TingAgency {
       NULL;
   }
 
-  private function do_FindLibraryRequest($include_hidden) {
+  /**
+   * @param $include_hidden
+   *
+   * @return mixed
+   * @throws \TingClientException
+   */
+  private function do_FindLibraryRequest($include_hidden = TRUE) {
     $client = new ting_client_class();
     $params = array(
       'agencyId' => $this->agencyId,
       'action' => 'findLibraryRequest',
-      'outputType' => 'json'
+      'outputType' => 'json',
     );
-    if($include_hidden){
+    if ($include_hidden) {
       $params['libraryStatus'] = 'alle';
     }
     $response = $client->do_request('AgencyRequest',$params);
     return $response;
   }
 
+  /**
+   * @param $service
+   *
+   * @return mixed
+   * @throws \TingClientException
+   */
   private function do_serviceRequest($service) {
     $client = new ting_client_class();
     $response = $client->do_request('AgencyRequest', array(
       'agencyId' => $this->agencyId,
       'action' => 'serviceRequest',
       'service' => $service,
-      'outputType' => 'json'
+      'outputType' => 'json',
     ));
     return $response;
   }
 
-  private function do_pickupAgencyListRequest() {
+  /**
+   * @param string $library_status
+   * @return mixed
+   * @throws \TingClientException
+   */
+  private function do_pickupAgencyListRequest($library_status = '') {
     $client = new ting_client_class();
     $response = $client->do_request('AgencyRequest', array(
       'agencyId' => $this->agencyId,
       'pickupAllowed' => '1',
       'action' => 'pickupAgencyListRequest',
-      'outputType' => 'json'
+      'outputType' => 'json',
+      'libraryStatus' => $library_status
     ));
     return $response;
   }
 
+  /**
+   * @param $response
+   *
+   * @return bool
+   * @throws \TingClientException
+   */
   private function check_response($response) {
     if (!$response || !is_object($response)) {
       return FALSE;
