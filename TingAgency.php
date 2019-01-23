@@ -65,7 +65,7 @@ class TingAgency {
   }
 
   /**
-   * @deprecated Use getBranch() instead
+
    * @return bool|\TingClientAgencyInformation
    * @throws \TingClientAgencyBranchException
    * @throws \TingClientException
@@ -173,6 +173,7 @@ class TingAgency {
   private function getPickupAgencySubdivsionSelectElement($branch) {
     $arr = array();
     if (isset($branch->pickupAgency->agencySubdivision)) {
+      /** @var TingClientAgencyBranch $branch */
       $subdivisions = $branch->getAgencySubdivisions();
       foreach ($subdivisions as $key => $value) {
         // $arr['Bogbussen:'][$branch->branchId . '-' . $value] = $value;
