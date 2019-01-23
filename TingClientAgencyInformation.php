@@ -62,6 +62,10 @@ class TingClientAgencyInformation {
     return isset($this->information->requestOrder->{'$'}) ? $this->information->requestOrder->{'$'} : NULL;
   }
 
+  public function getSender() {
+    return isset($this->information->sender->{'$'}) ? $this->information->sender->{'$'} : NULL;
+  }
+
   public function getAddress() {
     $address = '';
     if ($this->getPostalAddress()) {
