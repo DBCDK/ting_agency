@@ -58,7 +58,7 @@ class TingClientAgencyInformation {
     return isset($this->information->agencyName->{'$'}) ? $this->information->pickupAllowed->{'$'} : NULL;
   }
 
-  public function getRequestOrder(){
+  public function getRequestOrder() {
     return isset($this->information->requestOrder->{'$'}) ? $this->information->requestOrder->{'$'} : NULL;
   }
 
