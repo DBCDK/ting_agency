@@ -41,6 +41,7 @@ class TingClientAgencyBranch {
   private $registrationFormUrlText;
   private $headOfBranchName;
   private $headOfInstitutionName;
+  private $serviceTxt;
 
   public function __construct($pickupAgency, $agencyName = NULL, $agencyId = NULL) {
     if (isset($agencyId)) {
@@ -201,6 +202,10 @@ class TingClientAgencyBranch {
       $ret = t('ting_agency_no_temporarilyClosedReason', array(), array('context' => 'ting_agency'));
     }
     return $ret;
+  }
+
+  public function getServiceTxt(){
+    return isset($this->pickupAgency->branchServiceTxt) ? $this->pickupAgency->branchServiceTxt->{'$'} : NULL;
   }
 
   /**

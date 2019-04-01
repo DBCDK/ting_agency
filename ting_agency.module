@@ -193,10 +193,15 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = NUL
         $title .= ' ' . t('label_notice_recommended', array(), array('context' => 'ting_agency'));
       }
     }
+
+    $attributes = array();
+    if(isset($userParameter['field_type']) && $userParameter['field_type'] == 'password'){
+      $attributes['class'] = array(drupal_html_class('bibdk_password_field'));
+      $attributes['autocomplete'] = 'off';
+    }
+
     $form['wrapper'][$type] = array(
-      '#attributes' => array(
-        'class' => array((isset($userParameter['field_type']) && $userParameter['field_type'] == 'password') ? drupal_html_class('bibdk_password_field') : ''),
-      ),
+      '#attributes' => $attributes,
       '#type' => 'textfield',
       '#title' => $title,
       '#description' => isset($userParameter['field_description']) ? $userParameter['field_description'] : NULL,
