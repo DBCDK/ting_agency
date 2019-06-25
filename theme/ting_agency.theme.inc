@@ -92,7 +92,11 @@ function get_ting_agency_tools($branch) {
   $items = array();
   if (!empty($links)) {
     foreach ($links as $name => $link) {
-      $item['data'] = l($name, $link, array());
+      $item['data'] = l(
+        $name,
+        $link,
+        array('attributes' => array('target' => '_blank'))
+      );
       $items[] = $item;
     }
     return array(
