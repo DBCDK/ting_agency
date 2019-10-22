@@ -287,6 +287,20 @@ class TingClientAgencyBranch {
     return isset($this->pickupAgency->isOclcRsLibrary) ? $this->pickupAgency->isOclcRsLibrary->{'$'} : NULL;
   }
 
+  /** Check if branch will receive ILL requests
+   * @return bool
+   */
+  public function getWillReceiveIll() {
+    return (isset($this->pickupAgency->willReceiveIll) && $this->pickupAgency->willReceiveIll->{'$'} == '1') ? TRUE : FALSE;
+  }
+
+  /** Get text describing why branch will not receive ILL requests
+   * @return string
+   */
+  public function getWillReceiveIllTxt() {
+    return isset($this->pickupAgency->willReceiveIllTxt) ? $this->pickupAgency->willReceiveIllTxt->{'$'} : NULL;
+  }
+
   public function getNcipUpdateOrder() {
     $pickupAgency = $this->pickupAgency;
     if (isset($pickupAgency->ncipUpdateOrder)) {

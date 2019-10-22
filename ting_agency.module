@@ -311,6 +311,10 @@ function ting_agency_temporarily_closed_message($branch) {
   global $language;
   // Handle TemporarilyClosedReason
   $tmp_reason = $branch->getTemporarilyClosedReason($language->language);
+
+  // @see netpunkt_agency::netpunkt_agency_ting_agency_temporarily_closed_message
+  drupal_alter('ting_agency_temporarily_closed_message', $tmp_reason, $branch);
+
   if ($tmp_reason != 'ting_agency_no_temporarilyClosedReason') {
     // Hide all drupalmessages
     $messages = drupal_get_messages();
