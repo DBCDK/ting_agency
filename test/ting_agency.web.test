@@ -15,9 +15,9 @@ class TingAgencyWebTest extends DrupalWebTestCase {
    */
   public static function getInfo() {
     return array(
-      'name' => t('Ting Agency Webest'),
+      'name' => t('Ting Agency Webtest'),
       'description' => t('Webtests for Ting Agency'),
-      'group' => t('Netpunkt / Bibliotek.dk'),
+      'group' => t('FIX ME'), //t('Netpunkt / Bibliotek.dk'),
     );
   }
 
