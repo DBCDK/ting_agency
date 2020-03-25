@@ -199,7 +199,8 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = NUL
     if (isset($userParameter['field_type']) && $userParameter['field_type'] == 'password') {
       $attributes['class'] = array(drupal_html_class('bibdk_password_field'));
       $attributes['autocomplete'] = 'off';
-      $attributes['name'] = 'search-' . $type;
+      //NB This doesn't work because of validation - so it is temporarily disabled.
+      //$attributes['name'] = 'search-' . $type;
     }
 
     $form['wrapper'][$type] = array(
