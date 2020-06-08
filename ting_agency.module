@@ -180,7 +180,13 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = NUL
   // insert a fake password field to stop browsers from autofilling the real fields
   // with saved password
   $form['wrapper']['fake_password'] = array(
-    '#attributes' => array('style' => array('display:none;')),
+    '#attributes' => array(
+      'aria-disabled' => array('false'),
+      'aria-hidden' => array('true'),
+      'autocomplete' => array('new-pincode'),
+      'style' => array('position:absolute; top: -1000px;'),
+      'tabindex' => array('-1'),
+    ),
     '#type' => 'password',
   );
 
@@ -198,7 +204,7 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = NUL
     $attributes = array();
     if (isset($userParameter['field_type']) && $userParameter['field_type'] == 'password') {
       $attributes['class'] = array(drupal_html_class('bibdk_password_field'));
-      $attributes['autocomplete'] = 'off';
+      $attributes['autocomplete'] = 'password';
       //NB This doesn't work because of validation - so it is temporarily disabled.
       //$attributes['name'] = 'search-' . $type;
     }
