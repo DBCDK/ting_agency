@@ -209,16 +209,15 @@ function ting_agency_userdata_form($form, &$form_state, $fields, $userData = NUL
       $attributes['autocomplete'] = 'password';
       if ($previous_field_type === 'textfield') {
         $previous_field_type = 'password';
-      } else if ($previous_field_type = 'password') {
+      } else if ($previous_field_type === 'password') {
         $form['wrapper']['fake_password_2'] = array(
           '#attributes' => array(
             'aria-disabled' => array('false'),
             'aria-hidden' => array('true'),
-            'autocomplete' => array('new-pincode'),
             'style' => array('position:absolute; top: -1000px;'),
             'tabindex' => array('-1'),
           ),
-          '#type' => 'text',
+          '#type' => 'textfield',
         );
       }
 
