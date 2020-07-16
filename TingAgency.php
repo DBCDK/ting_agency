@@ -260,7 +260,7 @@ class TingAgency {
       'outputType' => 'json',
     );
     if ($include_hidden) {
-      $params['libraryStatus'] = 'alle';
+      $params['libraryStatus'] = 'aktive';
     }
     $response = $client->do_request('AgencyRequest',$params);
     return $response;
